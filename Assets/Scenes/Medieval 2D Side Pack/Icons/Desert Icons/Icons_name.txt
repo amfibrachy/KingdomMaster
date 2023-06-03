@@ -1,0 +1,41 @@
+
+1 Silver coins
+2 Poisonous Sting
+3 Paw
+4 Leather
+5 Medallion
+6 Lime
+7 Bottle with sandy liquid
+8 Deck of cards
+9 Book
+10 Spine
+11 Empty jar
+12 Linen
+13 Tangle
+14 Golden Key
+15 Blank slate
+16 Moonstone
+17 Accessory
+18 Saber
+19 Pouch
+20 Stack of paper
+21 Red Potion
+22 Feather
+23 Bow
+24 Bracers
+25 Quiver
+26 Belt
+27 Suspension
+28 Blade
+29 Buckler
+30 Statue of a Scarab
+31 Stone marked
+32 Magic Bracelet
+33 Leather Helmet
+34 Box
+35 Flask
+36 Bandage
+37 Rainbow Stone
+38 playing card
+39 Amethyst
+40 Ankh

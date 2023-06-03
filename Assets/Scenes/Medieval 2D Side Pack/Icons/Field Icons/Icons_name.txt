@@ -1,0 +1,40 @@
+1 Coin
+2 Box
+3 Log
+4 Branches
+5 Stone
+6 Mushroom
+7 Acorn
+8 Star
+9 Silver key
+10 Chest
+11 Clot of Slime
+12 Orb of Slime
+13 Malachite
+14 Toad's tongue
+15 Poison Vial
+16 Frog's Foot
+17 Fang
+18 Wolf Hide
+19 Red hood
+20 Skull
+21 Honey
+22 Citrine
+23 Broken Spear
+24 Bandage
+25 Cleaver
+26 Crossbow bolt
+27 Bowstring
+28 Gold earring
+29 Map Scrap (1/3)
+30 Troll Sweat
+31 Keychain
+32 Bone Necklace
+33 Beetle Tusk
+34 Chitin Plate
+35 Ruby
+36 Clutch of eggs
+37 Crown
+38 Bag
+39 Potion Vial
+40 Frog Ham
