@@ -8,7 +8,6 @@
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
-/[Uu]ser[Ss]ettings/
 .idea
 .vs
 .vscode
@@ -77,8 +76,3 @@ crashlytics-build.properties
 
 # XCode project 
 /XCodeProject/
-
-.DS_Store
-*.meta
-*.meta
-*.meta
