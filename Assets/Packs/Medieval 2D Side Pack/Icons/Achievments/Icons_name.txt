@@ -1,0 +1,52 @@
+1-5 Rank 1-5 (version 1)
+6-10 Rank 1-5 (version 2)
+11 Sword
+12 Sword
+13 roman numeral 1
+14 roman numeral 2
+15 roman numeral 5
+16 roman numeral 10
+17 roman numeral 50
+18 roman numeral 100
+19 Star
+20 Stopwatch
+21 Skull Level 1
+22 Skull Level 2
+23 Skull Level 3
+24 Skull Level 4
+25 Hearts
+26 Spades
+27 Tambourines
+28 Clubs
+29 Radar
+30 Hourglass
+31 Plaster
+32 Several plasters
+33 Syringe
+34 Gear
+35 Tools
+36 Hammer and gear
+37 Alchemy 1
+38 Alchemy 2
+39 Alchemy 3
+40?
+41 Magic 1
+42 Magic 2
+43 Magic 3
+44 Cup
+45 Chef's Hat
+46 Bonfire
+47 Shoulder
+48 Charisma
+49 Bluff
+50 Diplomacy
+51 Herbalism 1
+52 Herbalism 2
+53 Herbalism 3
+54 Target
+55 First aid kit
+56 Triangle Stone
+57 Hook
+58 Miner's tools
+59 Stomach
+60 Fishing
