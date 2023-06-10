@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 32
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -134,7 +134,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SteamMan_idle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9ae39add02daad47840fa8826f6191f
+      internalID: -1642053120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_idle_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 123a0ef0e359819489c32e1f05e48511
+      internalID: 63172851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_idle_2
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 987b3cd9a66be654294d5b95c00d8230
+      internalID: 1843197185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_idle_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0258e2e4ddab11f4f8ec91dd747e19e5
+      internalID: 1915938585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +229,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SteamMan_idle_0: -1642053120
+      SteamMan_idle_1: 63172851
+      SteamMan_idle_2: 1843197185
+      SteamMan_idle_3: 1915938585
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

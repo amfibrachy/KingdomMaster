@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 32
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -134,7 +134,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SteamMan_walk_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a028744e87067c0489c2ee904f40c0dd
+      internalID: -1078378026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_walk_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7879c09475bdc0846abfb85cd7fedd32
+      internalID: -1279936369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_walk_2
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 415d14b83f19b954c9aca0c6268162b7
+      internalID: 1737769033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_walk_3
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 280ade2f6c2543c45a649879ad12ab06
+      internalID: -327746257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_walk_4
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc04b5dd772b8d46ab77ddd1d8e69d2
+      internalID: 1123812146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_walk_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 48
+        height: 48
+      alignment: 9
+      pivot: {x: 0.33333334, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae1a19ef3ac047e4d9fbdcec8a4cddce
+      internalID: 770411704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_walk_6
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 0
+        width: 275
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bc12696221474b4a8536fd180eefae8
+      internalID: 280447373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SteamMan_walk_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 288
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62b6277767131e24b8276349eda3b649
+      internalID: 499504841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +313,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      SteamMan_walk_0: -1078378026
+      SteamMan_walk_1: -1279936369
+      SteamMan_walk_2: 1737769033
+      SteamMan_walk_3: -327746257
+      SteamMan_walk_4: 1123812146
+      SteamMan_walk_5: 770411704
+      SteamMan_walk_6: 280447373
+      SteamMan_walk_7: 499504841
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
