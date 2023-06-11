@@ -1,14 +1,12 @@
 {
-    "name": "Core",
+    "name": "InputActions",
     "rootNamespace": "",
     "references": [
-        "GUID:38cfe63ae9b374b40b5946a92f1e97a4",
-        "GUID:0529cf535ae9c3245a0bbc916b4e3315",
         "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
-    "allowUnsafeCode": false,
+    "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
