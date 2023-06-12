@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAnimation: {fileID: 4629613065179922006}
-  _speed: 5
+  _speed: 3
 --- !u!212 &3982203508166115439
 SpriteRenderer:
   m_ObjectHideFlags: 0
