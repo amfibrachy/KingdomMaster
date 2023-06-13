@@ -2,6 +2,7 @@ namespace _Scripts.Core.Player
 {
     using System;
     using Animations;
+    using global::Zenject;
     using InputActions;
     using UnityEngine;
     using UnityEngine.InputSystem;
@@ -14,6 +15,9 @@ namespace _Scripts.Core.Player
 
         private float _currentDirection;
         
+        // Injectables
+        private IDebug _debug;
+        
         // Input System
         private InputActions _input;
         private InputAction _moveAction;
@@ -24,6 +28,12 @@ namespace _Scripts.Core.Player
             _moveAction = _input.Player.Move;
   
             SubscribeListeners();
+        }
+
+        [Inject]
+        public void Construct(IDebug debug)
+        {
+            _debug = debug;
         }
 
         private void OnEnable()
@@ -49,19 +59,19 @@ namespace _Scripts.Core.Player
                 transform.localScale = new Vector3(1, 1, 1);
                 _playerAnimation.SetState(_playerAnimation.Walk);
 
-                CDebug.Log("Moving Right: " + _currentDirection);
+                _debug.Log("Moving Right: " + _currentDirection);
             }
             else if (_currentDirection < 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
                 _playerAnimation.SetState(_playerAnimation.Walk);
 
-                CDebug.Log("Moving Left: " + _currentDirection);
+                _debug.Log("Moving Left: " + _currentDirection);
             }
             else
             {
                 _playerAnimation.SetState(_playerAnimation.Idle);
-                CDebug.Log("Stopped moving: " + _currentDirection);
+                _debug.Log("Stopped moving: " + _currentDirection);
             }
             
             transform.Translate(_currentDirection * _speed * Time.deltaTime, 0, 0, Space.World);
