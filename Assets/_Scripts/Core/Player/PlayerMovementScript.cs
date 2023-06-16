@@ -58,20 +58,15 @@ namespace _Scripts.Core.Player
             {
                 transform.localScale = new Vector3(1, 1, 1);
                 _playerAnimation.SetState(_playerAnimation.Walk);
-
-                _debug.Log("Moving Right: " + _currentDirection);
             }
             else if (_currentDirection < 0)
             {
                 transform.localScale = new Vector3(-1, 1, 1);
                 _playerAnimation.SetState(_playerAnimation.Walk);
-
-                _debug.Log("Moving Left: " + _currentDirection);
             }
             else
             {
                 _playerAnimation.SetState(_playerAnimation.Idle);
-                _debug.Log("Stopped moving: " + _currentDirection);
             }
             
             transform.Translate(_currentDirection * _speed * Time.deltaTime, 0, 0, Space.World);
