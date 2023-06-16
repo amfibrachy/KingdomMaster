@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: House_2
   Cost: 60
-  IconSprite: {fileID: 21300000, guid: 4c712bd98e6b7ae42968c64f6d31ed27, type: 3}
-  Prefab: {fileID: 6865912232913786299, guid: 222126d5aca1ab045aaf3e54bbdf95f3, type: 3}
+  IconSprite: {fileID: 21300000, guid: b0ae9de34f5506c4994d912f71d5a6f1, type: 3}
+  Prefab: {fileID: 0}

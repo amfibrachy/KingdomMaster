@@ -13,7 +13,7 @@ TagManager:
   - UI
   - Environment
   - Characters
-  - 
+  - BuildZone
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
     locked: 0
   - name: Buildings
     uniqueID: 345690317
+    locked: 0
+  - name: Ground
+    uniqueID: 540435863
     locked: 0
   - name: Default
     uniqueID: 0

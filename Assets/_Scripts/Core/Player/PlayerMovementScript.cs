@@ -69,7 +69,7 @@ namespace _Scripts.Core.Player
                 _playerAnimation.SetState(_playerAnimation.Idle);
             }
             
-            transform.Translate(_currentDirection * _speed * Time.deltaTime, 0, 0, Space.World);
+            transform.Translate(_currentDirection * _speed * Time.deltaTime, 0, 0, Space.Self);
         }
     }
 }
