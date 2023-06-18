@@ -56,12 +56,12 @@ namespace _Scripts.Core.Player
 
             if (_currentDirection > 0)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                _playerAnimation.TurnRight();
                 _playerAnimation.SetState(_playerAnimation.Walk);
             }
             else if (_currentDirection < 0)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                _playerAnimation.TurnLeft();
                 _playerAnimation.SetState(_playerAnimation.Walk);
             }
             else
@@ -69,7 +69,7 @@ namespace _Scripts.Core.Player
                 _playerAnimation.SetState(_playerAnimation.Idle);
             }
             
-            transform.Translate(_currentDirection * _speed * Time.deltaTime, 0, 0, Space.Self);
+            transform.Translate(_currentDirection * _speed * Time.deltaTime, 0, 0, Space.World);
         }
     }
 }

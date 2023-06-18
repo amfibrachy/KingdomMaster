@@ -3,10 +3,11 @@ namespace _Scripts.Core.Animations
     using System.Collections.Generic;
     using UnityEngine;
 
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
     public class AnimationControllerScript : MonoBehaviour
     {
         private Animator _animator;
+        private SpriteRenderer _spriteRenderer;
         private int _currentStateHash;
 
         private readonly Dictionary<string, int> _stateHashes = new Dictionary<string, int>();
@@ -19,6 +20,7 @@ namespace _Scripts.Core.Animations
         private void Awake()
         {
             _animator = GetComponent<Animator>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         public void SetState(string newState)
@@ -38,6 +40,16 @@ namespace _Scripts.Core.Animations
             _currentStateHash = newStateHash;
         }
 
+        public void TurnLeft()
+        {
+            _spriteRenderer.flipX = true;
+        }
+        
+        public void TurnRight()
+        {
+            _spriteRenderer.flipX = false;
+        }
+        
         public float GetCurrentStateDuration()
         {
             return _animator.GetCurrentAnimatorStateInfo(0).length;
