@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - Environment
-  - Characters
+  - 
+  - 
   - BuildZone
-  - Buildings
+  - 
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 540435863
+    locked: 0
+  - name: Characters
+    uniqueID: 1298154685
     locked: 0
   - name: Default
     uniqueID: 0

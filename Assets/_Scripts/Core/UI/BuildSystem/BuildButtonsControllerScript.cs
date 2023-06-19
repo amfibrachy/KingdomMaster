@@ -31,7 +31,7 @@ namespace _Scripts.Core.UI.BuildSystem
             
             // TODO Check for sufficient resources and money
             
-            _placementSystem.SetBuildingPrefab(buildingData.Prefab);
+            _placementSystem.StartPlacement(buildingData.Prefab);
         }
     }
 }

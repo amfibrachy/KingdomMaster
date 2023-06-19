@@ -8,6 +8,6 @@ namespace _Scripts.Core.UI.BuildSystem
         public string Name;
         public int Cost;
         public Sprite IconSprite;
-        public GameObject Prefab;
+        public BuildingPlacementScript Prefab;
     }
 }

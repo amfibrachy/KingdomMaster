@@ -19,31 +19,23 @@ namespace _Scripts.Core.Player
         private IDebug _debug;
         
         // Input System
-        private InputActions _input;
         private InputAction _moveAction;
         
         private void Awake()
         {
-            _input = new InputActions();
-            _moveAction = _input.Player.Move;
-  
             SubscribeListeners();
+        }
+
+        private void Start()
+        {
+            InputManager.Player.Enable();
+            _moveAction = InputManager.Player.Move;
         }
 
         [Inject]
         public void Construct(IDebug debug)
         {
             _debug = debug;
-        }
-
-        private void OnEnable()
-        {
-            _moveAction.Enable();
-        }
-
-        public void OnDisable()
-        {
-            _moveAction.Disable();
         }
 
         private void SubscribeListeners()
