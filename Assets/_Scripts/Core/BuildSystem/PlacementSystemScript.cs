@@ -27,9 +27,9 @@ namespace _Scripts.Core.UI.BuildSystem
 
         private RaycastHit2D _raycastHit;
         private ValidityState _previousValidityState;
-        private ValidityState _isValidPos;
 
         private bool _placementActive;
+        private int _activeCollisions;
         
         // Input System
         private InputAction _mouseAction;
@@ -71,17 +71,18 @@ namespace _Scripts.Core.UI.BuildSystem
                     _toBuild.Activate();
 
                     _toBuild.transform.position = new Vector3(Mathf.RoundToInt(_raycastHit.point.x), 0f);
+                    var isPositionValid = IsPlacementValid();
                     
-                    if (_previousValidityState != _isValidPos)
+                    if (_previousValidityState != isPositionValid)
                     {
-                        if (_isValidPos == ValidityState.Valid)
+                        if (isPositionValid == ValidityState.Valid)
                         {
                             _transparentMaterial.SetColor(Color1, _validColor);
                             _transparentMaterial.SetFloat(Alpha, _transparencyValue);
 
                             _toBuild.SetMaterial(_transparentMaterial);
                         }
-                        else if (_isValidPos == ValidityState.Invalid)
+                        else if (isPositionValid == ValidityState.Invalid)
                         {
                             _transparentMaterial.SetColor(Color1, _invalidColor);
                             _transparentMaterial.SetFloat(Alpha, _transparencyValue);
@@ -89,10 +90,10 @@ namespace _Scripts.Core.UI.BuildSystem
                             _toBuild.SetMaterial(_transparentMaterial);
                         }
                         
-                        _previousValidityState = _isValidPos;
+                        _previousValidityState = isPositionValid;
                     }
                     
-                    if (_mouseAction.triggered && _isValidPos == ValidityState.Valid)
+                    if (_mouseAction.triggered && isPositionValid == ValidityState.Valid)
                     {
                         PlaceBuilding();
                     }
@@ -109,9 +110,10 @@ namespace _Scripts.Core.UI.BuildSystem
             StopPlacement();
             
             _toBuild = Instantiate(prefab);
-            _toBuild.OnCollisionEnter += PlacementInvalid;
-            _toBuild.OnCollisionExit += PlacementValid;
+            _toBuild.OnCollisionEnter += OnPlacementInvalid;
+            _toBuild.OnCollisionExit += OnPlacementValid;
             _toBuild.IsBuilt = false;
+            _activeCollisions = 0;
             _toBuild.Deactivate();
 
             InputManager.UI.Enable();
@@ -122,8 +124,8 @@ namespace _Scripts.Core.UI.BuildSystem
         {
             _toBuild.SetMaterial(_transparentMaterialPrefab);
             _toBuild.IsBuilt = true;
-            _toBuild.OnCollisionEnter -= PlacementInvalid;
-            _toBuild.OnCollisionExit -= PlacementValid;
+            _toBuild.OnCollisionEnter -= OnPlacementInvalid;
+            _toBuild.OnCollisionExit -= OnPlacementValid;
             _toBuild = null;
 
             StopPlacement();
@@ -133,12 +135,11 @@ namespace _Scripts.Core.UI.BuildSystem
         {
             _placementActive = false;
             _previousValidityState = ValidityState.None;
-            _isValidPos = ValidityState.Valid;
 
             if (_toBuild != null)
             {
-                _toBuild.OnCollisionEnter -= PlacementInvalid;
-                _toBuild.OnCollisionExit -= PlacementValid;
+                _toBuild.OnCollisionEnter -= OnPlacementInvalid;
+                _toBuild.OnCollisionExit -= OnPlacementValid;
                 
                 Destroy(_toBuild.gameObject);
             }
@@ -146,14 +147,19 @@ namespace _Scripts.Core.UI.BuildSystem
             InputManager.UI.Disable();
         }
 
-        private void PlacementValid()
+        private ValidityState IsPlacementValid()
         {
-            _isValidPos = ValidityState.Valid;
+            return _activeCollisions == 0 ? ValidityState.Valid : ValidityState.Invalid;
+        }
+
+        private void OnPlacementValid()
+        {
+            _activeCollisions--;
         }
         
-        private void PlacementInvalid()
+        private void OnPlacementInvalid()
         {
-            _isValidPos = ValidityState.Invalid;
+            _activeCollisions++;
         }
         
         private void OnCancel(InputAction.CallbackContext context)
