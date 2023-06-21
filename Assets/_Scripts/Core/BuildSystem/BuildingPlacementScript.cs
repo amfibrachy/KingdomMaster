@@ -9,14 +9,18 @@ namespace _Scripts.Core.UI.BuildSystem
         public event Action OnCollisionEnter;
         public event Action OnCollisionExit;
         
-        private TilemapRenderer[] _renderers;
+        public BuildingType Type => _data.Type;
+
+        [SerializeField] private BuildingDataSO _defaultSettings;
         
-        public bool IsBuilt { get; set; }
+        // Privates
+        private TilemapRenderer[] _renderers;
+        private BuildingDataSO _data;
         
         private void Awake()
         {
             _renderers = GetComponentsInChildren<TilemapRenderer>();
-            IsBuilt = true;
+            _data = _defaultSettings;
         }
 
         public void SetMaterial(Material material)
@@ -25,6 +29,11 @@ namespace _Scripts.Core.UI.BuildSystem
             {
                 tilemapRenderer.material = material;
             }
+        }
+
+        public void Initialize(BuildingDataSO data)
+        {
+            _data = data;
         }
 
         public void Activate()
@@ -42,7 +51,7 @@ namespace _Scripts.Core.UI.BuildSystem
         private void OnTriggerEnter2D(Collider2D col)
         {
             var building = col.GetComponent<BuildingPlacementScript>();
-            if (building != null && building.IsBuilt)
+            if (building != null)
             {
                 OnCollisionEnter?.Invoke();
             }
@@ -51,7 +60,7 @@ namespace _Scripts.Core.UI.BuildSystem
         private void OnTriggerExit2D(Collider2D other)
         {
             var building = other.GetComponent<BuildingPlacementScript>();
-            if (building != null && building.IsBuilt)
+            if (building != null)
             {
                 OnCollisionExit?.Invoke();
             }

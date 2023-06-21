@@ -9,5 +9,14 @@ namespace _Scripts.Core.UI.BuildSystem
         public int Cost;
         public Sprite IconSprite;
         public BuildingPlacementScript Prefab;
+        public float MinBuildDistance;
+        public BuildingType Type;
+    }
+
+    public enum BuildingType
+    {
+        Tower,
+        House,
+        Wall
     }
 }

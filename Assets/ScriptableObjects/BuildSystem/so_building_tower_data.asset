@@ -16,3 +16,5 @@ MonoBehaviour:
   Cost: 30
   IconSprite: {fileID: 21300000, guid: 9ecd7af26e485e847a971fc2f6bcb4d0, type: 3}
   Prefab: {fileID: 4672988743326602164, guid: d6d0301cf3e8c004080f969c70121ce9, type: 3}
+  MinBuildDistance: 12
+  Type: 0
