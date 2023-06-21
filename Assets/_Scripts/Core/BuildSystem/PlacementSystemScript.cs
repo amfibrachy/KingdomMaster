@@ -11,13 +11,20 @@ namespace _Scripts.Core.UI.BuildSystem
 
     public class PlacementSystemScript : MonoBehaviour
     {
+        [Header("Settings")]
         [SerializeField] private LayerMask _buildingMask;
         [SerializeField] private Material _transparentMaterialPrefab;
         [SerializeField] private Color _invalidColor;
+        [SerializeField] private Color _tooFarColor;
         [SerializeField] private Color _validColor;
         
         [SerializeField] private float _transparencyValue = 0.5f;
+        [SerializeField] private float _distanceToPlayer = 20f;
         
+        
+        [Header("References")] 
+        [SerializeField] private GameObject _player;
+
         // Injectables
         private IDebug _debug;
         private Camera _camera;
@@ -41,7 +48,8 @@ namespace _Scripts.Core.UI.BuildSystem
         {
             None,
             Valid,
-            Invalid
+            Invalid,
+            Far
         }
 
         [Inject]
@@ -75,21 +83,34 @@ namespace _Scripts.Core.UI.BuildSystem
                     
                     if (_previousValidityState != isPositionValid)
                     {
-                        if (isPositionValid == ValidityState.Valid)
+                        switch (isPositionValid)
                         {
-                            _transparentMaterial.SetColor(Color1, _validColor);
-                            _transparentMaterial.SetFloat(Alpha, _transparencyValue);
+                            case ValidityState.Valid:
+                                _transparentMaterial.SetColor(Color1, _validColor);
+                                _transparentMaterial.SetFloat(Alpha, _transparencyValue);
 
-                            _toBuild.SetMaterial(_transparentMaterial);
-                        }
-                        else if (isPositionValid == ValidityState.Invalid)
-                        {
-                            _transparentMaterial.SetColor(Color1, _invalidColor);
-                            _transparentMaterial.SetFloat(Alpha, _transparencyValue);
+                                break;
                             
-                            _toBuild.SetMaterial(_transparentMaterial);
+                            case ValidityState.Invalid:
+                                _transparentMaterial.SetColor(Color1, _invalidColor);
+                                _transparentMaterial.SetFloat(Alpha, _transparencyValue);
+                                
+                                break;
+                            
+                            case ValidityState.Far:
+                                _transparentMaterial.SetColor(Color1, _tooFarColor);
+                                _transparentMaterial.SetFloat(Alpha, _transparencyValue);
+                                
+                                break;
+                            
+                            case ValidityState.None:
+                                break;
+                            
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
-                        
+
+                        _toBuild.SetMaterial(_transparentMaterial);
                         _previousValidityState = isPositionValid;
                     }
                     
@@ -149,7 +170,15 @@ namespace _Scripts.Core.UI.BuildSystem
 
         private ValidityState IsPlacementValid()
         {
-            return _activeCollisions == 0 ? ValidityState.Valid : ValidityState.Invalid;
+            float distanceToPlayer = Vector2.Distance(_toBuild.transform.position, _player.transform.position);
+            var isPlayerNear = distanceToPlayer <= _distanceToPlayer;
+
+            if (_activeCollisions != 0)
+            { 
+                return ValidityState.Invalid;
+            }
+
+            return isPlayerNear ? ValidityState.Valid : ValidityState.Far;
         }
 
         private void OnPlacementValid()
