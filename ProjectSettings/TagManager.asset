@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - BuildZone
+  - Buildings
   - 
   - 
   - 
@@ -38,9 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
+  - name: Env_Backround
+    uniqueID: 1557997285
     locked: 0
   - name: Buildings
     uniqueID: 345690317
+    locked: 0
+  - name: Ground
+    uniqueID: 540435863
+    locked: 0
+  - name: Characters
+    uniqueID: 1298154685
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
