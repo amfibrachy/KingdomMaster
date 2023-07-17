@@ -37,6 +37,33 @@ namespace _Scripts.InputActions
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""80dd5c4f-6ff2-45e6-92b2-9bc602a860db"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Run Toggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""6524e6bb-e063-4f53-a62b-72daa15d0be8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Build Toggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""8fcb06f1-623d-4124-a1a5-5fe68dd9794b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -44,7 +71,7 @@ namespace _Scripts.InputActions
                     ""name"": ""1D Axis"",
                     ""id"": ""e6071283-d5b0-44d5-9587-bac29770bf8d"",
                     ""path"": ""1DAxis"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Move"",
@@ -94,6 +121,39 @@ namespace _Scripts.InputActions
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c4457ac-08f2-4bb3-9134-fad988efb7e1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a4e1a2bc-302e-41fd-8f8e-ec65d9724f93"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Run Toggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a257606d-7086-4696-ada2-10efb638210f"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Build Toggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -163,6 +223,9 @@ namespace _Scripts.InputActions
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+            m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
+            m_Player_RunToggle = m_Player.FindAction("Run Toggle", throwIfNotFound: true);
+            m_Player_BuildToggle = m_Player.FindAction("Build Toggle", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Mouse = m_UI.FindAction("Mouse", throwIfNotFound: true);
@@ -229,11 +292,17 @@ namespace _Scripts.InputActions
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
+        private readonly InputAction m_Player_Attack;
+        private readonly InputAction m_Player_RunToggle;
+        private readonly InputAction m_Player_BuildToggle;
         public struct PlayerActions
         {
             private @InputActions m_Wrapper;
             public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
+            public InputAction @Attack => m_Wrapper.m_Player_Attack;
+            public InputAction @RunToggle => m_Wrapper.m_Player_RunToggle;
+            public InputAction @BuildToggle => m_Wrapper.m_Player_BuildToggle;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -246,6 +315,15 @@ namespace _Scripts.InputActions
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Attack.started += instance.OnAttack;
+                @Attack.performed += instance.OnAttack;
+                @Attack.canceled += instance.OnAttack;
+                @RunToggle.started += instance.OnRunToggle;
+                @RunToggle.performed += instance.OnRunToggle;
+                @RunToggle.canceled += instance.OnRunToggle;
+                @BuildToggle.started += instance.OnBuildToggle;
+                @BuildToggle.performed += instance.OnBuildToggle;
+                @BuildToggle.canceled += instance.OnBuildToggle;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -253,6 +331,15 @@ namespace _Scripts.InputActions
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
+                @Attack.started -= instance.OnAttack;
+                @Attack.performed -= instance.OnAttack;
+                @Attack.canceled -= instance.OnAttack;
+                @RunToggle.started -= instance.OnRunToggle;
+                @RunToggle.performed -= instance.OnRunToggle;
+                @RunToggle.canceled -= instance.OnRunToggle;
+                @BuildToggle.started -= instance.OnBuildToggle;
+                @BuildToggle.performed -= instance.OnBuildToggle;
+                @BuildToggle.canceled -= instance.OnBuildToggle;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -336,6 +423,9 @@ namespace _Scripts.InputActions
         public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
+            void OnAttack(InputAction.CallbackContext context);
+            void OnRunToggle(InputAction.CallbackContext context);
+            void OnBuildToggle(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
