@@ -18,13 +18,16 @@ namespace _Scripts.Core.Animations
         
         private int _currentAnimation;
         
-        // Animations
+        /* ANIMATIONS */
+        
+        // General Animations
         public readonly int Idle = Animator.StringToHash("idle");
         public readonly int Walk = Animator.StringToHash("walk");
         public readonly int Run = Animator.StringToHash("run");
         
-        public readonly int Attack1 = Animator.StringToHash("attack1");
-        public readonly int Attack2 = Animator.StringToHash("attack2");
+        // Player Specific Animations
+        public readonly int PickaxeAttack = Animator.StringToHash("pickaxe_attack");
+        public readonly int IdleAttack = Animator.StringToHash("idle_attack");
         public readonly int WalkAttack = Animator.StringToHash("walk_attack");
 
         [Inject] private IDebug _debug;
@@ -36,23 +39,33 @@ namespace _Scripts.Core.Animations
             IsUninterruptedPlaying = false;
         }
 
-        public void PlayAnimation(int newAnimation)
+        public void PlayAnimation(int newAnimation, float time = 0)
         {
             if (_currentAnimation == newAnimation)
                 return;
 
+            float normalizedTime = time > 0 ? time : 0;
+
             _currentAnimation = newAnimation;
-            _animator.Play(newAnimation, 0, 0);
+            _animator.Play(newAnimation, 0, normalizedTime);
         }
 
-        public void PlayAnimationUninterrupted(int newAnimation, Action onComplete = null, bool lockAnimation = false)
+        public void PlayAnimationUninterrupted(int newAnimation, Action onComplete = null, bool lockAnimation = false, bool forceInterrupt = false)
         {
-            if (IsUninterruptedPlaying) 
+            if (IsUninterruptedPlaying && !forceInterrupt) 
                 return;
 
             IsAnimationLocked = lockAnimation;
-                
-            PlayAnimation(newAnimation);
+            
+            float time = 0;
+            
+            if (forceInterrupt)
+            {
+                StopAllCoroutines();
+                time = _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            }
+
+            PlayAnimation(newAnimation, time);
             StartCoroutine(WaitForAnimationFinish(onComplete));
         }
 

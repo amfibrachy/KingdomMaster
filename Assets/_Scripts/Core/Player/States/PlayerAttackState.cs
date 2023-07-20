@@ -5,6 +5,8 @@ namespace _Scripts.Core.Player.States
 
     public class PlayerAttackState : BaseState<PlayerFSM>
     {
+        private bool _isWalkAttacking;
+        
         public PlayerAttackState(PlayerFSM context) : base(context)
         {
         }
@@ -19,6 +21,7 @@ namespace _Scripts.Core.Player.States
 
         private void OnAttackFinished()
         {
+            _isWalkAttacking = false;
             _context.ChangeState(_context.MoveState);
         }
 
@@ -29,16 +32,27 @@ namespace _Scripts.Core.Player.States
             if (movingDirection > 0 && !_context.AnimationController.IsAnimationLocked)
             {
                 _context.AnimationController.PlayAnimationUninterrupted(_context.AnimationController.WalkAttack, OnAttackFinished);
+                _isWalkAttacking = true;
                 _context.transform.Translate((int) movingDirection * _context.Speed * Time.deltaTime, 0, 0, Space.World);
             }
             else if (movingDirection < 0  && !_context.AnimationController.IsAnimationLocked)
             {
                 _context.AnimationController.PlayAnimationUninterrupted(_context.AnimationController.WalkAttack, OnAttackFinished);
+                _isWalkAttacking = true;
                 _context.transform.Translate((int) movingDirection * _context.Speed * Time.deltaTime, 0, 0, Space.World);
             }
             else
             {
-                _context.AnimationController.PlayAnimationUninterrupted(_context.AnimationController.Attack1, OnAttackFinished, true);
+                if (_isWalkAttacking)
+                {
+                    _context.AnimationController.PlayAnimationUninterrupted(_context.AnimationController.IdleAttack, OnAttackFinished, true, true);
+                }
+                else
+                {
+                    _context.AnimationController.PlayAnimationUninterrupted(_context.AnimationController.IdleAttack, OnAttackFinished, true);
+                }
+
+                _isWalkAttacking = false;
             }
         }
     }
