@@ -27,17 +27,24 @@ namespace _Scripts.Core.Player.States
 
         public override void UpdateState()
         {
+            var facingDirection = _context.GetFacingDirection();
             var movingDirection = _context.GetMoveDirection();
             
-            if (movingDirection > 0 && !_context.AnimationController.IsAnimationLocked)
+            if (movingDirection == Direction.Right && !_context.AnimationController.IsAnimationLocked)
             {
-                _context.AnimationController.PlayAnimationUninterrupted(_context.AnimationController.WalkAttack, OnAttackFinished);
+                _context.AnimationController.PlayAnimationUninterrupted(facingDirection == Direction.Left
+                    ? _context.AnimationController.ReverseWalkAttack
+                    : _context.AnimationController.WalkAttack, OnAttackFinished);
+                
                 _isWalkAttacking = true;
                 _context.transform.Translate((int) movingDirection * _context.Speed * Time.deltaTime, 0, 0, Space.World);
             }
-            else if (movingDirection < 0  && !_context.AnimationController.IsAnimationLocked)
+            else if (movingDirection == Direction.Left  && !_context.AnimationController.IsAnimationLocked)
             {
-                _context.AnimationController.PlayAnimationUninterrupted(_context.AnimationController.WalkAttack, OnAttackFinished);
+                _context.AnimationController.PlayAnimationUninterrupted(facingDirection == Direction.Right
+                    ? _context.AnimationController.ReverseWalkAttack
+                    : _context.AnimationController.WalkAttack, OnAttackFinished); 
+                
                 _isWalkAttacking = true;
                 _context.transform.Translate((int) movingDirection * _context.Speed * Time.deltaTime, 0, 0, Space.World);
             }

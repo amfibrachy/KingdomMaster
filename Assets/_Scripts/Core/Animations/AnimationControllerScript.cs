@@ -29,6 +29,8 @@ namespace _Scripts.Core.Animations
         public readonly int PickaxeAttack = Animator.StringToHash("pickaxe_attack");
         public readonly int IdleAttack = Animator.StringToHash("idle_attack");
         public readonly int WalkAttack = Animator.StringToHash("walk_attack");
+        public readonly int ReverseWalkAttack = Animator.StringToHash("reverse_walk_attack");
+        public readonly int ReverseWalk = Animator.StringToHash("reverse_walk");
 
         [Inject] private IDebug _debug;
 

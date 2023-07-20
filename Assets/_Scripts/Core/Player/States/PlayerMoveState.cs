@@ -29,25 +29,37 @@ namespace _Scripts.Core.Player.States
 
             if (movingDirection == Direction.Right)
             {
-                // Avoid running backwards, switch to walking
-                if (facingDirection == Direction.Left && _context.IsPlayerRunning)
-                    _context.ToggleRun();
-                
-                if (_context.IsPlayerRunning)
-                    _context.AnimationController.PlayAnimation(_context.AnimationController.Run);
-                else 
-                    _context.AnimationController.PlayAnimation(_context.AnimationController.Walk);
+                if (facingDirection == Direction.Left)
+                {
+                    // Avoid running backwards, switch to walking
+                    if (_context.IsPlayerRunning)
+                        _context.ToggleRun();
+                    
+                    _context.AnimationController.PlayAnimation(_context.AnimationController.ReverseWalk);
+                }
+                else
+                {
+                    _context.AnimationController.PlayAnimation(_context.IsPlayerRunning
+                        ? _context.AnimationController.Run
+                        : _context.AnimationController.Walk);
+                }
             }
             else if (movingDirection == Direction.Left)
             {
-                // Avoid running backwards, switch to walking
-                if (facingDirection == Direction.Right && _context.IsPlayerRunning)
-                    _context.ToggleRun();
-                
-                if (_context.IsPlayerRunning)
-                    _context.AnimationController.PlayAnimation(_context.AnimationController.Run);
-                else 
-                    _context.AnimationController.PlayAnimation(_context.AnimationController.Walk);
+                if (facingDirection == Direction.Right)
+                {
+                    // Avoid running backwards, switch to walking
+                    if (_context.IsPlayerRunning)
+                        _context.ToggleRun();
+                    
+                    _context.AnimationController.PlayAnimation(_context.AnimationController.ReverseWalk);
+                }
+                else
+                {
+                    _context.AnimationController.PlayAnimation(_context.IsPlayerRunning
+                        ? _context.AnimationController.Run
+                        : _context.AnimationController.Walk);
+                }
             }
             else
             {
