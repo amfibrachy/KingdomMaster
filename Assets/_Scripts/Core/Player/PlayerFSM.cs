@@ -98,7 +98,8 @@ namespace _Scripts.Core.Player
 
         private void OnRunToggleOnperformed(InputAction.CallbackContext context)
         {
-            ToggleRun();
+            if (_currentState == MoveState)
+                ToggleRun();
         }
 
         public Direction GetMoveDirection()
