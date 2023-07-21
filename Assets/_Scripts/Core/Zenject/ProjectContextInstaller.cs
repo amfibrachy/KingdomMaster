@@ -1,5 +1,6 @@
 namespace _Scripts.Core.Zenject
 {
+    using Animations;
     using global::Zenject;
     using Utils.Debugging;
 

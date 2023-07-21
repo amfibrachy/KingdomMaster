@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 952a576f917c6474894db9ef1b81069d
+guid: 668a02a89f9caff49974575d7acfb01a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SteamMan_attack1_0
+      name: SteamMan_reverse_attack3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12139de87e402b540b481da93c74d3fc
-      internalID: 800930697
+      spriteID: 69b4f63097d446a4bb6f0a14a56fbcb3
+      internalID: 1359391450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SteamMan_attack1_1
+      name: SteamMan_reverse_attack3_1
       rect:
         serializedVersion: 2
         x: 48
@@ -171,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37fe75ee46016e44cb4c941ac160d8d6
-      internalID: 1634044723
+      spriteID: 0d6422fb0e352154e86118e3a72e8eff
+      internalID: -605104036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SteamMan_attack1_2
+      name: SteamMan_reverse_attack3_2
       rect:
         serializedVersion: 2
         x: 96
@@ -192,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f65a65b1027a1e447a94e4f68219e7a2
-      internalID: 1726001704
+      spriteID: e5f410014c4f5234e861be72056d5c98
+      internalID: 1635549396
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SteamMan_attack1_3
+      name: SteamMan_reverse_attack3_3
       rect:
         serializedVersion: 2
         x: 144
@@ -213,17 +213,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7ccb637dd7edd64b9cd1296906d61a7
-      internalID: 1807015121
+      spriteID: 593d14d7c0dcf0e49b3c428cadccdf11
+      internalID: -303280230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SteamMan_attack1_4
+      name: SteamMan_reverse_attack3_4
       rect:
         serializedVersion: 2
-        x: 193
+        x: 192
         y: 0
         width: 48
         height: 48
@@ -234,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 914c0f9943fca35449e3bfa26f8a123e
-      internalID: 1850703715
+      spriteID: c102b02bc5b41714ca3dc0742318fe7b
+      internalID: 834968350
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SteamMan_attack1_5
+      name: SteamMan_reverse_attack3_5
       rect:
         serializedVersion: 2
         x: 240
@@ -255,8 +255,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 75a270c7041f9274ba21ef93c1907f32
-      internalID: 1718694312
+      spriteID: 139eb68d6ecb7fe44a96bceb02c64239
+      internalID: 1168959135
       vertices: []
       indices: 
       edges: []
@@ -272,12 +272,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SteamMan_attack1_0: 800930697
-      SteamMan_attack1_1: 1634044723
-      SteamMan_attack1_2: 1726001704
-      SteamMan_attack1_3: 1807015121
-      SteamMan_attack1_4: 1850703715
-      SteamMan_attack1_5: 1718694312
+      SteamMan_reverse_attack3_0: 1359391450
+      SteamMan_reverse_attack3_1: -605104036
+      SteamMan_reverse_attack3_2: 1635549396
+      SteamMan_reverse_attack3_3: -303280230
+      SteamMan_reverse_attack3_4: 834968350
+      SteamMan_reverse_attack3_5: 1168959135
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

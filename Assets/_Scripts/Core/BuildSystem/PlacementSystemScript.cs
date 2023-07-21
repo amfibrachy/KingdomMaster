@@ -167,7 +167,7 @@ namespace _Scripts.Core.UI.BuildSystem
             StopPlacement();
         }
 
-        private void StopPlacement()
+        public void StopPlacement()
         {
             _placementActive = false;
             SetRulerEnabled(false);
