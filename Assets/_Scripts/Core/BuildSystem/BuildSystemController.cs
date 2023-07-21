@@ -1,52 +1,84 @@
 namespace _Scripts.Core.UI.BuildSystem
 {
     using System;
-    using Player;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
     using UnityEngine;
-    using UnityEngine.InputSystem;
 
     public class BuildSystemController : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup _buildSystemUICanvasGroup;
-        [SerializeField] private PlayerFSM _playerFsm;
         [SerializeField] private PlacementSystemScript _placementSystem;
+        [SerializeField] private Transform _buildingsParent;
 
-        private bool IsBuildMode { get; set; }
-        
-        private void Start()
+        private List<BuildingConstructionScript> _constructionsActive = new List<BuildingConstructionScript>();
+        private Queue<BuildingConstructionScript> _constructionsQueue = new Queue<BuildingConstructionScript>();
+        private List<BuildingConstructionScript> _constructionsFinished = new List<BuildingConstructionScript>();
+
+        private bool _isProcessing;
+
+        private void Awake()
         {
-            IsBuildMode = false;
-            HideBuildUI();
+            _placementSystem.OnBuildingPlaced += StartBuildProcess;
+        }
+        
+        private void StartBuildProcess(BuildingDataSO building, Vector2 position)
+        {
+            var constructionSite = Instantiate(building.ConstructionPrefab, position, Quaternion.identity, _buildingsParent);
+            constructionSite.SetData(building);
             
-            InputManager.Player.BuildToggle.performed += OnBuildTogglePerformed;
+            _constructionsQueue.Enqueue(constructionSite);
         }
 
-        private void OnBuildTogglePerformed(InputAction.CallbackContext context)
+        private void Update()
         {
-            IsBuildMode = !IsBuildMode;
-            _playerFsm.IsInBuildMode = IsBuildMode;
+            if (!_isProcessing)
+            {
+                UpdateConstructionList();
 
-            if (IsBuildMode)
-            {
-                ShowBuildUI();
-            }
-            else
-            {
-                _placementSystem.StopPlacement();
-                HideBuildUI();
+                if (_constructionsActive.Count > 0)
+                {
+                    StartCoroutine(ProcessBuildings());
+                }
             }
         }
 
-        public void ShowBuildUI()
+        private void UpdateConstructionList()
         {
-            _buildSystemUICanvasGroup.alpha = 1;
-            _buildSystemUICanvasGroup.interactable = true;
+            while (_constructionsQueue.Count > 0)
+            {
+                _constructionsActive.Add(_constructionsQueue.Dequeue());
+            }
         }
         
-        public void HideBuildUI()
+        private IEnumerator ProcessBuildings()
         {
-            _buildSystemUICanvasGroup.alpha = 0;
-            _buildSystemUICanvasGroup.interactable = false;
+            _isProcessing = true;
+
+            foreach (var construction in _constructionsActive)
+            {
+                construction.AddProgress(15f);
+                
+                if (construction.IsConstructionFinished())
+                {
+                    var constructionPosition = construction.transform.position;
+
+                    Instantiate(construction.GetBuildingPrefab(), constructionPosition, Quaternion.identity, _buildingsParent);
+                    _constructionsFinished.Add(construction);
+                }
+            }
+
+            foreach (var construction in _constructionsFinished)
+            {
+                _constructionsActive.Remove(construction);
+                Destroy(construction.gameObject);
+            }
+            
+            _constructionsFinished.Clear();
+            
+            yield return new WaitForSeconds(1f);
+
+            _isProcessing = false;
         }
     }
 }
