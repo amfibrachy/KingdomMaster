@@ -29,6 +29,8 @@ namespace _Scripts.Core.UI.BuildSystem
         [SerializeField] private SpriteRenderer _rulerRenderer;
         [SerializeField] private TextMeshPro _distanceText;
 
+        public event Action<BuildingDataSO, Vector2> OnBuildingPlaced;
+        
         // Injectables
         private IDebug _debug;
         private Camera _camera;
@@ -128,7 +130,7 @@ namespace _Scripts.Core.UI.BuildSystem
                     
                     if (_mouseAction.triggered && positionValidityState == ValidityState.Valid)
                     {
-                        PlaceBuilding();
+                        StartBuilding(_toBuild.transform.position);
                     }
                 }
                 else
@@ -157,14 +159,10 @@ namespace _Scripts.Core.UI.BuildSystem
             _placementActive = true;
         }
         
-        private void PlaceBuilding()
+        private void StartBuilding(Vector2 position)
         {
-            _toBuild.SetMaterial(_transparentMaterialPrefab);
-            _toBuild.OnCollisionEnter -= OnPlacementInvalid;
-            _toBuild.OnCollisionExit -= OnPlacementValid;
-            _toBuild = null;
-
             StopPlacement();
+            OnBuildingPlaced?.Invoke(_buildingData, position);
         }
 
         public void StopPlacement()

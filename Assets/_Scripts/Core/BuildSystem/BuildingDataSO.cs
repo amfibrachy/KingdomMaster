@@ -7,8 +7,12 @@ namespace _Scripts.Core.UI.BuildSystem
     {
         public string Name;
         public int Cost;
+        public float BuildTime;
         public Sprite IconSprite;
+        
         public BuildingPlacementScript Prefab;
+        public BuildingConstructionScript ConstructionPrefab;
+        
         public float MinBuildDistance;
         public BuildingType Type;
     }
