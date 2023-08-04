@@ -2,7 +2,6 @@ namespace _Scripts.Core.Player.States
 {
     using Core.States;
     using UnityEngine;
-    using UnityEngine.InputSystem;
 
     public class PlayerMoveState : BaseState<PlayerFSM>
     {

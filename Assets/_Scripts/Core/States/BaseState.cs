@@ -1,6 +1,8 @@
 namespace _Scripts.Core.States
 {
-    public abstract class BaseState<T>
+    using AI;
+
+    public abstract class BaseState<T> where T : IFSM<T>
     {
         protected T _context;
 

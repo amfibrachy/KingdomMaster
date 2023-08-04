@@ -1,6 +1,7 @@
 namespace _Scripts.Core.Player
 {
     using System;
+    using AI;
     using Animations;
     using Core.States;
     using global::Zenject;
@@ -16,7 +17,7 @@ namespace _Scripts.Core.Player
         Right = 1
     }
     
-    public class PlayerFSM : MonoBehaviour
+    public class PlayerFSM : FSM<PlayerFSM>
     {
         [SerializeField] private AnimationControllerScript _animationController;
         [SerializeField] private PlayerStats _stats;
@@ -43,9 +44,6 @@ namespace _Scripts.Core.Player
 
         public bool IsPlayerRunning { get; private set; }
         public bool IsInBuildMode { get;  set; }
-
-        // FSM
-        private BaseState<PlayerFSM> _currentState;
 
         public PlayerMoveState MoveState;
         public PlayerAttackState AttackState;
@@ -80,13 +78,6 @@ namespace _Scripts.Core.Player
             _currentState.UpdateState();
         }
 
-        public void ChangeState(BaseState<PlayerFSM> newState)
-        {
-            _currentState.ExitState();
-            _currentState = newState;
-            _currentState.EnterState();
-        }
-        
         private void InitInput()
         {
             InputManager.Player.Enable();
