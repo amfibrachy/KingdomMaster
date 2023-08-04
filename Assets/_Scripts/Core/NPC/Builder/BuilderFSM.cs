@@ -4,6 +4,9 @@ namespace _Scripts.Core.NPC
 
     public class BuilderFSM : FSM<BuilderFSM>
     {
-        
+        public override void InitStates()
+        {
+            
+        }
     }
 }

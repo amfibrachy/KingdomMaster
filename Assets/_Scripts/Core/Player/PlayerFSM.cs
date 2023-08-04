@@ -3,23 +3,14 @@ namespace _Scripts.Core.Player
     using System;
     using AI;
     using Animations;
-    using Core.States;
     using global::Zenject;
     using States;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using Utils.Debugging;
 
-    public enum Direction
-    {
-        None = 0,
-        Left = -1,
-        Right = 1
-    }
-    
     public class PlayerFSM : FSM<PlayerFSM>
     {
-        [SerializeField] private AnimationControllerScript _animationController;
         [SerializeField] private PlayerStats _stats;
 
         // Injectables
@@ -39,7 +30,6 @@ namespace _Scripts.Core.Player
         // Public Access To Different States
         public IDebug Debug => _debug;
         public Camera Camera => _camera;
-        public AnimationControllerScript AnimationController => _animationController;
         public float Speed {get; private set; }
 
         public bool IsPlayerRunning { get; private set; }
@@ -56,26 +46,20 @@ namespace _Scripts.Core.Player
             _camera = camera;
         }
 
-        private void Start()
+        private void Awake()
         {
             Speed = _stats.WalkSpeed;
             
-            InitInput();
-            InitStates();
-
-            _currentState = MoveState;
-            _currentState.EnterState();
+            InitInput(); 
         }
 
-        private void InitStates()
+        public override void InitStates()
         {
             MoveState = new PlayerMoveState(this);
             AttackState = new PlayerAttackState(this);
-        }
-
-        private void Update()
-        {
-            _currentState.UpdateState();
+            
+            _currentState = MoveState;
+            _currentState.EnterState();
         }
 
         private void InitInput()

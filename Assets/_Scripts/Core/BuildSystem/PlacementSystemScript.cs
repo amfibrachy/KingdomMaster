@@ -1,12 +1,12 @@
-namespace _Scripts.Core.UI.BuildSystem
+namespace _Scripts.Core.BuildSystem
 {
     using System;
     using System.Globalization;
+    using _Scripts.Utils.Debugging;
     using global::Zenject;
     using TMPro;
     using UnityEngine;
     using UnityEngine.InputSystem;
-    using Utils.Debugging;
 
     public class PlacementSystemScript : MonoBehaviour
     {

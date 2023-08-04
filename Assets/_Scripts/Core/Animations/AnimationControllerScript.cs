@@ -24,6 +24,7 @@ namespace _Scripts.Core.Animations
         public readonly int Idle = Animator.StringToHash("idle");
         public readonly int Walk = Animator.StringToHash("walk");
         public readonly int Run = Animator.StringToHash("run");
+        public readonly int Death = Animator.StringToHash("death");
         
         // Player Specific Animations
         public readonly int PickaxeAttack = Animator.StringToHash("pickaxe_attack");

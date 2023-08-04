@@ -1,6 +1,6 @@
-namespace _Scripts.Core.States
+namespace _Scripts.Core.AI
 {
-    using AI;
+    using UnityEngine;
 
     public abstract class BaseState<T> where T : IFSM<T>
     {

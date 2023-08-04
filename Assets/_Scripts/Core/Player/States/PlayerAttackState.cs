@@ -1,6 +1,6 @@
 namespace _Scripts.Core.Player.States
 {
-    using Core.States;
+    using AI;
     using UnityEngine;
 
     public class PlayerAttackState : BaseState<PlayerFSM>
