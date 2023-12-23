@@ -1,6 +1,5 @@
 namespace _Scripts.Core.NPC
 {
-    using System;
     using AI;
     using global::Zenject;
     using States;

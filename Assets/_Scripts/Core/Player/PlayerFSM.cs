@@ -38,7 +38,6 @@ namespace _Scripts.Core.Player
         public PlayerMoveState MoveState;
         public PlayerAttackState AttackState;
         
-
         [Inject]
         public void Construct(IDebug debug, Camera camera)
         {

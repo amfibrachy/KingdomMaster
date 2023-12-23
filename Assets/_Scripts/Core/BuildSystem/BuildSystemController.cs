@@ -17,10 +17,10 @@ namespace _Scripts.Core.BuildSystem
 
         private void Awake()
         {
-            _placementSystem.OnBuildingPlaced += StartBuildProcess;
+            _placementSystem.OnBuildingPlaced += PlaceConstructionSiteAndEnqueueRequest;
         }
         
-        private void StartBuildProcess(BuildingDataSO building, Vector2 position)
+        private void PlaceConstructionSiteAndEnqueueRequest(BuildingDataSO building, Vector2 position)
         {
             var constructionSite = Instantiate(building.ConstructionPrefab, position, Quaternion.identity, _buildingsParent);
             constructionSite.SetData(building);

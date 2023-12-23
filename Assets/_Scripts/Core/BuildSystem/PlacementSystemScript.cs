@@ -130,7 +130,7 @@ namespace _Scripts.Core.BuildSystem
                     
                     if (_mouseAction.triggered && positionValidityState == ValidityState.Valid)
                     {
-                        StartBuilding(_toBuild.transform.position);
+                        PlaceConstructionSite(_toBuild.transform.position);
                     }
                 }
                 else
@@ -159,7 +159,7 @@ namespace _Scripts.Core.BuildSystem
             _placementActive = true;
         }
         
-        private void StartBuilding(Vector2 position)
+        private void PlaceConstructionSite(Vector2 position)
         {
             StopPlacement();
             OnBuildingPlaced?.Invoke(_buildingData, position);

@@ -1,9 +1,9 @@
 namespace _Scripts.Core.NPC
 {
-    using UnityEngine;
+    using Stats;
 
-    public class GeneralWorkerStats : MonoBehaviour
+    public class GeneralWorkerStats : BaseStats
     {
-        public float WalkSpeed = 3f;
+
     }
 }

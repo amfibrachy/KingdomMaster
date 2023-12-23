@@ -6,7 +6,7 @@ namespace _Scripts.Core.NPC.States
     using AI;
     using UnityEngine;
 
-    public class GeneralWorkerWanderingState : BaseState<GeneralWorkerFSM>
+    public class BuilderWanderingState : BaseState<BuilderFSM>
     {
         private bool _isWanderingToDestination;
         private bool _isWaitingInIdle;
@@ -15,7 +15,7 @@ namespace _Scripts.Core.NPC.States
         private Direction _movingDirection;
         Vector3 _destinationPosition = Vector3.zero;
         
-        public GeneralWorkerWanderingState(GeneralWorkerFSM context) : base(context)
+        public BuilderWanderingState(BuilderFSM context) : base(context)
         {
         }
 
