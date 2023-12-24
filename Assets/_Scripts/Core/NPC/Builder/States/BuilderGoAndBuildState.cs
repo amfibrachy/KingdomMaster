@@ -1,9 +1,11 @@
 ﻿namespace _Scripts.Core.NPC.States
 {
+    using System;
     using System.Threading;
-    using System.Threading.Tasks;
     using AI;
+    using Cysharp.Threading.Tasks;
     using UnityEngine;
+    using Random = UnityEngine.Random;
 
     public class BuilderGoAndBuildState : BaseState<BuilderFSM>
     {
@@ -32,13 +34,19 @@
         {
             base.ExitState();
             
-            _context.IsWalkingToConstructionSite = false;
             _context.IsBuilding = false;
             _context.BuildTargetSet = false;
+            _context.IsWalkingToConstructionSite = false;
         }
 
         public override async void UpdateState()
         {
+            if (_context.Site.IsConstructionFinished || _context.Site.IsConstructionCanceled)
+            {
+                // Finished building or build canceled
+                _context.ChangeState(_context.WanderingState);
+            }
+            
             if (_context.IsWalkingToConstructionSite)
             {
                 if (_movingDirection == Direction.Left)
@@ -74,31 +82,39 @@
             if (!_context.IsBuilding)
             {
                 _context.AnimationController.PlayAnimation(_context.AnimationController.Build);
-                await WaitUntilBuilding();
-                _context.AnimationController.PlayAnimation(_context.AnimationController.Idle);
+
+                try
+                {
+                    await WaitUntilBuilding();
+                }
+                catch (OperationCanceledException)
+                {
+                    _context.Debug.Log($"OperationCanceledException for builder: {_context.gameObject.name}");
+                }
+                finally
+                {
+                    _context.IsBuilding = false;
+                    _context.AnimationController.PlayAnimation(_context.AnimationController.Idle);
+                    
+                    // Finished building or build canceled
+                    _context.ChangeState(_context.WanderingState);
+                }
             }
         }
         
-        private async Task WaitUntilBuilding()
+        private async UniTask WaitUntilBuilding()
         {
             _context.IsBuilding = true;
-            while (!_context.Site.IsConstructionFinished)
+            while (!_context.Site.IsConstructionFinished && !_context.Site.IsConstructionCanceled)
             {
-                _context.Site.AddProgress(((BuilderStats) _context.Stats).BuildSpeed);
+                _context.Site.AddProgress(((BuilderStats) _context.Stats).BuildSpeed / 10f);
                 if (_context.Site.IsConstructionFinished)
                 {
                     break;
                 }
                 
-                await Task.Delay(1000, _context.CancellationSource.Token);
-
-                if (_context.CancellationSource.Token.IsCancellationRequested)
-                    break;
+                await UniTask.Delay(100, DelayType.DeltaTime, PlayerLoopTiming.Update, _context.CancellationSource.Token);
             }
-            
-            _context.IsBuilding = false;
-            // Finished building or build canceled
-            _context.ChangeState(_context.WanderingState);
         }
         
         private Vector3 GetDestinationPosition()

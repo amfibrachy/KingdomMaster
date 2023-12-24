@@ -42,7 +42,7 @@ namespace _Scripts.Core.NPC
         public Transform DestinationTargetCamp => _destinationTargetCamp;
         public float IdleWaitMaxTime => _idleWaitMaxTime;
         
-        public bool IsAvailable => (IsWandering || IsWaitingInIdle) && !IsWalkingToConstructionSite && !IsBuilding && !BuildTargetSet;
+        public bool IsAvailable => _currentState == WanderingState;
         
         [Inject]
         public void Construct(IDebug debug)
@@ -55,10 +55,7 @@ namespace _Scripts.Core.NPC
             Site = site;
             BuildTargetSet = true;
             
-            if (_currentState == WanderingState)
-            {
-                CancelCurrentTask();
-            }
+            CancelCurrentTask();
         }
 
         public void CancelCurrentTask()

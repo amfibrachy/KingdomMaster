@@ -1,9 +1,11 @@
 namespace _Scripts.Core.NPC.States
 {
+    using System;
     using System.Threading;
-    using System.Threading.Tasks;
     using AI;
+    using Cysharp.Threading.Tasks;
     using UnityEngine;
+    using Random = UnityEngine.Random;
 
     public class GeneralWorkerWanderingState : BaseState<GeneralWorkerFSM>
     {
@@ -65,23 +67,28 @@ namespace _Scripts.Core.NPC.States
             if (!_context.IsWaitingInIdle)
             {
                 _context.AnimationController.PlayAnimation(_context.AnimationController.Idle);
-                
-                await WaitInIdle();
-                
-                if (_context.CancellationSource.Token.IsCancellationRequested) 
+                    
+                try
+                {
+                    await WaitInIdle();
+                }
+                catch (OperationCanceledException)
+                {
+                    _context.IsWaitingInIdle = false;
                     return;
-                
+                }
+
                 _destinationPosition = GetNewDestinationPosition();
                 _context.IsWandering = true;
             }
         }
 
-        private async Task WaitInIdle()
+        private async UniTask WaitInIdle()
         {
             _context.IsWaitingInIdle = true;
             var waitTime = Random.Range(0f, _context.IdleWaitMaxTime);
 
-            await Task.Delay((int) (waitTime * 1000), _context.CancellationSource.Token);
+            await UniTask.Delay(TimeSpan.FromSeconds(waitTime), DelayType.DeltaTime, PlayerLoopTiming.Update, _context.CancellationSource.Token);
 
             _context.IsWaitingInIdle = false;
         }

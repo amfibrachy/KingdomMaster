@@ -2,8 +2,8 @@ namespace _Scripts.Core.NPC.States
 {
     using System;
     using System.Threading;
-    using System.Threading.Tasks;
     using AI;
+    using Cysharp.Threading.Tasks;
     using UnityEngine;
     using Random = UnityEngine.Random;
 
@@ -76,29 +76,23 @@ namespace _Scripts.Core.NPC.States
                 {
                     await WaitInIdle();
                 }
-                catch (TaskCanceledException e)
+                catch (OperationCanceledException)
                 {
+                    _context.IsWaitingInIdle = false;
                     return;
                 }
-                
+
                 _destinationPosition = GetNewDestinationPosition();
                 _context.IsWandering = true;
             }
         }
 
-        private async Task WaitInIdle()
+        private async UniTask WaitInIdle()
         {
             _context.IsWaitingInIdle = true;
             var waitTime = Random.Range(1f, _context.IdleWaitMaxTime);
-
-            try
-            {
-                await Task.Delay((int) (waitTime * 1000), _context.CancellationSource.Token);
-            }
-            catch (TaskCanceledException e)
-            {
-                return;
-            }
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(waitTime), DelayType.DeltaTime, PlayerLoopTiming.Update, _context.CancellationSource.Token);
             
             _context.IsWaitingInIdle = false;
         }

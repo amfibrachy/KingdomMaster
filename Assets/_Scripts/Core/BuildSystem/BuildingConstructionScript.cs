@@ -48,7 +48,7 @@ namespace _Scripts.Core.BuildSystem
         public void AddProgress(float amount)
         {
             _currentProgress += amount;
-            UpdateProgressText((int) (_currentProgress / _buildTime * _buildersNeeded * 100));
+            UpdateProgressText((int) (_currentProgress / (_buildTime * _buildersNeeded) * 100));
         }
 
         public void CancelConstruction()

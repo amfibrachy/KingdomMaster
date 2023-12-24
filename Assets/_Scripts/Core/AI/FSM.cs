@@ -34,7 +34,7 @@ namespace _Scripts.Core.AI
             _currentState = newState;
             _currentState.EnterState();
             
-            _debug.Log($"{gameObject.name} state changed to: " + newState.GetType().Name);
+            // _debug.Log($"{gameObject.name} state changed to: " + newState.GetType().Name);
         }
         
         private void Update()
