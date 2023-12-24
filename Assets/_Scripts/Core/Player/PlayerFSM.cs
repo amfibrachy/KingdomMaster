@@ -11,8 +11,6 @@ namespace _Scripts.Core.Player
 
     public class PlayerFSM : FSM<PlayerFSM>
     {
-        [SerializeField] private PlayerStats _stats;
-
         // Injectables
         private IDebug _debug;
         private Camera _camera;
@@ -30,7 +28,7 @@ namespace _Scripts.Core.Player
         // Public Access To Different States
         public IDebug Debug => _debug;
         public Camera Camera => _camera;
-        public float Speed {get; private set; }
+        public float CurrentSpeed {get; private set; }
 
         public bool IsPlayerRunning { get; private set; }
         public bool IsInBuildMode { get;  set; }
@@ -47,7 +45,7 @@ namespace _Scripts.Core.Player
 
         private void Awake()
         {
-            Speed = _stats.WalkSpeed;
+            CurrentSpeed = ((PlayerStats) Stats).WalkSpeed;
             
             InitInput(); 
         }
@@ -103,11 +101,11 @@ namespace _Scripts.Core.Player
 
             if (IsPlayerRunning)
             {
-                Speed = _stats.RunSpeed;
+                CurrentSpeed = ((PlayerStats) Stats).RunSpeed;
             }
             else
             {
-                Speed = _stats.WalkSpeed;
+                CurrentSpeed = ((PlayerStats) Stats).WalkSpeed;
             }
         }
     }

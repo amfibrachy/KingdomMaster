@@ -37,7 +37,7 @@ namespace _Scripts.Core.Player.States
                     : _context.AnimationController.WalkAttack, OnAttackFinished);
                 
                 _isWalkAttacking = true;
-                _context.transform.Translate((int) movingDirection * _context.Speed * Time.deltaTime, 0, 0, Space.World);
+                _context.transform.Translate((int) movingDirection * _context.CurrentSpeed * Time.deltaTime, 0, 0, Space.World);
             }
             else if (movingDirection == Direction.Left  && !_context.AnimationController.IsAnimationLocked)
             {
@@ -46,7 +46,7 @@ namespace _Scripts.Core.Player.States
                     : _context.AnimationController.WalkAttack, OnAttackFinished); 
                 
                 _isWalkAttacking = true;
-                _context.transform.Translate((int) movingDirection * _context.Speed * Time.deltaTime, 0, 0, Space.World);
+                _context.transform.Translate((int) movingDirection * _context.CurrentSpeed * Time.deltaTime, 0, 0, Space.World);
             }
             else
             {

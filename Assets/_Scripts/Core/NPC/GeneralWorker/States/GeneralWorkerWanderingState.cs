@@ -1,6 +1,5 @@
 namespace _Scripts.Core.NPC.States
 {
-    using System.Collections;
     using System.Threading;
     using System.Threading.Tasks;
     using AI;
@@ -10,7 +9,6 @@ namespace _Scripts.Core.NPC.States
     {
         private bool _isWanderingToDestination;
         private bool _isWaitingInIdle;
-        private CancellationToken _token;
 
         private Direction _movingDirection;
         Vector3 _destinationPosition = Vector3.zero;
@@ -19,9 +17,29 @@ namespace _Scripts.Core.NPC.States
         {
         }
 
+        public override void EnterState()
+        {
+            base.EnterState();
+            
+            _context.IsWandering = true;
+            _context.IsWaitingInIdle = false;
+            
+            _destinationPosition = GetNewDestinationPosition();
+            
+            _context.CancellationSource = new CancellationTokenSource();
+        }
+
+        public override void ExitState()
+        {
+            base.ExitState();
+            
+            _context.IsWandering = false;
+            _context.IsWaitingInIdle = false;
+        }
+        
         public override async void UpdateState()
         {
-            if (_isWanderingToDestination)
+            if (_context.IsWandering)
             {
                 if (_movingDirection == Direction.Left)
                 {
@@ -33,42 +51,45 @@ namespace _Scripts.Core.NPC.States
                 }
 
                 _context.AnimationController.PlayAnimation(_context.AnimationController.Walk);
-                _context.transform.Translate((int) _movingDirection * _context.Speed * Time.deltaTime, 0, 0,
+                _context.transform.Translate((int) _movingDirection * ((GeneralWorkerStats)_context.Stats).WalkSpeed * Time.deltaTime, 0, 0,
                     Space.World);
 
                 if (Vector2.Distance(_context.transform.position, _destinationPosition) < 0.1f)
                 {
-                    _isWanderingToDestination = false;
+                    _context.IsWandering = false;
                 }
                 
                 return;
             }
 
-            if (!_isWaitingInIdle)
+            if (!_context.IsWaitingInIdle)
             {
                 _context.AnimationController.PlayAnimation(_context.AnimationController.Idle);
                 
                 await WaitInIdle();
                 
+                if (_context.CancellationSource.Token.IsCancellationRequested) 
+                    return;
+                
                 _destinationPosition = GetNewDestinationPosition();
-                _isWanderingToDestination = true;
+                _context.IsWandering = true;
             }
         }
 
         private async Task WaitInIdle()
         {
-            _isWaitingInIdle = true;
+            _context.IsWaitingInIdle = true;
             var waitTime = Random.Range(0f, _context.IdleWaitMaxTime);
 
-            await Task.Delay((int) (waitTime * 1000), _token);
+            await Task.Delay((int) (waitTime * 1000), _context.CancellationSource.Token);
 
-            _isWaitingInIdle = false;
+            _context.IsWaitingInIdle = false;
         }
 
         private Vector3 GetNewDestinationPosition()
         {
             var targetPosition = _context.WanderingTarget.position;
-            var newPosition = Random.Range(targetPosition.x - _context.WanderingMaxDistance, targetPosition.x + _context.WanderingMaxDistance);
+            var newPosition = Random.Range(targetPosition.x - _context.DestinationOffsetWanderingMaxDistance, targetPosition.x + _context.DestinationOffsetWanderingMaxDistance);
             
             _movingDirection = newPosition >= _context.transform.position.x ? Direction.Right : Direction.Left;
             

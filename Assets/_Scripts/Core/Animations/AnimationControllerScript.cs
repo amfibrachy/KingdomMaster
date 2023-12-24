@@ -32,6 +32,9 @@ namespace _Scripts.Core.Animations
         public readonly int WalkAttack = Animator.StringToHash("walk_attack");
         public readonly int ReverseWalkAttack = Animator.StringToHash("reverse_walk_attack");
         public readonly int ReverseWalk = Animator.StringToHash("reverse_walk");
+        
+        // Builder Specific Animations
+        public readonly int Build = Animator.StringToHash("build");
 
         [Inject] private IDebug _debug;
 

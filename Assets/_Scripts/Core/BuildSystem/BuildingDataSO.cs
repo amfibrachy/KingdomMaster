@@ -8,6 +8,7 @@ namespace _Scripts.Core.BuildSystem
         public string Name;
         public int Cost;
         public float BuildTime;
+        public int BuildersNeeded;
         public Sprite IconSprite;
         
         public BuildingPlacementScript Prefab;
@@ -15,6 +16,8 @@ namespace _Scripts.Core.BuildSystem
         
         public float MinBuildDistance;
         public BuildingType Type;
+
+        public float BuildingWidth;
     }
 
     public enum BuildingType

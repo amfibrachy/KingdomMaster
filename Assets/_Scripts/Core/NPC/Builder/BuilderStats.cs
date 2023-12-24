@@ -4,5 +4,6 @@
 
     public class BuilderStats : BaseStats
     {
+        public float BuildSpeed = 1f;
     }
 }
