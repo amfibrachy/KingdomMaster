@@ -12,7 +12,8 @@ namespace _Scripts.Core.BuildSystem
         public BuildingType Type => _data.Type;
 
         [SerializeField] private BuildingDataSO _defaultSettings;
-        
+        [SerializeField] private string _previewSortingLayer;
+
         // Privates
         private TilemapRenderer[] _renderers;
         private BuildingDataSO _data;
@@ -28,6 +29,7 @@ namespace _Scripts.Core.BuildSystem
             foreach (var tilemapRenderer in _renderers)
             {
                 tilemapRenderer.material = material;
+                tilemapRenderer.sortingLayerName = _previewSortingLayer;
             }
         }
 

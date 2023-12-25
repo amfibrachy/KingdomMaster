@@ -147,6 +147,7 @@ namespace _Scripts.Core.BuildSystem
             StopPlacement();
             
             _toBuild = Instantiate(buildingData.Prefab);
+
             _toBuild.OnCollisionEnter += OnPlacementInvalid;
             _toBuild.OnCollisionExit += OnPlacementValid;
             _toBuild.Initialize(buildingData);
