@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6909731003353180714}
   - component: {fileID: 3291901067457346387}
   - component: {fileID: 9048207267145131735}
+  - component: {fileID: 7930482427756256766}
   m_Layer: 0
   m_Name: Builder
   m_TagString: Untagged
@@ -137,6 +138,7 @@ MonoBehaviour:
   _destinationTargetCamp: {fileID: 0}
   _destinationOffsetWanderingMaxDistance: 7
   _idleWaitMaxTime: 3
+  _buildParticlesOffset: {x: 0.385, y: 0.35, z: 0}
 --- !u!114 &9048207267145131735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,3 +153,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WalkSpeed: 3
   BuildSpeed: 1
+--- !u!114 &7930482427756256766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152409564871949717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 161c99d4068e4ed894f8e1d5565585b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particlePoolPrefab: {fileID: 4309037695643000656, guid: 4fed8089b9809764dbaded0b68ce5e82, type: 3}

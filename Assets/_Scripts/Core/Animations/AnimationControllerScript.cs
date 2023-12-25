@@ -12,6 +12,8 @@ namespace _Scripts.Core.Animations
     {
         public bool IsUninterruptedPlaying { get; private set; }
         public bool IsAnimationLocked { get; private set; }
+
+        public bool IsFacingRight => _spriteRenderer.flipX == false;
         
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;

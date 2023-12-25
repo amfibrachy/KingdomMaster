@@ -9,7 +9,6 @@
 
     public class BuilderGoAndBuildState : BaseState<BuilderFSM>
     {
-        private Direction _movingDirection;
         private Vector3 _destinationPosition = Vector3.zero;
         
         public BuilderGoAndBuildState(BuilderFSM context) : base(context)
@@ -49,7 +48,7 @@
             
             if (_context.IsWalkingToConstructionSite)
             {
-                if (_movingDirection == Direction.Left)
+                if (_context.MovingDirection == Direction.Left)
                 {
                     _context.AnimationController.TurnLeft();
                 }
@@ -59,7 +58,7 @@
                 }
 
                 _context.AnimationController.PlayAnimation(_context.AnimationController.Walk);
-                _context.transform.Translate((int) _movingDirection * _context.Stats.WalkSpeed * Time.deltaTime, 0, 0,
+                _context.transform.Translate((int) _context.MovingDirection * _context.Stats.WalkSpeed * Time.deltaTime, 0, 0,
                     Space.World);
 
                 if (Vector2.Distance(_context.transform.position, _destinationPosition) < 0.1f)
@@ -122,7 +121,7 @@
             var targetPosition = _context.DestinationTarget.position;
             var newPosition = Random.Range(targetPosition.x - _context.DestinationOffsetMaxDistance, targetPosition.x + _context.DestinationOffsetMaxDistance);
             
-            _movingDirection = newPosition >= _context.transform.position.x ? Direction.Right : Direction.Left;
+            _context.MovingDirection = newPosition >= _context.transform.position.x ? Direction.Right : Direction.Left;
             
             return new Vector3(newPosition, 0, 0);
         }
