@@ -10,6 +10,7 @@ namespace _Scripts.Core.BuildSystem
         public event Action OnCollisionExit;
         
         public BuildingType Type => _data.Type;
+        public BuildingDataSO Data => _data;
 
         [SerializeField] private BuildingDataSO _defaultSettings;
         [SerializeField] private string _previewSortingLayer;

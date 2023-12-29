@@ -18,10 +18,12 @@ namespace _Scripts.Core.BuildSystem
         public BuildingType Type;
 
         public float BuildingWidth;
+        public float BuildingHeight;
     }
 
     public enum BuildingType
     {
+        Camp,
         Tower,
         House,
         Wall

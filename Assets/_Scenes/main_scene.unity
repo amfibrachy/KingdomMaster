@@ -647,7 +647,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.75
+  orthographic size: 6.0390625
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -3963,7 +3963,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1557997285
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5135780a6e29f1c408cef2e75fe83c16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4525,7 +4525,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1557997285
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5135780a6e29f1c408cef2e75fe83c16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4704,6 +4704,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1044396713521886188, guid: 88c21f824d018084b8f0307706c3fdb7, type: 3}
   m_PrefabInstance: {fileID: 840201267929937685}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2011438411
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5197952607409278702, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6865912232913786299, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+      propertyPath: m_Name
+      value: Archer_TowerT1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
 --- !u!1 &2014216645
 GameObject:
   m_ObjectHideFlags: 0
@@ -4944,7 +5001,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1557997285
-  m_SortingLayer: -4
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5135780a6e29f1c408cef2e75fe83c16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5252,3 +5309,4 @@ SceneRoots:
   - {fileID: 47965003}
   - {fileID: 1495841160}
   - {fileID: 8150974368321642576}
+  - {fileID: 2011438411}

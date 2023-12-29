@@ -20,5 +20,6 @@ MonoBehaviour:
   Prefab: {fileID: -3637255743499925574, guid: 9f8b052d4b70acf4aab3dc76e4f907a7, type: 3}
   ConstructionPrefab: {fileID: 2897897930199589277, guid: fa7c47a1aebb87644936e7cc689a3bba, type: 3}
   MinBuildDistance: 15
-  Type: 1
+  Type: 0
   BuildingWidth: 7
+  BuildingHeight: 4
