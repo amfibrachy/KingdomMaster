@@ -1,4 +1,4 @@
-namespace _Scripts.Core.UI.BuildSystem
+namespace _Scripts.Core.BuildSystem
 {
     using System;
     using UnityEngine;
@@ -10,9 +10,11 @@ namespace _Scripts.Core.UI.BuildSystem
         public event Action OnCollisionExit;
         
         public BuildingType Type => _data.Type;
+        public BuildingDataSO Data => _data;
 
         [SerializeField] private BuildingDataSO _defaultSettings;
-        
+        [SerializeField] private string _previewSortingLayer;
+
         // Privates
         private TilemapRenderer[] _renderers;
         private BuildingDataSO _data;
@@ -28,6 +30,7 @@ namespace _Scripts.Core.UI.BuildSystem
             foreach (var tilemapRenderer in _renderers)
             {
                 tilemapRenderer.material = material;
+                tilemapRenderer.sortingLayerName = _previewSortingLayer;
             }
         }
 

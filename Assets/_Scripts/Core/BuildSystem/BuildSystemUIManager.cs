@@ -1,6 +1,6 @@
-namespace _Scripts.Core.UI.BuildSystem
+namespace _Scripts.Core.BuildSystem
 {
-    using Player;
+    using _Scripts.Core.Player;
     using UnityEngine;
     using UnityEngine.InputSystem;
 

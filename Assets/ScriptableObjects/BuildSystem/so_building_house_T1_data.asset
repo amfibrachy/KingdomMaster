@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
+  m_Name: so_building_house_T1_data
+  m_EditorClassIdentifier: 
+  Name: Villager house tier 1
+  Cost: 60
+  BuildTime: 15
+  BuildersNeeded: 1
+  IconSprite: {fileID: 21300000, guid: b0ae9de34f5506c4994d912f71d5a6f1, type: 3}
+  Prefab: {fileID: 3832781158818760933, guid: 53fd0f09821028e428c8eeb9271f9fe1, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: c2254b0c431b49641a4f1d4234c69776, type: 3}
+  MinBuildDistance: 4
+  Type: 2
+  BuildingWidth: 7
+  BuildingHeight: 3

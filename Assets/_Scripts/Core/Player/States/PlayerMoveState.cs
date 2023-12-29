@@ -1,8 +1,7 @@
 namespace _Scripts.Core.Player.States
 {
-    using Core.States;
+    using AI;
     using UnityEngine;
-    using UnityEngine.InputSystem;
 
     public class PlayerMoveState : BaseState<PlayerFSM>
     {
@@ -66,7 +65,7 @@ namespace _Scripts.Core.Player.States
                 _context.AnimationController.PlayAnimation(_context.AnimationController.Idle);
             }
             
-            _context.transform.Translate((int) movingDirection * _context.Speed * Time.deltaTime, 0, 0, Space.World);
+            _context.transform.Translate((int) movingDirection * _context.CurrentSpeed * Time.deltaTime, 0, 0, Space.World);
         }
 
         private void UpdateFacing(Direction facing)

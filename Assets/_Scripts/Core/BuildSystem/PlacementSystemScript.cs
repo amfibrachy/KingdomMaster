@@ -1,12 +1,12 @@
-namespace _Scripts.Core.UI.BuildSystem
+namespace _Scripts.Core.BuildSystem
 {
     using System;
     using System.Globalization;
+    using _Scripts.Utils.Debugging;
     using global::Zenject;
     using TMPro;
     using UnityEngine;
     using UnityEngine.InputSystem;
-    using Utils.Debugging;
 
     public class PlacementSystemScript : MonoBehaviour
     {
@@ -20,7 +20,6 @@ namespace _Scripts.Core.UI.BuildSystem
         
         [SerializeField] private float _transparencyValue = 0.5f;
         [SerializeField] private float _distanceToPlayer = 20f;
-        [SerializeField] private float _rulerDisplayHeight = 5f;
         [SerializeField] private float _rulerShowMinDistance = 1f;
         
         [Header("References")] 
@@ -36,6 +35,7 @@ namespace _Scripts.Core.UI.BuildSystem
         private Camera _camera;
         
         private BuildingPlacementScript _toBuild;
+        private BoxCollider2D _toBuildCollider;
         private Material _transparentMaterial;
 
         private RaycastHit2D _raycastHit;
@@ -80,64 +80,64 @@ namespace _Scripts.Core.UI.BuildSystem
         
         private void Update()
         {
-            if (_placementActive)
+            if (!_placementActive)
+                return;
+            
+            var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            _raycastHit = Physics2D.GetRayIntersection(ray, 100f, _buildingZoneMask);
+            
+            if (_raycastHit.collider)
             {
-                var ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-                _raycastHit = Physics2D.GetRayIntersection(ray, 100f, _buildingZoneMask);
+                _toBuild.Activate();
+
+                _toBuild.transform.position = new Vector3(Mathf.RoundToInt(_raycastHit.point.x), 0f);
+                var positionValidityState = IsPlacementValid();
                 
-                if (_raycastHit.collider)
+                if (_previousValidityState != positionValidityState)
                 {
-                    _toBuild.Activate();
-
-                    _toBuild.transform.position = new Vector3(Mathf.RoundToInt(_raycastHit.point.x), 0f);
-                    var positionValidityState = IsPlacementValid();
-                    
-                    if (_previousValidityState != positionValidityState)
+                    switch (positionValidityState)
                     {
-                        switch (positionValidityState)
-                        {
-                            case ValidityState.Valid:
-                                _transparentMaterial.SetColor(Color1, _validColor);
-                                _transparentMaterial.SetFloat(Alpha, _transparencyValue);
+                        case ValidityState.Valid:
+                            _transparentMaterial.SetColor(Color1, _validColor);
+                            _transparentMaterial.SetFloat(Alpha, _transparencyValue);
 
-                                break;
+                            break;
+                        
+                        case ValidityState.Invalid:
+                            _transparentMaterial.SetColor(Color1, _invalidColor);
+                            _transparentMaterial.SetFloat(Alpha, _transparencyValue);
                             
-                            case ValidityState.Invalid:
-                                _transparentMaterial.SetColor(Color1, _invalidColor);
-                                _transparentMaterial.SetFloat(Alpha, _transparencyValue);
-                                
-                                break;
+                            break;
+                        
+                        case ValidityState.FarLeft:
+                        case ValidityState.FarRight:
+                        case ValidityState.FarPlayer:
+                            _transparentMaterial.SetColor(Color1, _tooFarColor);
+                            _transparentMaterial.SetFloat(Alpha, _transparencyValue);
                             
-                            case ValidityState.FarLeft:
-                            case ValidityState.FarRight:
-                            case ValidityState.FarPlayer:
-                                _transparentMaterial.SetColor(Color1, _tooFarColor);
-                                _transparentMaterial.SetFloat(Alpha, _transparencyValue);
-                                
-                                break;
-                            
-                            case ValidityState.None:
-                                break;
-                            
-                            default:
-                                throw new ArgumentOutOfRangeException();
-                        }
+                            break;
+                        
+                        case ValidityState.None:
+                            break;
+                        
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
 
-                        _toBuild.SetMaterial(_transparentMaterial);
-                        _previousValidityState = positionValidityState;
-                        SetRulerEnabled(false);
-                    }
-                    
-                    if (_mouseAction.triggered && positionValidityState == ValidityState.Valid)
-                    {
-                        StartBuilding(_toBuild.transform.position);
-                    }
-                }
-                else
-                {
-                    _toBuild.Deactivate();
+                    _toBuild.SetMaterial(_transparentMaterial);
+                    _previousValidityState = positionValidityState;
                     SetRulerEnabled(false);
                 }
+                
+                if (_mouseAction.triggered && positionValidityState == ValidityState.Valid)
+                {
+                    PlaceConstructionSite(_toBuild.transform.position);
+                }
+            }
+            else
+            {
+                _toBuild.Deactivate();
+                SetRulerEnabled(false);
             }
         }
         
@@ -147,9 +147,11 @@ namespace _Scripts.Core.UI.BuildSystem
             StopPlacement();
             
             _toBuild = Instantiate(buildingData.Prefab);
+
             _toBuild.OnCollisionEnter += OnPlacementInvalid;
             _toBuild.OnCollisionExit += OnPlacementValid;
             _toBuild.Initialize(buildingData);
+            _toBuildCollider = _toBuild.GetComponent<BoxCollider2D>();
 
             SetRulerEnabled(false);
             _activeCollisions = 0;
@@ -159,7 +161,7 @@ namespace _Scripts.Core.UI.BuildSystem
             _placementActive = true;
         }
         
-        private void StartBuilding(Vector2 position)
+        private void PlaceConstructionSite(Vector2 position)
         {
             StopPlacement();
             OnBuildingPlaced?.Invoke(_buildingData, position);
@@ -187,13 +189,11 @@ namespace _Scripts.Core.UI.BuildSystem
         {
             if (_activeCollisions != 0)
             {
-                // SetRulerEnabled(false);
                 return ValidityState.Invalid;
             }
 
             if (CheckPlayerDistance() == false)
             {
-                // SetRulerEnabled(false);
                 return ValidityState.FarPlayer;
             }
 
@@ -221,21 +221,21 @@ namespace _Scripts.Core.UI.BuildSystem
         private bool CheckBuildingDistance(Vector2 direction)
         {
             var currentPosition = _toBuild.transform.position;
-            var raycastHits = Physics2D.RaycastAll(currentPosition, direction, _buildingData.MinBuildDistance, _buildingsLayer);
+            var raycastOrigin = new Vector3(currentPosition.x + ((_toBuildCollider.bounds.extents.x + 0.1f) * direction.x), currentPosition.y, currentPosition.z);
+            var raycastHits = Physics2D.RaycastAll(raycastOrigin, direction, _buildingData.MinBuildDistance, _buildingsLayer);
 
-            // Start from index 1 to ignore self collision
-            for (var index = 1; index < raycastHits.Length; index++)
+            // No need to start checking from index 1 because raycast origin happens on left/right extent + 0.1f offset
+            for (var index = 0; index < raycastHits.Length; index++)
             {
                 var hit = raycastHits[index];
                 var building = hit.collider.GetComponent<BuildingPlacementScript>();
-                var colliderSizeWidth = hit.collider.GetComponent<BoxCollider2D>().size.x;
 
                 if (building != null && building.Type == _buildingData.Type)
                 {
                     float distanceToBuilding = Vector2.Distance(currentPosition, building.transform.position);
-                    var exactDistance = distanceToBuilding - colliderSizeWidth;
-                    
-                    var isBuildingNear = distanceToBuilding <= _buildingData.MinBuildDistance;
+                    float exactDistance = distanceToBuilding - hit.collider.bounds.extents.x - _toBuildCollider.bounds.extents.x;
+
+                    var isBuildingNear = exactDistance <= _buildingData.MinBuildDistance;
 
                     if (isBuildingNear)
                     {
@@ -246,7 +246,7 @@ namespace _Scripts.Core.UI.BuildSystem
                         else
                         {
                             var rulerPosition = (currentPosition + building.transform.position) / 2f;
-                            transform.position = new Vector3(rulerPosition.x, rulerPosition.y + _rulerDisplayHeight, rulerPosition.z);
+                            transform.position = new Vector3(rulerPosition.x, rulerPosition.y + _buildingData.BuildingHeight, rulerPosition.z);
 
                             _rulerRenderer.size = new Vector2(Mathf.Max(1f, exactDistance), 0.52f);
                             _distanceText.text = Mathf.RoundToInt(exactDistance).ToString(CultureInfo.InvariantCulture);

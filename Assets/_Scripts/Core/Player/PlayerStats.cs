@@ -1,10 +1,9 @@
 namespace _Scripts.Core.Player
 {
-    using UnityEngine;
+    using Stats;
 
-    public class PlayerStats : MonoBehaviour
+    public class PlayerStats : BaseStats
     {
-        public float WalkSpeed = 3f;
         public float RunSpeed = 5f;
     }
 }

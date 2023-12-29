@@ -1,26 +1,16 @@
 namespace _Scripts.Core.Player
 {
     using System;
+    using AI;
     using Animations;
-    using Core.States;
     using global::Zenject;
     using States;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using Utils.Debugging;
 
-    public enum Direction
+    public class PlayerFSM : FSM<PlayerFSM>
     {
-        None = 0,
-        Left = -1,
-        Right = 1
-    }
-    
-    public class PlayerFSM : MonoBehaviour
-    {
-        [SerializeField] private AnimationControllerScript _animationController;
-        [SerializeField] private PlayerStats _stats;
-
         // Injectables
         private IDebug _debug;
         private Camera _camera;
@@ -38,19 +28,14 @@ namespace _Scripts.Core.Player
         // Public Access To Different States
         public IDebug Debug => _debug;
         public Camera Camera => _camera;
-        public AnimationControllerScript AnimationController => _animationController;
-        public float Speed {get; private set; }
+        public float CurrentSpeed {get; private set; }
 
         public bool IsPlayerRunning { get; private set; }
         public bool IsInBuildMode { get;  set; }
 
-        // FSM
-        private BaseState<PlayerFSM> _currentState;
-
         public PlayerMoveState MoveState;
         public PlayerAttackState AttackState;
         
-
         [Inject]
         public void Construct(IDebug debug, Camera camera)
         {
@@ -58,35 +43,22 @@ namespace _Scripts.Core.Player
             _camera = camera;
         }
 
-        private void Start()
+        private void Awake()
         {
-            Speed = _stats.WalkSpeed;
+            CurrentSpeed = ((PlayerStats) Stats).WalkSpeed;
             
-            InitInput();
-            InitStates();
+            InitInput(); 
+        }
 
+        public override void InitStates()
+        {
+            MoveState = new PlayerMoveState(this);
+            AttackState = new PlayerAttackState(this);
+            
             _currentState = MoveState;
             _currentState.EnterState();
         }
 
-        private void InitStates()
-        {
-            MoveState = new PlayerMoveState(this);
-            AttackState = new PlayerAttackState(this);
-        }
-
-        private void Update()
-        {
-            _currentState.UpdateState();
-        }
-
-        public void ChangeState(BaseState<PlayerFSM> newState)
-        {
-            _currentState.ExitState();
-            _currentState = newState;
-            _currentState.EnterState();
-        }
-        
         private void InitInput()
         {
             InputManager.Player.Enable();
@@ -129,11 +101,11 @@ namespace _Scripts.Core.Player
 
             if (IsPlayerRunning)
             {
-                Speed = _stats.RunSpeed;
+                CurrentSpeed = ((PlayerStats) Stats).RunSpeed;
             }
             else
             {
-                Speed = _stats.WalkSpeed;
+                CurrentSpeed = ((PlayerStats) Stats).WalkSpeed;
             }
         }
     }

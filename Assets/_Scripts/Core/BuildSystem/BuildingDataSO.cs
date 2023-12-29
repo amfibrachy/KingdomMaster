@@ -1,4 +1,4 @@
-namespace _Scripts.Core.UI.BuildSystem
+namespace _Scripts.Core.BuildSystem
 {
     using UnityEngine;
 
@@ -8,6 +8,7 @@ namespace _Scripts.Core.UI.BuildSystem
         public string Name;
         public int Cost;
         public float BuildTime;
+        public int BuildersNeeded;
         public Sprite IconSprite;
         
         public BuildingPlacementScript Prefab;
@@ -15,10 +16,14 @@ namespace _Scripts.Core.UI.BuildSystem
         
         public float MinBuildDistance;
         public BuildingType Type;
+
+        public float BuildingWidth;
+        public float BuildingHeight;
     }
 
     public enum BuildingType
     {
+        Camp,
         Tower,
         House,
         Wall

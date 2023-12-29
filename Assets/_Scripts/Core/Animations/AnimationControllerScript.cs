@@ -12,6 +12,8 @@ namespace _Scripts.Core.Animations
     {
         public bool IsUninterruptedPlaying { get; private set; }
         public bool IsAnimationLocked { get; private set; }
+
+        public bool IsFacingRight => _spriteRenderer.flipX == false;
         
         private Animator _animator;
         private SpriteRenderer _spriteRenderer;
@@ -24,6 +26,7 @@ namespace _Scripts.Core.Animations
         public readonly int Idle = Animator.StringToHash("idle");
         public readonly int Walk = Animator.StringToHash("walk");
         public readonly int Run = Animator.StringToHash("run");
+        public readonly int Death = Animator.StringToHash("death");
         
         // Player Specific Animations
         public readonly int PickaxeAttack = Animator.StringToHash("pickaxe_attack");
@@ -31,6 +34,9 @@ namespace _Scripts.Core.Animations
         public readonly int WalkAttack = Animator.StringToHash("walk_attack");
         public readonly int ReverseWalkAttack = Animator.StringToHash("reverse_walk_attack");
         public readonly int ReverseWalk = Animator.StringToHash("reverse_walk");
+        
+        // Builder Specific Animations
+        public readonly int Build = Animator.StringToHash("build");
 
         [Inject] private IDebug _debug;
 
