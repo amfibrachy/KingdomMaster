@@ -248,7 +248,7 @@ namespace _Scripts.Core.BuildSystem
                             var rulerPosition = (currentPosition + building.transform.position) / 2f;
                             transform.position = new Vector3(rulerPosition.x, rulerPosition.y + _buildingData.BuildingHeight, rulerPosition.z);
 
-                            _rulerRenderer.size = new Vector2(Mathf.Max(1f, exactDistance), 0.52f);
+                            _rulerRenderer.size = new Vector2(Mathf.Max(1f, exactDistance), _rulerRenderer.size.y);
                             _distanceText.text = Mathf.RoundToInt(exactDistance).ToString(CultureInfo.InvariantCulture);
                             SetRulerEnabled(true);
                         }
