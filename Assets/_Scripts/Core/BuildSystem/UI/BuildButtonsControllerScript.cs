@@ -1,8 +1,6 @@
-namespace _Scripts.Core.UI.BuildSystem
+namespace _Scripts.Core.BuildSystem.UI
 {
-    using System;
     using System.Collections.Generic;
-    using Core.BuildSystem;
     using UnityEngine;
 
     public class BuildButtonsControllerScript : MonoBehaviour

@@ -7,7 +7,7 @@ namespace _Scripts.Core.NPC.States
     using UnityEngine;
     using Random = UnityEngine.Random;
 
-    public class GeneralWorkerWanderingState : BaseState<GeneralWorkerFSM>
+    public class SluggardWanderingState : BaseState<SluggardFSM>
     {
         private bool _isWanderingToDestination;
         private bool _isWaitingInIdle;
@@ -15,7 +15,7 @@ namespace _Scripts.Core.NPC.States
         private Direction _movingDirection;
         Vector3 _destinationPosition = Vector3.zero;
         
-        public GeneralWorkerWanderingState(GeneralWorkerFSM context) : base(context)
+        public SluggardWanderingState(SluggardFSM context) : base(context)
         {
         }
 
@@ -53,7 +53,7 @@ namespace _Scripts.Core.NPC.States
                 }
 
                 _context.AnimationController.PlayAnimation(_context.AnimationController.Walk);
-                _context.transform.Translate((int) _movingDirection * ((GeneralWorkerStats)_context.Stats).WalkSpeed * Time.deltaTime, 0, 0,
+                _context.transform.Translate((int) _movingDirection * ((SluggardStats)_context.Stats).WalkSpeed * Time.deltaTime, 0, 0,
                     Space.World);
 
                 if (Vector2.Distance(_context.transform.position, _destinationPosition) < 0.1f)

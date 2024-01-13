@@ -1,4 +1,4 @@
-namespace _Scripts.Core.UI
+namespace _Scripts.Core.BuildSystem.UI
 {
     using System;
     using UnityEngine;

@@ -7,7 +7,7 @@ namespace _Scripts.Core.NPC
     using UnityEngine;
     using Utils.Debugging;
 
-    public class GeneralWorkerFSM : FSM<GeneralWorkerFSM>
+    public class SluggardFSM : FSM<SluggardFSM>
     {
         // Injectables
         private IDebug _debug;
@@ -20,7 +20,7 @@ namespace _Scripts.Core.NPC
         // Public Access To Different States and Objects
         public IDebug Debug => _debug;
 
-        public GeneralWorkerWanderingState WanderingState;
+        public SluggardWanderingState WanderingState;
         
         /************************************************************* Fields  *************************************************************/
         
@@ -43,7 +43,7 @@ namespace _Scripts.Core.NPC
 
         public override void InitStates()
         {
-            WanderingState = new GeneralWorkerWanderingState(this);
+            WanderingState = new SluggardWanderingState(this);
             
             _currentState = WanderingState;
             _currentState.EnterState();
