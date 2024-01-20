@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3982203508166115439}
   - component: {fileID: 7301666584932207672}
   m_Layer: 0
-  m_Name: GeneralWorker
+  m_Name: Sluggard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
