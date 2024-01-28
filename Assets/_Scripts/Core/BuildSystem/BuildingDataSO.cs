@@ -19,6 +19,8 @@ namespace _Scripts.Core.BuildSystem
 
         public float BuildingWidth;
         public float BuildingHeight;
+
+        public int TotalPlaces;
     }
 
     public enum BuildingType

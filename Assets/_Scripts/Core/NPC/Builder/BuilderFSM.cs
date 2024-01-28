@@ -12,9 +12,6 @@ namespace _Scripts.Core.NPC
 
     public class BuilderFSM : FSM<BuilderFSM>
     {
-        // Injectables
-        [Inject] private IDebug _debug;
-        
         // Privates
         [Header("Wandering")]
         [SerializeField] private Transform _destinationTargetCamp;
@@ -27,16 +24,12 @@ namespace _Scripts.Core.NPC
         private BuilderParticleSpawner _particleSpawner;
         
         /*************************************** Public Access To Different States and Objects  *******************************************/
-        
-        public IDebug Debug => _debug;
 
         public BuilderWanderingState WanderingState { get; private set; }
         public BuilderGoAndBuildState GoAndBuildState { get; private set; }
         
         /************************************************************* Fields  *************************************************************/
-        
-        public CancellationTokenSource CancellationSource { get; set; }
-        
+
         public Direction MovingDirection { get; set; }
         public Transform DestinationTarget { get; set; }
         public float DestinationOffsetMaxDistance { get; set; }
@@ -55,12 +48,6 @@ namespace _Scripts.Core.NPC
         public float IdleWaitMaxTime => _idleWaitMaxTime;
         
         public bool IsAvailable => _currentState == WanderingState;
-        
-        [Inject]
-        public void Construct(IDebug debug)
-        {
-            _debug = debug;
-        }
 
         private void Awake()
         {
@@ -90,6 +77,7 @@ namespace _Scripts.Core.NPC
         
         public override void InitStates()
         {
+            Agent = AgentType.WithJob;
             WanderingState = new BuilderWanderingState(this);
             GoAndBuildState = new BuilderGoAndBuildState(this);
             

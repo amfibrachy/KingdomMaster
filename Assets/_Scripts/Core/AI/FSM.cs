@@ -1,6 +1,6 @@
 namespace _Scripts.Core.AI
 {
-    using System;
+    using System.Threading;
     using Animations;
     using global::Zenject;
     using Stats;
@@ -12,9 +12,14 @@ namespace _Scripts.Core.AI
     {
         [SerializeField] private BaseStats _stats;
         
-        [Inject] private IDebug _debug;
+        protected AgentType Agent;
+        
+        // Injectables
+        [Inject] public IDebug Debug;
+        [Inject] protected PopulationController PopulationController;
         
         public AnimationControllerScript AnimationController => _animationController;
+        public CancellationTokenSource CancellationSource { get; set; }
         public BaseStats Stats => _stats;
         
         private AnimationControllerScript _animationController;
@@ -28,18 +33,30 @@ namespace _Scripts.Core.AI
 
         public abstract void InitStates();
 
+        public virtual void Dispatch()
+        {
+            CancellationSource.Cancel();
+            _currentState.ExitState();
+            _currentState = null;
+            
+            PopulationController.OnDispatch(this, Agent);
+        }
+
         public void ChangeState(BaseState<T> newState)
         {
             _currentState.ExitState();
             _currentState = newState;
             _currentState.EnterState();
             
-            // _debug.Log($"{gameObject.name} state changed to: " + newState.GetType().Name);
+            Debug.Log($"{gameObject.name} state changed to: " + newState.GetType().Name);
         }
         
         private void Update()
         {
-            _currentState.UpdateState();
+            if (_currentState != null)
+            {
+                _currentState.UpdateState();
+            }
         }
     }
 }

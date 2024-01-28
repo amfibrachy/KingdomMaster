@@ -41,6 +41,11 @@ namespace _Scripts.Core.NPC.States
         
         public override async void UpdateState()
         {
+            if (_context.JobTrainingTargetSet)
+            {
+                _context.ChangeState(_context.GoAndTrainState);
+            }
+            
             if (_context.IsWandering)
             {
                 if (_movingDirection == Direction.Left)

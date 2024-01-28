@@ -1,8 +1,6 @@
 namespace _Scripts.Core.Player
 {
-    using System;
     using AI;
-    using Animations;
     using global::Zenject;
     using States;
     using UnityEngine;
@@ -12,8 +10,7 @@ namespace _Scripts.Core.Player
     public class PlayerFSM : FSM<PlayerFSM>
     {
         // Injectables
-        private IDebug _debug;
-        private Camera _camera;
+        private Camera _mainCamera;
         
         // Input System
         private InputAction _moveAction;
@@ -26,8 +23,7 @@ namespace _Scripts.Core.Player
         public InputAction AttackAction => _attackAction;
 
         // Public Access To Different States
-        public IDebug Debug => _debug;
-        public Camera Camera => _camera;
+        public Camera MainCamera => _mainCamera;
         public float CurrentSpeed {get; private set; }
 
         public bool IsPlayerRunning { get; private set; }
@@ -37,10 +33,9 @@ namespace _Scripts.Core.Player
         public PlayerAttackState AttackState;
         
         [Inject]
-        public void Construct(IDebug debug, Camera camera)
+        public void Construct(Camera mainCamera)
         {
-            _debug = debug;
-            _camera = camera;
+            _mainCamera = mainCamera;
         }
 
         private void Awake()
@@ -52,6 +47,7 @@ namespace _Scripts.Core.Player
 
         public override void InitStates()
         {
+            Agent = AgentType.Player;
             MoveState = new PlayerMoveState(this);
             AttackState = new PlayerAttackState(this);
             
@@ -90,7 +86,7 @@ namespace _Scripts.Core.Player
         public Direction GetFacingDirection()
         {
             var mousePosition = Mouse.current.position.ReadValue();
-            var screenMiddlePoint = Camera.scaledPixelWidth / 2;
+            var screenMiddlePoint = MainCamera.scaledPixelWidth / 2;
 
             return mousePosition.x < screenMiddlePoint ? Direction.Left : Direction.Right;
         }

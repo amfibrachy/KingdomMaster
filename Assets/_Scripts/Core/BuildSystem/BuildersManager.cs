@@ -3,13 +3,14 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using AI;
     using Cysharp.Threading.Tasks;
     using global::Zenject;
     using NPC;
     using UnityEngine;
     using Utils.Debugging;
 
-    public class BuildersManager : MonoBehaviour
+    public class BuildersManager : MonoBehaviour, IDispatchable
     {
         [SerializeField] private BuilderFSM[] _initialBuilders;
         
@@ -123,6 +124,12 @@
                     }
                 } 
             }
+        }
+
+        public void Dispatch<T>(FSM<T> fsm) where T : IFSM<T>
+        {
+            _availableBuilders.Remove(fsm as BuilderFSM);
+            int k = 6;
         }
     }
 }

@@ -1,13 +1,25 @@
 namespace _Scripts.Core.BuildSystem
 {
+    using global::Zenject;
     using UnityEngine;
 
     public class BuildSystemController : MonoBehaviour
     {
         [SerializeField] private PlacementSystemScript _placementSystem;
-        [SerializeField] private Transform _buildingsParent;
-        [SerializeField] private BuildersManager _buildersManager;
+        
+        // Injectables
+        private BuildersManager _buildersManager;
+        private BuildingsManager _buildingsManager;
+        
+        [Inject(Id = "BuildingsParent")] private Transform _buildingsParent;
 
+        [Inject]
+        public void Construct(BuildersManager buildersManager, BuildingsManager buildingsManager)
+        {
+            _buildingsManager = buildingsManager;
+            _buildersManager = buildersManager;
+        }
+        
         private void Awake()
         {
             _placementSystem.OnBuildingPlaced += PlaceConstructionSiteAndEnqueueRequest;
@@ -26,7 +38,8 @@ namespace _Scripts.Core.BuildSystem
         {
             var constructionPosition = constructionSite.transform.position;
 
-            Instantiate(constructionSite.GetBuildingPrefab(), constructionPosition, Quaternion.identity, _buildingsParent);
+            var building = Instantiate(constructionSite.GetBuildingPrefab(), constructionPosition, Quaternion.identity, _buildingsParent);
+            _buildingsManager.AddConstructedBuilding(building);
             
             Destroy(constructionSite.gameObject);
         }

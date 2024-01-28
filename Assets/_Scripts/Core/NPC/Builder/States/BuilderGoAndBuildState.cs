@@ -61,6 +61,7 @@
                 _context.transform.Translate((int) _context.MovingDirection * _context.Stats.WalkSpeed * Time.deltaTime, 0, 0,
                     Space.World);
 
+                // Reached destination position
                 if (Vector2.Distance(_context.transform.position, _destinationPosition) < 0.1f)
                 {
                     if (_context.DestinationTarget.position.x > _context.transform.position.x)

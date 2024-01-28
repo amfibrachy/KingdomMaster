@@ -4,5 +4,6 @@ namespace _Scripts.Core.AI
     {
         public void InitStates();
         public void ChangeState(BaseState<T> newState);
+        public void Dispatch();
     }
 }

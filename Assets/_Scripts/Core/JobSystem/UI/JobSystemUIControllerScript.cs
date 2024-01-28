@@ -1,18 +1,15 @@
 ﻿namespace _Scripts.Core.JobSystem.UI
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using DG.Tweening;
+    using global::Zenject;
     using TMPro;
     using UnityEngine;
-    using UnityEngine.Serialization;
     using UnityEngine.UI;
 
     public class JobSystemUIControllerScript : MonoBehaviour
     {
-        [SerializeField] private JobsManager _jobsManager;
-        
         [SerializeField] private CanvasGroup _jobsSystemCanvasGroup;
         [SerializeField] private RectTransform _jobsPanelTransform;
         [SerializeField] private float _outsidePosX = 455f;
@@ -39,17 +36,26 @@
         public int SluggardsRequestCount { private set; get; }
 
         // Privates
+        private SluggardsManager _sluggardsManager;
         private Dictionary<JobType, int> _jobRequests;
         private int TotalIncreaseCount => _jobRequests.Count > 0 ? _jobRequests.Values.Sum() : 0;
         
         private Sprite _applyButtonSprite;
         private Sprite _discardButtonSprite;
         
+        [Inject]
+        public void Construct(SluggardsManager sluggardsManager)
+        {
+            _sluggardsManager = sluggardsManager;
+        }
+        
         private void Awake()
         {
             _applyButton.onClick.AddListener(OnApplyClicked);
             _discardButton.onClick.AddListener(OnDiscardClicked);
             _exitButton.onClick.AddListener(OnExitClicked);
+
+            _sluggardsManager.OnAvailableSluggardsChanged += UpdateButtonsValidity;
 
             foreach (var jobEntry in _jobEntries)
             {
@@ -69,13 +75,14 @@
             _applyButton.onClick.RemoveListener(OnApplyClicked);
             _discardButton.onClick.RemoveListener(OnDiscardClicked);
             _exitButton.onClick.RemoveListener(OnExitClicked);
+            
+            _sluggardsManager.OnAvailableSluggardsChanged -= UpdateSluggardsNumberText;
         }
         
         public void ShowPanel()
         {
             DiscardChanges();
-
-            _sluggardsNumberText.text = _jobsManager.SluggardCount.ToString();
+            UpdateSluggardsNumberText();
 
             _jobsSystemCanvasGroup.DOFade(1f, 0.15f);
             _jobsPanelTransform.DOAnchorPosX(0f, 0.3f).OnComplete(() =>
@@ -84,6 +91,11 @@
             });
         }
 
+        private void UpdateSluggardsNumberText()
+        {
+            _sluggardsNumberText.text = _sluggardsManager.SluggardCount.ToString();
+        }
+        
         public void HidePanel()
         {
             DiscardChanges();
@@ -138,7 +150,7 @@
             {
                 jobEntry.Discard();
                 
-                if (_jobsManager.SluggardCount > 0)
+                if (_sluggardsManager.SluggardCount > 0)
                 {
                     jobEntry.UnblockIncreaseButton();
                 }
@@ -158,11 +170,12 @@
             }
         }
 
-        private void Update()
+        private void UpdateButtonsValidity()
         {
             if (IsShown)
             {
-                bool insufficientSluggards = TotalIncreaseCount > _jobsManager.SluggardCount;
+                UpdateSluggardsNumberText();
+                bool insufficientSluggards = TotalIncreaseCount > _sluggardsManager.SluggardCount;
 
                 if (insufficientSluggards)
                 {
@@ -202,7 +215,7 @@
             }
 
             SluggardsRequestCount += TotalIncreaseCount;
-            _jobsManager.CreateJobsRequest(_jobRequests);
+            _sluggardsManager.CreateJobRequests(_jobRequests);
             
             DiscardChanges();
         }
@@ -241,7 +254,7 @@
         
         private void JobEntryIncreaseClicked(JobType type)
         {
-            if (TotalIncreaseCount <= _jobsManager.SluggardCount)
+            if (TotalIncreaseCount <= _sluggardsManager.SluggardCount)
             {
                 AddJob(type);
 
@@ -250,7 +263,7 @@
                 UnblockApplyButton();
                 UnblockDiscardButton();
 
-                if (TotalIncreaseCount == _jobsManager.SluggardCount)
+                if (TotalIncreaseCount == _sluggardsManager.SluggardCount)
                 {
                     foreach (var jobEntry in _jobEntries)
                     {
