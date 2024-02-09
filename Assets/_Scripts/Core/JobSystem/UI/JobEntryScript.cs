@@ -145,6 +145,21 @@
                 OnDecreaseClicked?.Invoke(_jobType);
             }
         }
+
+        public void DecreaseRequestCount()
+        {
+            RequestCount--;
+            
+            if (RequestCount + IncreaseCount > 0)
+            {
+                UpdateRequestText(IncreaseCount);
+                SetRequestTextEnabled(true);
+            }
+            else
+            {
+                SetRequestTextEnabled(false);
+            }
+        }
         
         private void OnDestroy()
         {

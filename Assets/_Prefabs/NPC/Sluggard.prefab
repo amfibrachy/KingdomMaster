@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats: {fileID: 7301666584932207672}
-  _wanderingTarget: {fileID: 0}
+  _wanderingTarget: {fileID: 8224014001275314689, guid: 9f8b052d4b70acf4aab3dc76e4f907a7, type: 3}
   _destinationOffsetWanderingMaxDistance: 10
   _idleWaitMaxTime: 5
 --- !u!212 &3982203508166115439

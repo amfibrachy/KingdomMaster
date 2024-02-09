@@ -2,6 +2,7 @@ namespace _Scripts.Core.AI
 {
     using System.Threading;
     using Animations;
+    using Global;
     using global::Zenject;
     using Stats;
     using UnityEngine;
@@ -48,7 +49,7 @@ namespace _Scripts.Core.AI
             _currentState = newState;
             _currentState.EnterState();
             
-            Debug.Log($"{gameObject.name} state changed to: " + newState.GetType().Name);
+            // Debug.Log($"{gameObject.name} state changed to: " + newState.GetType().Name);
         }
         
         private void Update()

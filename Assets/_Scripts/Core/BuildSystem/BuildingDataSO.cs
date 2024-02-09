@@ -1,5 +1,6 @@
 namespace _Scripts.Core.BuildSystem
 {
+    using JobSystem;
     using UnityEngine;
 
     [CreateAssetMenu(menuName = "Scriptable Objects/BuildSystem/BuildingData", fileName = "so_building_data")]
@@ -21,6 +22,10 @@ namespace _Scripts.Core.BuildSystem
         public float BuildingHeight;
 
         public int TotalPlaces;
+
+        public float JobCreationTime;
+        public JobType Job;
+        public Sprite JobCreationSprite;
     }
 
     public enum BuildingType

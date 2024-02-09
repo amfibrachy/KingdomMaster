@@ -10,9 +10,10 @@
     using UnityEngine;
     using Utils.Debugging;
 
-    public class BuildersManager : MonoBehaviour, IDispatchable
+    public class BuildersManager : MonoBehaviour, IDispatchable, ICreatable
     {
         [SerializeField] private BuilderFSM[] _initialBuilders;
+        [SerializeField] private BuilderFSM _builderPrefab;
         
         private List<BuildingConstructionScript> _constructionsActiveList = new List<BuildingConstructionScript>();
         private List<BuildingConstructionScript> _constructionsPendingList = new List<BuildingConstructionScript>();
@@ -130,6 +131,12 @@
         {
             _availableBuilders.Remove(fsm as BuilderFSM);
             int k = 6;
+        }
+        
+        public void Create(Vector3 position)
+        {
+            var newBuilder = Instantiate(_builderPrefab, position, Quaternion.identity);
+            _availableBuilders.Add(newBuilder);
         }
     }
 }

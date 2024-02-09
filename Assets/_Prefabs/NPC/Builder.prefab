@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stats: {fileID: 9048207267145131735}
-  _destinationTargetCamp: {fileID: 0}
+  _destinationTargetCamp: {fileID: 8224014001275314689, guid: 9f8b052d4b70acf4aab3dc76e4f907a7, type: 3}
   _destinationOffsetWanderingMaxDistance: 7
   _idleWaitMaxTime: 3
   _buildParticlesOffset: {x: 0.385, y: 0.35, z: 0}

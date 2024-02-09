@@ -293,5 +293,30 @@
                 }
             }
         }
+
+        public void UpdateJobUI(JobType job)
+        {
+            foreach (var jobEntry in _jobEntries)
+            {
+                if (jobEntry.JobType == job)
+                {
+                    jobEntry.DecreaseRequestCount();
+
+                    SluggardsRequestCount--;
+                    
+                    if (SluggardsRequestCount + TotalIncreaseCount > 0)
+                    {
+                        SetSluggardDecreaseTextEnabled(true);
+                        UpdateSluggardDecreaseText(TotalIncreaseCount);
+                    }
+                    else
+                    {
+                        SetSluggardDecreaseTextEnabled(false);
+                    }
+                    
+                    break;
+                }
+            }
+        }
     }
 }

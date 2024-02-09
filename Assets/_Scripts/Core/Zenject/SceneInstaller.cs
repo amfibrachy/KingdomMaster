@@ -1,6 +1,7 @@
 namespace _Scripts.Core.Zenject
 {
     using BuildSystem;
+    using Global;
     using global::Zenject;
     using JobSystem;
     using UnityEngine;
@@ -18,6 +19,7 @@ namespace _Scripts.Core.Zenject
         [SerializeField] private BuildersManager _buildersManager;
         [SerializeField] private BuildingsManager _buildingsManager;
         [SerializeField] private PopulationController _populationController;
+        [SerializeField] private UIUpdateController _uiUpdateController;
         
         public override void InstallBindings()
         {
@@ -26,6 +28,7 @@ namespace _Scripts.Core.Zenject
             Container.BindInstance(_buildersManager);
             Container.BindInstance(_buildingsManager);
             Container.BindInstance(_populationController);
+            Container.BindInstance(_uiUpdateController);
             
             Container.BindInstance(_particleParent).WithId("ParticleParent");
             Container.BindInstance(_buildingsParent).WithId("BuildingsParent");

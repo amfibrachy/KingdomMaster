@@ -1,7 +1,9 @@
 ﻿namespace _Scripts.Core.BuildSystem
 {
-    using System;
     using System.Collections.Generic;
+    using AI;
+    using Global;
+    using global::Zenject;
     using JobSystem;
     using NPC;
     using UnityEngine;
@@ -10,51 +12,48 @@
     public class BuildingJobScript : MonoBehaviour
     {
         [SerializeField] private Transform _entrancePosition;
+        [SerializeField] private JobProgressController _jobProgressController;
 
-        // Privates
-        private List<SluggardFSM> _assignedSluggards = new List<SluggardFSM>(); 
-        private List<SluggardFSM> _learningSluggards = new List<SluggardFSM>();
-        
+        // Injectables
+        [Inject] protected PopulationController _populationController;
+
         private BuildingDataSO _data;
 
         public Transform EntrancePosition => _entrancePosition;
 
-        public JobType? Job { private set; get; }
+        public JobType? Job => _data.Job;
         
         public int TotalFreePlaces => _data.TotalPlaces;
         public int CurrentFreePlaces { private set; get; }
 
+        private void Awake()
+        {
+            _jobProgressController.OnJobCreationFinished += JobCreated;
+        }
+
         public void Initialize(BuildingDataSO data)
         {
             _data = data;
-            Job = GetJobTypeByBuildingType();
             CurrentFreePlaces = TotalFreePlaces;
         }
         
-        public void AddSluggardJobCreationTask(SluggardFSM sluggard)
+        public void ReserveFreePlace()
         {
             if (CurrentFreePlaces > 0)
             {
-                _assignedSluggards.Add(sluggard);
                 CurrentFreePlaces--;
             }
         }
         
         public void StartSluggardJobCreationTask(JobType job)
         {
-            // TODO
-            int a = 66;
+            _jobProgressController.AddJobCreationIconTask(job, _data);
         }
-
-        private JobType? GetJobTypeByBuildingType()
+        
+        private void JobCreated()
         {
-            BuildingType type = _data.Type;
-
-            return type switch
-            {
-                BuildingType.Camp => JobType.Builder,
-                _ => null
-            };
+            CurrentFreePlaces++;
+            _populationController.OnCreate(AgentType.WithJob, EntrancePosition.position, _data.Job);
         }
     }
 }

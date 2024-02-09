@@ -1,6 +1,7 @@
 namespace _Scripts.Core.JobSystem
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using AI;
     using BuildSystem;
@@ -15,9 +16,9 @@ namespace _Scripts.Core.JobSystem
         [SerializeField] private SluggardFSM[] _initialSluggards;
         
         private List<SluggardFSM> _allSluggards = new List<SluggardFSM>();
-        
-        private List<SluggardFSM> _sluggardsActiveList = new List<SluggardFSM>();
         private List<SluggardFSM> _availableSluggards = new List<SluggardFSM>();
+
+        private Dictionary<JobType, int> _pendingRequests = new Dictionary<JobType, int>();
         
         public int Population { get; set; }
         public int SluggardCount => _availableSluggards.Count;
@@ -31,21 +32,25 @@ namespace _Scripts.Core.JobSystem
         {
             _availableSluggards.AddRange(_initialSluggards); // TODO Handle case when worker dies (arrays will throw exception)
             _allSluggards.AddRange(_availableSluggards);
+            
+            StartCoroutine(CheckPendingRequests());
         }
         
-        public void CreateJobRequests(Dictionary<JobType, int> requests)
+        public void CreateJobRequests(Dictionary<JobType, int> requests, bool saveUnassignedJobs = true)
         { 
-            foreach (var (job, jobsCount) in requests)
+            foreach (var request in requests)
             {
+                var job = request.Key;
+                var jobsCount = request.Value;
+                
                 if (_availableSluggards.Count < jobsCount)
                 {
                     _debug.LogError($"For {job} request => _availableSluggards.Count is {_availableSluggards.Count}, while job request count is {jobsCount}");
+                    return;
                 }
                 
                 var sluggardsToAssign = _availableSluggards.GetRange(0, jobsCount);
-                _availableSluggards.RemoveRange(0, jobsCount);
                 OnAvailableSluggardsChanged?.Invoke();
-                _sluggardsActiveList.AddRange(sluggardsToAssign);
 
                 var buildings = _buildingsManager.GetFreeBuildings(job); // TODO optimize to raycast once for all jobs in requests
 
@@ -55,14 +60,46 @@ namespace _Scripts.Core.JobSystem
                 {
                     while (index < sluggardsToAssign.Count && building.CurrentFreePlaces > 0)
                     {
-                        building.AddSluggardJobCreationTask(sluggardsToAssign[index]);
+                        building.ReserveFreePlace();
                         sluggardsToAssign[index].SetJobTask(building, job);
+                        requests[job]--;
                         index++;
                     }
-
+                    
                     if (index == sluggardsToAssign.Count)
+                    {
                         break;
+                    }
                 }
+                
+                _availableSluggards.RemoveRange(0, index);
+
+                if (saveUnassignedJobs && index < sluggardsToAssign.Count)
+                {
+                    var unassignedJobsLeft = sluggardsToAssign.Count - index;
+                    
+                    if (_pendingRequests.ContainsKey(job))
+                    {
+                        _pendingRequests[job] += unassignedJobsLeft;
+                    }
+                    else
+                    {
+                        _pendingRequests.Add(job, unassignedJobsLeft);
+                    }
+                }
+            }
+        }
+
+        private IEnumerator CheckPendingRequests()
+        {
+            while (true)
+            {
+                if (_pendingRequests.Count > 0)
+                {
+                    CreateJobRequests(_pendingRequests, false);
+                }
+
+                yield return new WaitForSeconds(5f);
             }
         }
 

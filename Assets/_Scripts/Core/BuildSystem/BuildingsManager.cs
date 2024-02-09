@@ -1,6 +1,5 @@
 ﻿namespace _Scripts.Core.BuildSystem
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using JobSystem;
@@ -17,7 +16,7 @@
         
         private List<BuildingJobScript> _allBuildings = new List<BuildingJobScript>();
 
-        private void Awake()
+        private void Start()
         {
             foreach (var building in _initialBuildings)
             {
