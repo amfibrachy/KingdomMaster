@@ -12,7 +12,6 @@ namespace _Scripts.Core.JobSystem
 
     public class SluggardsManager : MonoBehaviour, IDispatchable
     {
-        [SerializeField] private BuildingsManager _buildingsManager;
         [SerializeField] private SluggardFSM[] _initialSluggards;
         
         private List<SluggardFSM> _allSluggards = new List<SluggardFSM>();
@@ -27,7 +26,15 @@ namespace _Scripts.Core.JobSystem
         
         // Injectables
         [Inject] private IDebug _debug;
+        
+        private BuildingsManager _buildingsManager;
 
+        [Inject]
+        public void Construct(BuildingsManager buildingsManager)
+        {
+            _buildingsManager = buildingsManager;
+        }
+        
         private void Start()
         {
             _availableSluggards.AddRange(_initialSluggards); // TODO Handle case when worker dies (arrays will throw exception)
@@ -38,10 +45,12 @@ namespace _Scripts.Core.JobSystem
         
         public void CreateJobRequests(Dictionary<JobType, int> requests, bool saveUnassignedJobs = true)
         { 
-            foreach (var request in requests)
+            var keys = new List<JobType>(requests.Keys);
+            
+            for (int i = 0; i < keys.Count; i++) 
             {
-                var job = request.Key;
-                var jobsCount = request.Value;
+                var job = keys[i];
+                var jobsCount = requests[job];
                 
                 if (_availableSluggards.Count < jobsCount)
                 {
