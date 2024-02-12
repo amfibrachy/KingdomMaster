@@ -17,6 +17,7 @@
         [Header("Sluggards")] 
         [SerializeField] private TextMeshProUGUI _sluggardsNumberText;
         [SerializeField] private TextMeshProUGUI _sluggardsNumberDecreaseText;
+        [SerializeField] private Image _sluggardsInMotionIcon;
 
         [Header("Buttons")] 
         [SerializeField] private Button _applyButton;
@@ -76,7 +77,7 @@
             _discardButton.onClick.RemoveListener(OnDiscardClicked);
             _exitButton.onClick.RemoveListener(OnExitClicked);
             
-            _sluggardsManager.OnAvailableSluggardsChanged -= UpdateSluggardsNumberText;
+            _sluggardsManager.OnAvailableSluggardsChanged -= UpdateButtonsValidity;
         }
         
         public void ShowPanel()
@@ -107,15 +108,16 @@
             });
         }
 
-        private void SetSluggardDecreaseTextEnabled(bool status)
+        private void SetSluggardsInMotionEnabled(bool status)
         {
             _sluggardsNumberDecreaseText.gameObject.SetActive(status);
+            _sluggardsInMotionIcon.gameObject.SetActive(status);
         }
         
         private void UpdateSluggardDecreaseText(int amount = 0)
         {
             int total = SluggardsRequestCount + amount;
-            _sluggardsNumberDecreaseText.text = "-" + total;
+            _sluggardsNumberDecreaseText.text = total.ToString();
         }
         
         public void BlockApplyButton()
@@ -161,12 +163,12 @@
 
             if (SluggardsRequestCount > 0)
             {
-                SetSluggardDecreaseTextEnabled(true);
+                SetSluggardsInMotionEnabled(true);
                 UpdateSluggardDecreaseText();
             }
             else
             {
-                SetSluggardDecreaseTextEnabled(false);
+                SetSluggardsInMotionEnabled(false);
             }
         }
 
@@ -259,7 +261,7 @@
                 AddJob(type);
 
                 UpdateSluggardDecreaseText(TotalIncreaseCount);
-                SetSluggardDecreaseTextEnabled(true);
+                SetSluggardsInMotionEnabled(true);
                 UnblockApplyButton();
                 UnblockDiscardButton();
 
@@ -289,7 +291,7 @@
                 {
                     BlockApplyButton();
                     BlockDiscardButton();
-                    SetSluggardDecreaseTextEnabled(SluggardsRequestCount > 0);
+                    SetSluggardsInMotionEnabled(SluggardsRequestCount > 0);
                 }
             }
         }
@@ -306,12 +308,12 @@
                     
                     if (SluggardsRequestCount + TotalIncreaseCount > 0)
                     {
-                        SetSluggardDecreaseTextEnabled(true);
+                        SetSluggardsInMotionEnabled(true);
                         UpdateSluggardDecreaseText(TotalIncreaseCount);
                     }
                     else
                     {
-                        SetSluggardDecreaseTextEnabled(false);
+                        SetSluggardsInMotionEnabled(false);
                     }
                     
                     break;

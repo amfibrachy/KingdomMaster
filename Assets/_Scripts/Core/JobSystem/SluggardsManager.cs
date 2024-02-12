@@ -3,6 +3,7 @@ namespace _Scripts.Core.JobSystem
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using AI;
     using BuildSystem;
     using global::Zenject;
@@ -16,6 +17,7 @@ namespace _Scripts.Core.JobSystem
         
         private List<SluggardFSM> _allSluggards = new List<SluggardFSM>();
         private List<SluggardFSM> _availableSluggards = new List<SluggardFSM>();
+        private List<SluggardFSM> _pendingSluggards = new List<SluggardFSM>();
 
         private Dictionary<JobType, int> _pendingRequests = new Dictionary<JobType, int>();
         
@@ -43,7 +45,7 @@ namespace _Scripts.Core.JobSystem
             StartCoroutine(CheckPendingRequests());
         }
         
-        public void CreateJobRequests(Dictionary<JobType, int> requests, bool saveUnassignedJobs = true)
+        public void CreateJobRequests(Dictionary<JobType, int> requests)
         { 
             var keys = new List<JobType>(requests.Keys);
             
@@ -59,8 +61,6 @@ namespace _Scripts.Core.JobSystem
                 }
                 
                 var sluggardsToAssign = _availableSluggards.GetRange(0, jobsCount);
-                OnAvailableSluggardsChanged?.Invoke();
-
                 var buildings = _buildingsManager.GetFreeBuildings(job); // TODO optimize to raycast once for all jobs in requests
 
                 int index = 0;
@@ -80,12 +80,11 @@ namespace _Scripts.Core.JobSystem
                         break;
                     }
                 }
-                
-                _availableSluggards.RemoveRange(0, index);
 
-                if (saveUnassignedJobs && index < sluggardsToAssign.Count)
+                if (index < sluggardsToAssign.Count)
                 {
                     var unassignedJobsLeft = sluggardsToAssign.Count - index;
+                    _pendingSluggards = _pendingSluggards.Concat(sluggardsToAssign.TakeLast(unassignedJobsLeft)).ToList();
                     
                     if (_pendingRequests.ContainsKey(job))
                     {
@@ -96,16 +95,67 @@ namespace _Scripts.Core.JobSystem
                         _pendingRequests.Add(job, unassignedJobsLeft);
                     }
                 }
+                
+                _availableSluggards.RemoveRange(0, sluggardsToAssign.Count);
+                OnAvailableSluggardsChanged?.Invoke();
             }
         }
 
+        private void TryCreatePendingJobRequests()
+        { 
+            var keys = new List<JobType>(_pendingRequests.Keys);
+
+            for (int i = 0; i < keys.Count; i++)
+            {
+                var job = keys[i];
+                var jobsCount = _pendingRequests[job];
+
+                if (_pendingSluggards.Count < jobsCount)
+                {
+                    _debug.LogError($"For {job} request => _pendingSluggards.Count is {_pendingSluggards.Count}, while job request count is {jobsCount}");
+                    return;
+                }
+
+                var sluggardsToAssign = _pendingSluggards.GetRange(0, jobsCount);
+                var buildings = _buildingsManager.GetFreeBuildings(job); // TODO optimize to raycast once for all jobs in requests
+
+                int index = 0;
+
+                foreach (var building in buildings)
+                {
+                    while (index < sluggardsToAssign.Count && building.CurrentFreePlaces > 0)
+                    {
+                        building.ReserveFreePlace();
+                        sluggardsToAssign[index].SetJobTask(building, job);
+                        _pendingRequests[job]--;
+                        index++;
+                    }
+
+                    if (index == sluggardsToAssign.Count)
+                    {
+                        break;
+                    }
+                }
+
+                if (index > 0)
+                {
+                    _pendingSluggards.RemoveRange(0, index);
+                }
+
+                if (_pendingRequests[job] == 0)
+                {
+                    _pendingRequests.Remove(job);
+                }
+            }
+        }
+        
         private IEnumerator CheckPendingRequests()
         {
             while (true)
             {
                 if (_pendingRequests.Count > 0)
                 {
-                    CreateJobRequests(_pendingRequests, false);
+                    TryCreatePendingJobRequests();
                 }
 
                 yield return new WaitForSeconds(5f);

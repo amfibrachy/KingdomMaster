@@ -130,7 +130,6 @@
         public void Dispatch<T>(FSM<T> fsm) where T : IFSM<T>
         {
             _availableBuilders.Remove(fsm as BuilderFSM);
-            int k = 6;
         }
         
         public void Create(Vector3 position)

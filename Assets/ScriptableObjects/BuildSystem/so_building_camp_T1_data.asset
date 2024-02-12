@@ -26,4 +26,4 @@ MonoBehaviour:
   TotalPlaces: 3
   JobCreationTime: 8
   Job: 0
-  JobCreationSprite: {fileID: 21300000, guid: d491d4f93e5a84d41b0607181bce25c4, type: 3}
+  JobCreationSprite: {fileID: 21300000, guid: ab6f53e8622ae124db76f4decd7a53cc, type: 3}
