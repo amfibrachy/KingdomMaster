@@ -146,7 +146,7 @@ MonoBehaviour:
     m_Top: 5
     m_Bottom: 5
   m_ChildAlignment: 3
-  m_Spacing: 8
+  m_Spacing: 6
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c29793276f3462bbe4a2dfae8f67418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _peopleText: {fileID: 6185915915257164061}
+  _jobCountText: {fileID: 6185915915257164061}
   _requestText: {fileID: 5855186990629579930}
   _increaseButton: {fileID: 2895144787282755628}
   _decreaseButton: {fileID: 504697271536341081}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 850317360623877913}
   - component: {fileID: 6185915915257164061}
   m_Layer: 5
-  m_Name: Number
+  m_Name: JobCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 177
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7bb2850d0e3260b4ea8f05c95ff154d5, type: 2}
   m_sharedMaterial: {fileID: -8656939946197105205, guid: 7bb2850d0e3260b4ea8f05c95ff154d5, type: 2}
@@ -728,7 +728,7 @@ GameObject:
   - component: {fileID: 9047282581664556068}
   - component: {fileID: 4484304522450074081}
   m_Layer: 5
-  m_Name: NumberFrame
+  m_Name: JobCountFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -924,7 +924,7 @@ GameObject:
   - component: {fileID: 8351861292793900977}
   - component: {fileID: 5855186990629579930}
   m_Layer: 5
-  m_Name: RequestNumber
+  m_Name: RequestNumberText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

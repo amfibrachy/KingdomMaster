@@ -5,6 +5,7 @@
     using BuildSystem;
     using global::Zenject;
     using JobSystem;
+    using NPC;
     using UnityEngine;
 
     public class PopulationController : MonoBehaviour
@@ -30,12 +31,20 @@
                 case AgentType.Sluggard:
                     _sluggardsManager.Dispatch(npc);
                     break;
+                
                 case AgentType.WithJob:
+                    if (npc is IHasJob job)
+                    {
+                        _uiUpdateController.UpdateDispatchUI(AgentType.WithJob, npc, job.Job);
+                    }
                     break;
+                
                 case AgentType.Player:
                     break;
+                
                 case AgentType.Enemy:
                     break;
+                
                 default:
                     throw new ArgumentOutOfRangeException(nameof(agent), agent, null);
             }
@@ -48,10 +57,13 @@
             // TODO notify manager what type of entity needs to be created 
             switch (agent)
             {
+                case AgentType.Sluggard:
+                    break;
+                
                 case AgentType.WithJob:
                     if (job != null)
                     {
-                        _uiUpdateController.UpdateUI(AgentType.WithJob, job.Value);
+                        _uiUpdateController.UpdateCreateUI(AgentType.WithJob, job.Value);
 
                         switch (job)
                         {
@@ -75,8 +87,10 @@
                     break;
                 case AgentType.Player:
                     break;
+                
                 case AgentType.Enemy:
                     break;
+                
                 default:
                     throw new ArgumentOutOfRangeException(nameof(agent), agent, null);
             }
