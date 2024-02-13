@@ -9,9 +9,14 @@
     {
         [SerializeField] private JobSystemUIControllerScript _jobSystemUiController;
 
-        public void UpdateUI(AgentType agent, JobType job)
+        public void UpdateCreateUI(AgentType agent, JobType job)
         {
-            _jobSystemUiController.UpdateJobUI(job);
+            _jobSystemUiController.UpdateJobUIOnCreate(job);
+        }
+        
+        public void UpdateDispatchUI<T>(AgentType agent, FSM<T> npc, JobType job) where T : IFSM<T>
+        {
+            _jobSystemUiController.UpdateJobUIOnDispatch(npc, job);
         }
     }
 }

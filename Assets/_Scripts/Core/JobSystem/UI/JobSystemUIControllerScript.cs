@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AI;
     using DG.Tweening;
     using global::Zenject;
     using TMPro;
@@ -296,13 +297,14 @@
             }
         }
 
-        public void UpdateJobUI(JobType job)
+        public void UpdateJobUIOnCreate(JobType job)
         {
             foreach (var jobEntry in _jobEntries)
             {
                 if (jobEntry.JobType == job)
                 {
                     jobEntry.DecreaseRequestCount();
+                    jobEntry.IncreaseJobCount();
 
                     SluggardsRequestCount--;
                     
@@ -315,6 +317,19 @@
                     {
                         SetSluggardsInMotionEnabled(false);
                     }
+                    
+                    break;
+                }
+            }
+        }
+        
+        public void UpdateJobUIOnDispatch<T>(FSM<T> npc, JobType job) where T : IFSM<T>
+        {
+            foreach (var jobEntry in _jobEntries)
+            {
+                if (jobEntry.JobType == job)
+                {
+                    jobEntry.DecreaseJobCount();
                     
                     break;
                 }

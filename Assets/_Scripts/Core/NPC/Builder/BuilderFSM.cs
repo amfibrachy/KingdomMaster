@@ -5,12 +5,13 @@ namespace _Scripts.Core.NPC
     using AI;
     using BuildSystem;
     using global::Zenject;
+    using JobSystem;
     using States;
     using UnityEngine;
     using UnityEngine.Serialization;
     using Utils.Debugging;
 
-    public class BuilderFSM : FSM<BuilderFSM>
+    public class BuilderFSM : FSM<BuilderFSM>, IHasJob
     {
         // Privates
         [Header("Wandering")]
@@ -29,7 +30,7 @@ namespace _Scripts.Core.NPC
         public BuilderGoAndBuildState GoAndBuildState { get; private set; }
         
         /************************************************************* Fields  *************************************************************/
-
+        public JobType Job { get; set; }
         public Direction MovingDirection { get; set; }
         public Transform DestinationTarget { get; set; }
         public float DestinationOffsetMaxDistance { get; set; }
@@ -78,6 +79,8 @@ namespace _Scripts.Core.NPC
         public override void InitStates()
         {
             Agent = AgentType.WithJob;
+            Job = JobType.Builder;
+            
             WanderingState = new BuilderWanderingState(this);
             GoAndBuildState = new BuilderGoAndBuildState(this);
             

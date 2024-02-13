@@ -1,13 +1,15 @@
 ﻿namespace _Scripts.Core.JobSystem.UI
 {
     using System;
+    using global::Zenject;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;
+    using Utils.Debugging;
 
     public class JobEntryScript : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _peopleText;
+        [SerializeField] private TextMeshProUGUI _jobCountText;
         [SerializeField] private TextMeshProUGUI _requestText;
         [SerializeField] private Button _increaseButton;
         [SerializeField] private Button _decreaseButton;
@@ -22,8 +24,11 @@
         
         [SerializeField] private JobType _jobType;
 
+        // Injectables
+        [Inject] private IDebug _debug;
+        
         public JobType JobType => _jobType;
-        public int PeopleCount { private set; get; }
+        public int JobCount { private set; get; }
         public int IncreaseCount { private set; get; }
         public int RequestCount { private set; get; }
         
@@ -43,6 +48,7 @@
 
             IncreaseCount = 0;
             RequestCount = 0;
+            JobCount = 0;
         }
         
         public void BlockIncreaseButton()
@@ -146,6 +152,23 @@
             }
         }
 
+        public void IncreaseJobCount()
+        {
+            JobCount++;
+            _jobCountText.text = JobCount.ToString();
+        }
+        
+        public void DecreaseJobCount()
+        {
+            JobCount--;
+            if (JobCount < 0)
+            {
+                _debug.LogError($"JobCount decreased below 0!");
+            }
+            
+            _jobCountText.text = JobCount.ToString();
+        }
+        
         public void DecreaseRequestCount()
         {
             RequestCount--;
