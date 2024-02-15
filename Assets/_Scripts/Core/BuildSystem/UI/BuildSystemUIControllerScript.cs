@@ -14,20 +14,21 @@
 
     public class BuildSystemUIControllerScript : MonoBehaviour
     {
+        [Header("Buildings panel")] 
+        [SerializeField] private BuildSystemBuildingButtonsPanelScript _buildSystemBuildingButtonsPanel;
         [SerializeField] private CanvasGroup _buildingSystemCanvasGroup;
         [SerializeField] private RectTransform _buildingPanelTransform;
-        [SerializeField] private float _outsidePosY = -221f;
-
+        [SerializeField] private float _initialPosY = -221f;
+        
         [SerializeField] private BuildingEntryScript[] _buildingEntries;
         
-        public bool IsShown { private set; get; }
-
-        [Inject]
-        public void Construct()
-        {
-
-        }
+        [Header("Info panel")]
+        [SerializeField] private BuildSystemInfoScript _buildingSystemInfo;
         
+        public bool IsShown { private set; get; }
+        private bool IsPanelHovered { set; get; }
+        private bool HoveredEntryOnce { set; get; }
+
         private void Awake()
         {
             foreach (var buildingEntry in _buildingEntries)
@@ -35,6 +36,9 @@
                 buildingEntry.OnBuildingEntryHovered += BuildingEntryHovered;
                 buildingEntry.OnBuildingEntryClicked += BuildingEntryClicked;
             }
+
+            _buildSystemBuildingButtonsPanel.OnBuildingPanelHovered += BuildingPanelHovered;
+            _buildSystemBuildingButtonsPanel.OnBuildingPanelExit += BuildingPanelExit;
         }
 
         private void OnDestroy()
@@ -44,6 +48,9 @@
                 buildingEntry.OnBuildingEntryHovered -= BuildingEntryHovered;
                 buildingEntry.OnBuildingEntryClicked -= BuildingEntryClicked;
             }
+            
+            _buildSystemBuildingButtonsPanel.OnBuildingPanelHovered -= BuildingPanelHovered;
+            _buildSystemBuildingButtonsPanel.OnBuildingPanelExit -= BuildingPanelExit;
         }
 
         public void ShowPanel()
@@ -58,18 +65,36 @@
         public void HidePanel()
         {
             _buildingSystemCanvasGroup.DOFade(0f, 0.15f);
-            _buildingPanelTransform.DOAnchorPosY(_outsidePosY, 0.3f).OnComplete(() =>
+            _buildingPanelTransform.DOAnchorPosY(_initialPosY, 0.3f).OnComplete(() =>
             {
                 IsShown = false;
             });
         }
 
-        private void BuildingEntryClicked(BuildingDataSO data)
+        private void BuildingPanelHovered()
         {
-
+            IsPanelHovered = true;
         }
         
+        private void BuildingPanelExit()
+        {
+            IsPanelHovered = false;
+            HoveredEntryOnce = false;
+            _buildingSystemInfo.HidePanel();
+        }
+
         private void BuildingEntryHovered(BuildingDataSO data)
+        {
+            if (IsPanelHovered && !HoveredEntryOnce)
+            {
+                HoveredEntryOnce = true;
+                _buildingSystemInfo.ShowPanel();
+            }
+
+            _buildingSystemInfo.UpdateInfo(data);
+        }
+
+        private void BuildingEntryClicked(BuildingDataSO data)
         {
 
         }
