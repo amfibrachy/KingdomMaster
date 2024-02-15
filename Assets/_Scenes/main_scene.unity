@@ -1740,7 +1740,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe6f00b372576d44dad14e6efdd27dba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60ee1de5eca77b14fbe950f625c40e85, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2883,11 +2883,11 @@ RectTransform:
   - {fileID: 2072130948}
   m_Father: {fileID: 1439430640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -494.7, y: 247.35}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 465, y: -621.0005}
   m_SizeDelta: {x: 144.71, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &336725971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2978,8 +2978,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buildingSystemCostCanvasGroup: {fileID: 336725974}
   _costPanelTransform: {fileID: 336725970}
-  _initialPosX: -493
-  _targetPosX: -348.91
+  _initialPosX: 465
+  _targetPosX: 610
 --- !u!114 &336725976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3683,7 +3683,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6.0885415
+  orthographic size: 7.5
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -8502,7 +8502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 549160257302ba54faf8c942a4693505, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65a3e51294b0327428d99a0eb67f2883, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10962,7 +10962,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 549160257302ba54faf8c942a4693505, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b472c84a46633045a80017d57c4e153, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11582,7 +11582,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fe6f00b372576d44dad14e6efdd27dba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60ee1de5eca77b14fbe950f625c40e85, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11709,11 +11709,11 @@ RectTransform:
   - {fileID: 1902241498}
   m_Father: {fileID: 2014216646}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -841}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!225 &1439430641
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -11740,7 +11740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _buildingSystemInfoCanvasGroup: {fileID: 1439430641}
   _infoPanelTransform: {fileID: 1439430640}
-  _initialPosY: -841
+  _targetPosY: 840
   _buildSystemCost: {fileID: 336725975}
 --- !u!1 &1445218589 stripped
 GameObject:
@@ -14532,11 +14532,11 @@ RectTransform:
   - {fileID: 814977122}
   m_Father: {fileID: 1439430640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -690.8187, y: 246.81274}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 269.42194, y: -620.9689}
   m_SizeDelta: {x: 538.844, y: 0}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &1902241499
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14591,7 +14591,7 @@ MonoBehaviour:
     m_Left: 17
     m_Right: 17
     m_Top: 17
-    m_Bottom: 17
+    m_Bottom: 26
   m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 1

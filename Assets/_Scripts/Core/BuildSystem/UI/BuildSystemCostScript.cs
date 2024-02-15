@@ -8,8 +8,8 @@
         [Header("Cost panel")]
         [SerializeField] private CanvasGroup _buildingSystemCostCanvasGroup;
         [SerializeField] private RectTransform _costPanelTransform;
-        [SerializeField] private float _initialPosX = -493f;
-        [SerializeField] private float _targetPosX = -348.91f;
+        [SerializeField] private float _initialPosX = 465f;
+        [SerializeField] private float _targetPosX = 610f;
         
         public bool IsShown { private set; get; }
         public void ShowPanel()
@@ -21,10 +21,10 @@
             });
         }
 
-        public void HidePanel()
+        public void HidePanel(bool instant = false)
         {
-            _buildingSystemCostCanvasGroup.DOFade(0f, 0.15f);
-            _costPanelTransform.DOAnchorPosX(_initialPosX, 0.3f).OnComplete(() =>
+            _buildingSystemCostCanvasGroup.DOFade(0f, instant ? 0f : 0.15f);
+            _costPanelTransform.DOAnchorPosX(_initialPosX, instant ? 0f : 0.3f).OnComplete(() =>
             {
                 IsShown = false;
             });
