@@ -12,6 +12,7 @@
         Fisherman,
         Herbalist,
         Alchemist,
-        Engineer
+        Engineer,
+        None
     }
 }

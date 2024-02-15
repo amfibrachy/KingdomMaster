@@ -170,7 +170,6 @@ namespace _Scripts.Core.JobSystem
         public void Dispatch<T>(FSM<T> fsm) where T : IFSM<T>
         {
             _allSluggards.Remove(fsm as SluggardFSM);
-            int k = 5;
         }
     }
 }

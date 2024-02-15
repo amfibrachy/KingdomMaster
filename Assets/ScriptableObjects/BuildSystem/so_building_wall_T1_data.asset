@@ -10,21 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
-  m_Name: so_building_archer_tower_T1_data
+  m_Name: so_building_wall_T1_data
   m_EditorClassIdentifier: 
-  Name: Archer Tower
-  Prefab: {fileID: 4672988743326602164, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
-  ConstructionPrefab: {fileID: 2897897930199589277, guid: 8fec6f1db942ad345a3da6e78b2d76b8, type: 3}
-  Type: 1
-  Costs:
-  - Resource: 0
-    Amount: 0
-  MinBuildDistance: 6
-  BuildTime: 15
+  Name: Wooden Wall
+  Prefab: {fileID: -3637255743499925574, guid: 9f8b052d4b70acf4aab3dc76e4f907a7, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: fa7c47a1aebb87644936e7cc689a3bba, type: 3}
+  Type: 3
+  Costs: []
+  MinBuildDistance: 15
+  BuildTime: 20
   BuildersNeeded: 2
-  BuildingWidth: 4
-  BuildingHeight: 4
-  TotalPlaces: 2
+  BuildingWidth: 1
+  BuildingHeight: 3
+  TotalPlaces: 0
   JobCreationTime: 0
   Job: 11
   JobCreationSprite: {fileID: 0}

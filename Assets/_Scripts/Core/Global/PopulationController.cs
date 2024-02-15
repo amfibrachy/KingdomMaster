@@ -52,7 +52,7 @@
             Destroy(npc.gameObject);
         }
         
-        public void OnCreate(AgentType agent, Vector3 position, JobType? job)
+        public void OnCreate(AgentType agent, Vector3 position, JobType job)
         {
             // TODO notify manager what type of entity needs to be created 
             switch (agent)
@@ -61,28 +61,26 @@
                     break;
                 
                 case AgentType.WithJob:
-                    if (job != null)
-                    {
-                        _uiUpdateController.UpdateCreateUI(AgentType.WithJob, job.Value);
+                    _uiUpdateController.UpdateCreateUI(AgentType.WithJob, job);
 
-                        switch (job)
-                        {
-                            case JobType.Builder:
-                                _buildersManager.Create(position);
-                                break;
-                            case JobType.Hauler:
-                            case JobType.Lumberjack:
-                            case JobType.Miner:
-                            case JobType.Farmer:
-                            case JobType.Blacksmith:
-                            case JobType.Cook:
-                            case JobType.Fisherman:
-                            case JobType.Herbalist:
-                            case JobType.Alchemist:
-                            case JobType.Engineer:
-                            default:
-                                break;
-                        }
+                    switch (job)
+                    {
+                        case JobType.Builder:
+                            _buildersManager.Create(position);
+                            break;
+                        case JobType.Hauler:
+                        case JobType.Lumberjack:
+                        case JobType.Miner:
+                        case JobType.Farmer:
+                        case JobType.Blacksmith:
+                        case JobType.Cook:
+                        case JobType.Fisherman:
+                        case JobType.Herbalist:
+                        case JobType.Alchemist:
+                        case JobType.Engineer:
+                        case JobType.None:
+                        default:
+                            break;
                     }
                     break;
                 case AgentType.Player:

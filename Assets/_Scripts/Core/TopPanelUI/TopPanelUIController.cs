@@ -12,11 +12,13 @@ namespace _Scripts.Core.TopPanelUI
         [SerializeField] private Button _armyButton;
 
         [SerializeField] private JobSystemUIControllerScript _jobsSystemUIController;
+        [SerializeField] private BuildSystemUIControllerScript _buildSystemUIController;
         
         
         private void Awake()
         {
             _jobsButton.onClick.AddListener(ToggleJobsPanel);
+            _buildButton.onClick.AddListener(ToggleJBuildPanel);
         }
 
         private void ToggleJobsPanel()
@@ -28,6 +30,18 @@ namespace _Scripts.Core.TopPanelUI
             else
             {
                 _jobsSystemUIController.ShowPanel();
+            }
+        }
+        
+        private void ToggleJBuildPanel()
+        {
+            if (_buildSystemUIController.IsShown)
+            {
+                _buildSystemUIController.HidePanel();
+            }
+            else
+            {
+                _buildSystemUIController.ShowPanel();
             }
         }
     }

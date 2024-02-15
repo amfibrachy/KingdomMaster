@@ -79,6 +79,12 @@
             _exitButton.onClick.RemoveListener(OnExitClicked);
             
             _sluggardsManager.OnAvailableSluggardsChanged -= UpdateButtonsValidity;
+            
+            foreach (var jobEntry in _jobEntries)
+            {
+                jobEntry.OnIncreaseClicked -= JobEntryIncreaseClicked;
+                jobEntry.OnDecreaseClicked -= JobEntryDecreaseClicked;
+            }
         }
         
         public void ShowPanel()
@@ -301,7 +307,7 @@
         {
             foreach (var jobEntry in _jobEntries)
             {
-                if (jobEntry.JobType == job)
+                if (jobEntry.JobType != JobType.None && jobEntry.JobType == job)
                 {
                     jobEntry.DecreaseRequestCount();
                     jobEntry.IncreaseJobCount();
@@ -327,7 +333,7 @@
         {
             foreach (var jobEntry in _jobEntries)
             {
-                if (jobEntry.JobType == job)
+                if (jobEntry.JobType != JobType.None && jobEntry.JobType == job)
                 {
                     jobEntry.DecreaseJobCount();
                     

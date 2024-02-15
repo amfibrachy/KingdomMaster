@@ -21,7 +21,7 @@
 
         public Transform EntrancePosition => _entrancePosition;
 
-        public JobType? Job => _data.Job;
+        public JobType Job => _data.Job;
         
         public int TotalFreePlaces => _data.TotalPlaces;
         public int CurrentFreePlaces { private set; get; }
