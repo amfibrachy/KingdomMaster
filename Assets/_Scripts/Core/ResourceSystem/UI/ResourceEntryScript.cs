@@ -14,5 +14,10 @@
             _icon.sprite = icon;
             _amount.text = amount;
         }
+
+        public void SetEnabled(bool status)
+        {
+            gameObject.SetActive(status);
+        }
     }
 }

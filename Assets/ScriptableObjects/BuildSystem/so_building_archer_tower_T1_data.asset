@@ -20,8 +20,15 @@ MonoBehaviour:
   ResidentsCapacity: 6
   Type: 1
   Costs:
-  - Resource: 0
-    Amount: 0
+  - ResourceIcon: {fileID: 21300000, guid: 72c4da043cb6d844997bf52c4cfdb595, type: 3}
+    Resource: 0
+    Amount: 43
+  - ResourceIcon: {fileID: 21300000, guid: df54be03f4748474ab2a934cd7c07f29, type: 3}
+    Resource: 0
+    Amount: 10
+  - ResourceIcon: {fileID: 21300000, guid: fb4687ed1f899d146852de285c5e0d9e, type: 3}
+    Resource: 0
+    Amount: 130
   MinBuildDistance: 8
   BuildTime: 20
   MaxBuildersAmount: 3

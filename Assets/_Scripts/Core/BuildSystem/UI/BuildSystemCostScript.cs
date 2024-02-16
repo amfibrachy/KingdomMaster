@@ -1,7 +1,14 @@
 ﻿namespace _Scripts.Core.BuildSystem.UI
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using DG.Tweening;
+    using global::Zenject;
+    using ResourceSystem;
+    using ResourceSystem.UI;
     using UnityEngine;
+    using UnityEngine.Serialization;
+    using Utils.Debugging;
 
     public class BuildSystemCostScript : MonoBehaviour
     {
@@ -11,7 +18,13 @@
         [SerializeField] private float _initialPosX = 465f;
         [SerializeField] private float _targetPosX = 610f;
 
+        [Space] 
+        [SerializeField] private ResourceEntryScript[] _resourceEntries;
+
         public bool IsShown { private set; get; }
+        
+        // Injectables
+        [Inject] private IDebug _debug;
         
         // Privates
         private Sequence _sequence;
@@ -46,6 +59,30 @@
                 {
                     IsShown = false;
                 });
+        }
+
+        public void UpdateCost(List<ResourceCost> costs)
+        {
+            if (costs.Count > _resourceEntries.Length)
+            {
+                _debug.LogError($"Costs ({costs.Count}) length is larger than resource entry number ({_resourceEntries.Length})");
+            }
+
+            for (var index = 0; index < _resourceEntries.Length; index++)
+            {
+                var entry = _resourceEntries[index];
+                
+                if (index < costs.Count)
+                {
+                    var cost = costs[index];
+                    entry.SetEnabled(true);
+                    entry.Set(cost.ResourceIcon, cost.Amount.ToString());
+                }
+                else
+                {
+                    entry.SetEnabled(false);
+                }
+            }
         }
     }
 }

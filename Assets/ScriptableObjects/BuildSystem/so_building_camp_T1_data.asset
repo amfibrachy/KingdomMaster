@@ -19,7 +19,16 @@ MonoBehaviour:
   HP: 1000
   ResidentsCapacity: 10
   Type: 0
-  Costs: []
+  Costs:
+  - ResourceIcon: {fileID: 21300000, guid: 09fb5acf0f6821c46b58cc084db5357c, type: 3}
+    Resource: 1
+    Amount: 40
+  - ResourceIcon: {fileID: 21300000, guid: 50ca77cb1fdaf2c4bbb92f26575389c1, type: 3}
+    Resource: 1
+    Amount: 12
+  - ResourceIcon: {fileID: 21300000, guid: 6f91a8f97e46688468e17a0c0df3b72a, type: 3}
+    Resource: 1
+    Amount: 120
   MinBuildDistance: 15
   BuildTime: 15
   MaxBuildersAmount: 3

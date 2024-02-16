@@ -96,6 +96,8 @@
             
             _maxBuildersAmount.SetText(data.MaxBuildersAmount.ToString());
             _buildTime.SetText(data.BuildTime.ToString());
+            
+            _buildSystemCost.UpdateCost(data.Costs);
 
             StartCoroutine(RefreshContentSizeFitter());
         }
