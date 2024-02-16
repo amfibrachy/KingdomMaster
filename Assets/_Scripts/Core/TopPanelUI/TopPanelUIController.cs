@@ -14,7 +14,6 @@ namespace _Scripts.Core.TopPanelUI
         [SerializeField] private JobSystemUIControllerScript _jobsSystemUIController;
         [SerializeField] private BuildSystemUIControllerScript _buildSystemUIController;
         
-        
         private void Awake()
         {
             _jobsButton.onClick.AddListener(ToggleJobsPanel);

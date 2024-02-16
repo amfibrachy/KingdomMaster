@@ -31,7 +31,7 @@ namespace _Scripts.Core.BuildSystem
             _buildTime = data.BuildTime;
             _buildingWidth = data.BuildingWidth;
             _buildingPrefab = data.Prefab;
-            _buildersNeeded = data.BuildersNeeded;
+            _buildersNeeded = data.MaxBuildersAmount;
             
             _constructionPlacement.Initialize(data);
             

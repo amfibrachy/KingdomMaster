@@ -2,14 +2,12 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using BuildSystem;
     using BuildSystem.UI;
     using DG.Tweening;
     using global::Zenject;
     using TMPro;
     using UnityEngine;
-    using UnityEngine.Serialization;
     using UnityEngine.UI;
 
     public class BuildSystemUIControllerScript : MonoBehaviour
@@ -19,12 +17,13 @@
         [SerializeField] private CanvasGroup _buildingSystemCanvasGroup;
         [SerializeField] private RectTransform _buildingPanelTransform;
         [SerializeField] private float _initialPosY = -221f;
+        [SerializeField] private Button _exitButton;
         
         [SerializeField] private BuildingEntryScript[] _buildingEntries;
         
         [Header("Info panel")]
         [SerializeField] private BuildSystemInfoScript _buildingSystemInfo;
-        
+
         public bool IsShown { private set; get; }
         private bool IsPanelHovered { set; get; }
         private bool HoveredEntryOnce { set; get; }
@@ -39,6 +38,8 @@
 
             _buildSystemBuildingButtonsPanel.OnBuildingPanelHovered += BuildingPanelHovered;
             _buildSystemBuildingButtonsPanel.OnBuildingPanelExit += BuildingPanelExit;
+            
+            _exitButton.onClick.AddListener(OnExitClicked);
         }
 
         private void OnDestroy()
@@ -51,6 +52,8 @@
             
             _buildSystemBuildingButtonsPanel.OnBuildingPanelHovered -= BuildingPanelHovered;
             _buildSystemBuildingButtonsPanel.OnBuildingPanelExit -= BuildingPanelExit;
+            
+            _exitButton.onClick.RemoveListener(OnExitClicked);
         }
 
         public void ShowPanel()
@@ -97,6 +100,11 @@
         private void BuildingEntryClicked(BuildingDataSO data)
         {
 
+        }
+        
+        private void OnExitClicked()
+        {
+            HidePanel();
         }
     }
 }

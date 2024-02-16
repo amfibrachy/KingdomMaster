@@ -26,9 +26,9 @@
         public void Initialize(BuildingDataSO data)
         {
             _currentTime = 0;
-            _goalTime = data.JobCreationTime;
-            _slider.maxValue = data.JobCreationTime;
-            _icon.sprite = data.JobCreationSprite;
+            _goalTime = data.TrainingTime;
+            _slider.maxValue = data.TrainingTime;
+            _icon.sprite = data.JobSprite;
         }
         
         public void StartCreation()

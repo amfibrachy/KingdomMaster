@@ -12,17 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
   m_Name: so_building_house_T1_data
   m_EditorClassIdentifier: 
-  Name: Villager house
   Prefab: {fileID: 3832781158818760933, guid: 53fd0f09821028e428c8eeb9271f9fe1, type: 3}
   ConstructionPrefab: {fileID: 2897897930199589277, guid: c2254b0c431b49641a4f1d4234c69776, type: 3}
+  Name: Villager house
+  Description: Villager house is a place where citizens can live and have children.
+    Also villagers can hide in their houses during enemy raids.
+  HP: 300
+  ResidentsCapacity: 5
   Type: 2
   Costs: []
   MinBuildDistance: 4
   BuildTime: 15
-  BuildersNeeded: 1
+  MaxBuildersAmount: 2
   BuildingWidth: 7
   BuildingHeight: 3
-  TotalPlaces: 0
-  JobCreationTime: 0
+  JobSprite: {fileID: 0}
   Job: 11
-  JobCreationSprite: {fileID: 0}
+  TrainingCapacity: 0
+  TrainingTime: 0

@@ -1,6 +1,5 @@
 ﻿namespace _Scripts.Core.BuildSystem
 {
-    using System.Collections.Generic;
     using AI;
     using Global;
     using global::Zenject;
@@ -23,7 +22,7 @@
 
         public JobType Job => _data.Job;
         
-        public int TotalFreePlaces => _data.TotalPlaces;
+        public int TotalFreePlaces => _data.TrainingCapacity;
         public int CurrentFreePlaces { private set; get; }
 
         private void Awake()
