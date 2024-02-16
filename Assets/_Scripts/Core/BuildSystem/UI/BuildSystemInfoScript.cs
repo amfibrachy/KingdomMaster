@@ -5,6 +5,7 @@
     using JobSystem;
     using TMPro;
     using UnityEngine;
+    using UnityEngine.Serialization;
     using UnityEngine.UI;
 
     public class BuildSystemInfoScript : MonoBehaviour
@@ -19,7 +20,9 @@
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private TextMeshProUGUI _description;
         [SerializeField] private TextMeshProUGUI _hp;
-        [SerializeField] private TextMeshProUGUI _residents;
+
+        [SerializeField] private RectTransform _residentsTransform;
+        [SerializeField] private TextMeshProUGUI _residentsAmount;
 
         [SerializeField] private RectTransform _jobDetails;
         
@@ -79,7 +82,16 @@
             _title.SetText(data.Name);
             _description.SetText(data.Description);
             _hp.SetText(data.HP.ToString());
-            _residents.SetText(data.ResidentsCapacity.ToString());
+
+            if (data.ResidentsCapacity > 0)
+            {
+                _residentsTransform.gameObject.SetActive(true);
+                _residentsAmount.SetText(data.ResidentsCapacity.ToString());
+            }
+            else
+            {
+                _residentsTransform.gameObject.SetActive(false);
+            }
 
             if (data.Job != JobType.None)
             {

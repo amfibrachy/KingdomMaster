@@ -3,6 +3,8 @@
     public enum ResourceType
     {
         Wood,
-        Stone
+        Stone,
+        Iron,
+        Copper
     }
 }

@@ -16,24 +16,21 @@ MonoBehaviour:
   ConstructionPrefab: {fileID: 2897897930199589277, guid: 8fec6f1db942ad345a3da6e78b2d76b8, type: 3}
   Name: Archer Tower
   Description: Defensive structure with archers
-  HP: 500
+  HP: 300
   ResidentsCapacity: 6
   Type: 1
   Costs:
-  - ResourceIcon: {fileID: 21300000, guid: 72c4da043cb6d844997bf52c4cfdb595, type: 3}
-    Resource: 0
-    Amount: 43
-  - ResourceIcon: {fileID: 21300000, guid: df54be03f4748474ab2a934cd7c07f29, type: 3}
-    Resource: 0
+  - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
+    Amount: 25
+  - Resource: {fileID: 11400000, guid: c5a5dbf5853c16d4aa12831549609ec0, type: 2}
+    Amount: 50
+  - Resource: {fileID: 11400000, guid: 4dedaa59ab6a61c43a0d3c6ff50285b0, type: 2}
     Amount: 10
-  - ResourceIcon: {fileID: 21300000, guid: fb4687ed1f899d146852de285c5e0d9e, type: 3}
-    Resource: 0
-    Amount: 130
   MinBuildDistance: 8
-  BuildTime: 20
-  MaxBuildersAmount: 3
   BuildingWidth: 4
   BuildingHeight: 4
+  MaxBuildersAmount: 3
+  BuildTime: 20
   JobSprite: {fileID: 0}
   Job: 11
   TrainingCapacity: 0

@@ -76,7 +76,7 @@
                 {
                     var cost = costs[index];
                     entry.SetEnabled(true);
-                    entry.Set(cost.ResourceIcon, cost.Amount.ToString());
+                    entry.Set(cost.Resource.Icon, cost.Amount.ToString());
                 }
                 else
                 {
