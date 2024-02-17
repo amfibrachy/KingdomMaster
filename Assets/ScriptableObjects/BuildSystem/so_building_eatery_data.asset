@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
+  m_Name: so_building_eatery_data
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 3832781158818760933, guid: 2d424116e8292ba409e8003d6bb5ec86, type: 3}
+  ConstructionPrefab: {fileID: 0}
+  Name: Eatery
+  Description: structure where the raw food gets cooked
+  HP: 300
+  ResidentsCapacity: 6
+  Type: 8
+  Costs:
+  - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
+    Amount: 25
+  - Resource: {fileID: 11400000, guid: c5a5dbf5853c16d4aa12831549609ec0, type: 2}
+    Amount: 50
+  - Resource: {fileID: 11400000, guid: 4dedaa59ab6a61c43a0d3c6ff50285b0, type: 2}
+    Amount: 10
+  MinBuildDistance: 8
+  BuildingWidth: 4
+  BuildingHeight: 4
+  MaxBuildersAmount: 3
+  BuildTime: 20
+  JobSprite: {fileID: 0}
+  Job: 11
+  TrainingCapacity: 0
+  TrainingTime: 0
