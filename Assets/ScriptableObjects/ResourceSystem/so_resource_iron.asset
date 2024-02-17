@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f8123bf4d84b349c14a6c939db4629, type: 3}
   m_Name: so_resource_iron
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: fc971ba9f25ded341b0d2d0a8c6bd859, type: 3}
+  Icon: {fileID: 21300000, guid: c30a29cbae87eaa4fabb37e7c9569d08, type: 3}
   Type: 2
