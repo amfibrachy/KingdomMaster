@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f8123bf4d84b349c14a6c939db4629, type: 3}
   m_Name: so_resource_stone
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 291837f4736bc5c4d9ef249bcb1e4460, type: 3}
+  Icon: {fileID: 21300000, guid: 1a39068e10aedb8458ae047e5985c096, type: 3}
   Type: 1

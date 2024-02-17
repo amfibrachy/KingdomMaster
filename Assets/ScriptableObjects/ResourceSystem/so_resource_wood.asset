@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2f8123bf4d84b349c14a6c939db4629, type: 3}
   m_Name: so_resource_wood
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: 58242f4ee62fa3c4db1bafc212b8a43b, type: 3}
+  Icon: {fileID: 21300000, guid: 7f0b43b83ae57ed469e5101bdd2197a6, type: 3}
   Type: 0
