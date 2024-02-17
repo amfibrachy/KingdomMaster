@@ -42,8 +42,18 @@ namespace _Scripts.Core.BuildSystem
     public enum BuildingType
     {
         Camp,
-        Tower,
-        House,
-        Wall
+        ArcherTower,
+        VillagerHouse,
+        Wall,
+        Blacksmith,
+        Windmill,
+        MinersShaft,
+        FishingDock,
+        Eatery,
+        EngineersCabin,
+        MageTower,
+        AlchemistHouse,
+        Stockpile,
+        HerbalistShack,
     }
 }
