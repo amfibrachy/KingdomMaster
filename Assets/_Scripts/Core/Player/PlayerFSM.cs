@@ -27,7 +27,6 @@ namespace _Scripts.Core.Player
         public float CurrentSpeed {get; private set; }
 
         public bool IsPlayerRunning { get; private set; }
-        public bool IsInBuildMode { get;  set; }
 
         public PlayerMoveState MoveState;
         public PlayerAttackState AttackState;

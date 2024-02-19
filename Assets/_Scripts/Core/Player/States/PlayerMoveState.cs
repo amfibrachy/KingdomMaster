@@ -15,7 +15,7 @@ namespace _Scripts.Core.Player.States
             
             UpdateFacing(facingDirection);
 
-            if (!_context.IsInBuildMode)
+            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 if (_context.AttackAction.triggered)
                 {
