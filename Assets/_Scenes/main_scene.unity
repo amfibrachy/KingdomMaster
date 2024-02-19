@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731713, g: 0.13414738, b: 0.121078536, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1274,8 +1274,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 269.422, y: 0}
+  m_SizeDelta: {x: 518.844, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63942508
 MonoBehaviour:
@@ -3936,7 +3936,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6.0885415
+  orthographic size: 6.3828125
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -8193,8 +8193,8 @@ MonoBehaviour:
   _exitButton: {fileID: 1104962242}
   _applyButtonImage: {fileID: 1464295594}
   _discardButtonImage: {fileID: 34515252}
-  _blockedApplyButtonSprite: {fileID: 21300000, guid: d20ef3df4eb389c469dbc6133c37d086, type: 3}
-  _blockedDiscardButtonSprite: {fileID: 21300000, guid: d20ef3df4eb389c469dbc6133c37d086, type: 3}
+  _blockedApplyButtonSprite: {fileID: 21300000, guid: a28d7f584e3a4364d8145c1a67605ea4, type: 3}
+  _blockedDiscardButtonSprite: {fileID: 21300000, guid: a28d7f584e3a4364d8145c1a67605ea4, type: 3}
   _jobEntries:
   - {fileID: 203839036}
   - {fileID: 3050225504450146435}
@@ -16877,8 +16877,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 72.355, y: 0}
+  m_SizeDelta: {x: 124.71001, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2072130949
 MonoBehaviour:
