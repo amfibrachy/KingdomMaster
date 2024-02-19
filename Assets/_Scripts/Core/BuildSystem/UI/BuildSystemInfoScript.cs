@@ -1,14 +1,16 @@
 ﻿namespace _Scripts.Core.BuildSystem.UI
 {
+    using System;
     using System.Collections;
     using DG.Tweening;
     using JobSystem;
     using TMPro;
     using UnityEngine;
+    using UnityEngine.EventSystems;
     using UnityEngine.Serialization;
     using UnityEngine.UI;
 
-    public class BuildSystemInfoScript : MonoBehaviour
+    public class BuildSystemInfoScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Info panel")]
         [SerializeField] private CanvasGroup _buildingSystemInfoCanvasGroup;
@@ -36,6 +38,9 @@
         
         [Header("Cost panel")] 
         [SerializeField] private BuildSystemCostScript _buildSystemCost;
+        
+        public event Action OnInfoPanelHovered;
+        public event Action OnInfoPanelExit;
         
         public bool IsShown { private set; get; }
         
@@ -119,6 +124,16 @@
             _buildingSystemInfoFitter.verticalFit = ContentSizeFitter.FitMode.Unconstrained;
             yield return null;
             _buildingSystemInfoFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        }
+        
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            OnInfoPanelHovered?.Invoke();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            OnInfoPanelExit?.Invoke();
         }
     }
 }

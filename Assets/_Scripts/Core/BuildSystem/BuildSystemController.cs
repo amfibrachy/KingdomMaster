@@ -5,19 +5,22 @@ namespace _Scripts.Core.BuildSystem
 
     public class BuildSystemController : MonoBehaviour
     {
-        [SerializeField] private PlacementSystemScript _placementSystem;
-        
         // Injectables
         private BuildersManager _buildersManager;
         private BuildingsManager _buildingsManager;
+        private PlacementSystemScript _placementSystem;
         
         [Inject(Id = "BuildingsParent")] private Transform _buildingsParent;
 
         [Inject]
-        public void Construct(BuildersManager buildersManager, BuildingsManager buildingsManager)
+        public void Construct(
+            BuildersManager buildersManager, 
+            BuildingsManager buildingsManager,
+            PlacementSystemScript placementSystem)
         {
             _buildingsManager = buildingsManager;
             _buildersManager = buildersManager;
+            _placementSystem = placementSystem;
         }
         
         private void Awake()

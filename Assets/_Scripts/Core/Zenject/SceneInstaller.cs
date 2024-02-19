@@ -20,6 +20,7 @@ namespace _Scripts.Core.Zenject
         [SerializeField] private BuildingsManager _buildingsManager;
         [SerializeField] private PopulationController _populationController;
         [SerializeField] private UIUpdateController _uiUpdateController;
+        [SerializeField] private PlacementSystemScript _placementSystem ;
         
         public override void InstallBindings()
         {
@@ -29,6 +30,7 @@ namespace _Scripts.Core.Zenject
             Container.BindInstance(_buildingsManager);
             Container.BindInstance(_populationController);
             Container.BindInstance(_uiUpdateController);
+            Container.BindInstance(_placementSystem);
             
             Container.BindInstance(_particleParent).WithId("ParticleParent");
             Container.BindInstance(_buildingsParent).WithId("BuildingsParent");

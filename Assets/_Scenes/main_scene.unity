@@ -1274,8 +1274,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 269.422, y: 0}
-  m_SizeDelta: {x: 518.844, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &63942508
 MonoBehaviour:
@@ -7779,7 +7779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a28f982f7c4ae3ba1fed70b80ebec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _placementSystem: {fileID: 1936013354}
 --- !u!1 &703404838
 GameObject:
   m_ObjectHideFlags: 0
@@ -15750,6 +15749,7 @@ MonoBehaviour:
   _buildingsManager: {fileID: 1047307934}
   _populationController: {fileID: 843016912}
   _uiUpdateController: {fileID: 2008320921}
+  _placementSystem: {fileID: 1936013354}
 --- !u!1 &1933775262
 GameObject:
   m_ObjectHideFlags: 0
@@ -16877,8 +16877,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 72.355, y: 0}
-  m_SizeDelta: {x: 124.71001, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2072130949
 MonoBehaviour:
