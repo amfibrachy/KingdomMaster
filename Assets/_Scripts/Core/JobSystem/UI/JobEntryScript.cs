@@ -50,7 +50,7 @@
             RequestCount = 0;
             JobCount = 0;
         }
-        
+
         public void BlockIncreaseButton()
         {
             _increaseButton.interactable = false;
@@ -152,6 +152,12 @@
             }
         }
 
+        public void SetJobCount(int amount)
+        {
+            JobCount = amount;
+            _jobCountText.text = JobCount.ToString();
+        }
+        
         public void IncreaseJobCount()
         {
             JobCount++;

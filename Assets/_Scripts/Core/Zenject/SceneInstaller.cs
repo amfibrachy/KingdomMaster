@@ -10,9 +10,15 @@ namespace _Scripts.Core.Zenject
     {
         [SerializeField] private Camera _camera;
         
-        [Header("Parent Objects")]
+        [Header("General parent Objects")]
         [SerializeField] private Transform _particleParent;
         [SerializeField] private Transform _buildingsParent;
+        [SerializeField] private Transform _wallsParent;
+        [SerializeField] private Transform _constructionSitesParent;
+        
+        [Header("NPC parent Objects")]
+        [SerializeField] private Transform _sluggardsParent;
+        [SerializeField] private Transform _buildersParent;
         
         [Header("Controllers and Managers")]
         [SerializeField] private SluggardsManager _sluggardsManager;
@@ -34,6 +40,11 @@ namespace _Scripts.Core.Zenject
             
             Container.BindInstance(_particleParent).WithId("ParticleParent");
             Container.BindInstance(_buildingsParent).WithId("BuildingsParent");
+            Container.BindInstance(_wallsParent).WithId("WallsParent");
+            Container.BindInstance(_constructionSitesParent).WithId("ConstructionSitesParent");
+
+            Container.BindInstance(_sluggardsParent).WithId("SluggardsParent");
+            Container.BindInstance(_buildersParent).WithId("BuildersParent");
         }
     }
 }

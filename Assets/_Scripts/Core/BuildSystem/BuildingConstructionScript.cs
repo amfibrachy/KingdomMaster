@@ -8,6 +8,7 @@ namespace _Scripts.Core.BuildSystem
     {
         [SerializeField] private TextMeshPro _progressText;
 
+        private BuildingType _type;
         private float _currentProgress;
         private float _buildTime;
         private float _buildingWidth;
@@ -15,6 +16,7 @@ namespace _Scripts.Core.BuildSystem
         private BuildingPlacementScript _buildingPrefab;
         private BuildingPlacementScript _constructionPlacement;
 
+        public BuildingType Type => _type;
         public float BuildingWidth => _buildingWidth;
         public float BuildersNeeded => _buildersNeeded;
         
@@ -28,6 +30,7 @@ namespace _Scripts.Core.BuildSystem
 
         public void InitConstructionSite(BuildingDataSO data)
         {
+            _type = data.Type;
             _buildTime = data.BuildTime;
             _buildingWidth = data.BuildingWidth;
             _buildingPrefab = data.Prefab;

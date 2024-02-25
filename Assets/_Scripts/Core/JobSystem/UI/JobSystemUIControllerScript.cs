@@ -1,8 +1,10 @@
 ﻿namespace _Scripts.Core.JobSystem.UI
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using AI;
+    using BuildSystem;
     using DG.Tweening;
     using global::Zenject;
     using TMPro;
@@ -37,8 +39,11 @@
 
         public int SluggardsRequestCount { private set; get; }
 
-        // Privates
+        // Injectables
         private SluggardsManager _sluggardsManager;
+        private BuildersManager _buildersManager;
+        
+        // Privates
         private Dictionary<JobType, int> _jobRequests;
         private int TotalIncreaseCount => _jobRequests.Count > 0 ? _jobRequests.Values.Sum() : 0;
         
@@ -46,9 +51,10 @@
         private Sprite _discardButtonSprite;
         
         [Inject]
-        public void Construct(SluggardsManager sluggardsManager)
+        public void Construct(SluggardsManager sluggardsManager, BuildersManager buildersManager)
         {
             _sluggardsManager = sluggardsManager;
+            _buildersManager = buildersManager;
         }
         
         private void Awake()
@@ -71,7 +77,12 @@
             SluggardsRequestCount = 0;
             _jobRequests = new Dictionary<JobType, int>();
         }
-        
+
+        private void Start()
+        {
+            SetInitialJobCounts();
+        }
+
         private void OnDestroy()
         {
             _applyButton.onClick.RemoveListener(OnApplyClicked);
@@ -99,11 +110,6 @@
             });
         }
 
-        private void UpdateSluggardsNumberText()
-        {
-            _sluggardsNumberText.text = _sluggardsManager.SluggardCount.ToString();
-        }
-        
         public void HidePanel()
         {
             DiscardChanges();
@@ -115,6 +121,50 @@
             });
         }
 
+        public void UpdateJobUIOnCreate(JobType job)
+        {
+            foreach (var jobEntry in _jobEntries)
+            {
+                if (jobEntry.JobType != JobType.None && jobEntry.JobType == job)
+                {
+                    jobEntry.DecreaseRequestCount();
+                    jobEntry.IncreaseJobCount();
+
+                    SluggardsRequestCount--;
+                    
+                    if (SluggardsRequestCount + TotalIncreaseCount > 0)
+                    {
+                        SetSluggardsInMotionEnabled(true);
+                        UpdateSluggardDecreaseText(TotalIncreaseCount);
+                    }
+                    else
+                    {
+                        SetSluggardsInMotionEnabled(false);
+                    }
+                    
+                    break;
+                }
+            }
+        }
+        
+        public void UpdateJobUIOnDispatch<T>(FSM<T> npc, JobType job) where T : IFSM<T>
+        {
+            foreach (var jobEntry in _jobEntries)
+            {
+                if (jobEntry.JobType != JobType.None && jobEntry.JobType == job)
+                {
+                    jobEntry.DecreaseJobCount();
+                    
+                    break;
+                }
+            }
+        }
+        
+        private void UpdateSluggardsNumberText()
+        {
+            _sluggardsNumberText.text = _sluggardsManager.Count.ToString();
+        }
+        
         private void SetSluggardsInMotionEnabled(bool status)
         {
             _sluggardsNumberDecreaseText.gameObject.SetActive(status);
@@ -126,26 +176,26 @@
             int total = SluggardsRequestCount + amount;
             _sluggardsNumberDecreaseText.text = total.ToString();
         }
-        
-        public void BlockApplyButton()
+
+        private void BlockApplyButton()
         {
             _applyButton.interactable = false;
             _applyButtonImage.sprite = _blockedApplyButtonSprite;
         }
-        
-        public void BlockDiscardButton()
+
+        private void BlockDiscardButton()
         {
             _discardButton.interactable = false;
             _discardButtonImage.sprite = _blockedDiscardButtonSprite;
         }
-        
-        public void UnblockApplyButton()
+
+        private void UnblockApplyButton()
         {
             _applyButton.interactable = true;
             _applyButtonImage.sprite = _applyButtonSprite;
         }
-        
-        public void UnblockDiscardButton()
+
+        private void UnblockDiscardButton()
         {
             _discardButton.interactable = true;
             _discardButtonImage.sprite = _discardButtonSprite;
@@ -159,7 +209,7 @@
             {
                 jobEntry.Discard();
                 
-                if (_sluggardsManager.SluggardCount > 0)
+                if (_sluggardsManager.Count > 0)
                 {
                     jobEntry.UnblockIncreaseButton();
                 }
@@ -184,7 +234,7 @@
             if (IsShown)
             {
                 UpdateSluggardsNumberText();
-                bool insufficientSluggards = TotalIncreaseCount > _sluggardsManager.SluggardCount;
+                bool insufficientSluggards = TotalIncreaseCount > _sluggardsManager.Count;
 
                 if (insufficientSluggards)
                 {
@@ -202,6 +252,41 @@
                     {
                         jobEntry.SetIncreaseTextWarning(false);
                     }
+                }
+            }
+        }
+
+        private void SetInitialJobCounts()
+        {
+            foreach (var jobEntry in _jobEntries)
+            {
+                switch (jobEntry.JobType)
+                {
+                    case JobType.Builder:
+                        jobEntry.SetJobCount(_buildersManager.Count);
+                        break;
+                    case JobType.Hauler:
+                        break;
+                    case JobType.Lumberjack:
+                        break;
+                    case JobType.Miner:
+                        break;
+                    case JobType.Farmer:
+                        break;
+                    case JobType.Blacksmith:
+                        break;
+                    case JobType.Cook:
+                        break;
+                    case JobType.Fisherman:
+                        break;
+                    case JobType.Herbalist:
+                        break;
+                    case JobType.Alchemist:
+                        break;
+                    case JobType.Engineer:
+                        break;
+                    case JobType.None:
+                        break;
                 }
             }
         }
@@ -263,7 +348,7 @@
         
         private void JobEntryIncreaseClicked(JobType type)
         {
-            if (TotalIncreaseCount <= _sluggardsManager.SluggardCount)
+            if (TotalIncreaseCount <= _sluggardsManager.Count)
             {
                 AddJob(type);
 
@@ -272,7 +357,7 @@
                 UnblockApplyButton();
                 UnblockDiscardButton();
 
-                if (TotalIncreaseCount == _sluggardsManager.SluggardCount)
+                if (TotalIncreaseCount == _sluggardsManager.Count)
                 {
                     foreach (var jobEntry in _jobEntries)
                     {
@@ -299,45 +384,6 @@
                     BlockApplyButton();
                     BlockDiscardButton();
                     SetSluggardsInMotionEnabled(SluggardsRequestCount > 0);
-                }
-            }
-        }
-
-        public void UpdateJobUIOnCreate(JobType job)
-        {
-            foreach (var jobEntry in _jobEntries)
-            {
-                if (jobEntry.JobType != JobType.None && jobEntry.JobType == job)
-                {
-                    jobEntry.DecreaseRequestCount();
-                    jobEntry.IncreaseJobCount();
-
-                    SluggardsRequestCount--;
-                    
-                    if (SluggardsRequestCount + TotalIncreaseCount > 0)
-                    {
-                        SetSluggardsInMotionEnabled(true);
-                        UpdateSluggardDecreaseText(TotalIncreaseCount);
-                    }
-                    else
-                    {
-                        SetSluggardsInMotionEnabled(false);
-                    }
-                    
-                    break;
-                }
-            }
-        }
-        
-        public void UpdateJobUIOnDispatch<T>(FSM<T> npc, JobType job) where T : IFSM<T>
-        {
-            foreach (var jobEntry in _jobEntries)
-            {
-                if (jobEntry.JobType != JobType.None && jobEntry.JobType == job)
-                {
-                    jobEntry.DecreaseJobCount();
-                    
-                    break;
                 }
             }
         }

@@ -10,10 +10,11 @@
     using UnityEngine;
     using Utils.Debugging;
 
-    public class BuildersManager : MonoBehaviour, IDispatchable, ICreatable
+    public class BuildersManager : MonoBehaviour, IDispatchable, ICreatable, ICountable
     {
-        [SerializeField] private BuilderFSM[] _initialBuilders;
         [SerializeField] private BuilderFSM _builderPrefab;
+        
+        public int Count => _availableBuilders.Count;
         
         private List<BuildingConstructionScript> _constructionsActiveList = new List<BuildingConstructionScript>();
         private List<BuildingConstructionScript> _constructionsPendingList = new List<BuildingConstructionScript>();
@@ -24,11 +25,17 @@
 
         public event Action<BuildingConstructionScript> OnConstructionFinished;
 
+        [Inject(Id = "BuildersParent")] private Transform _buildersParent;
         [Inject] private IDebug _debug;
         
         private void Start()
         {
-            _availableBuilders.AddRange(_initialBuilders); // TODO Handle case when builder dies (arrays will throw exception)
+            var initialBuilders = _buildersParent.GetComponentsInChildren<BuilderFSM>(includeInactive: false);
+
+            if (initialBuilders != null)
+            {
+                _availableBuilders.AddRange(initialBuilders); // TODO Handle case when builder dies (arrays will throw exception)
+            }
         }
 
         public void AddConstructionTask(BuildingConstructionScript site)

@@ -11,10 +11,8 @@ namespace _Scripts.Core.JobSystem
     using UnityEngine;
     using Utils.Debugging;
 
-    public class SluggardsManager : MonoBehaviour, IDispatchable
+    public class SluggardsManager : MonoBehaviour, IDispatchable, ICountable
     {
-        [SerializeField] private SluggardFSM[] _initialSluggards;
-        
         private List<SluggardFSM> _allSluggards = new List<SluggardFSM>();
         private List<SluggardFSM> _availableSluggards = new List<SluggardFSM>();
         private List<SluggardFSM> _pendingSluggards = new List<SluggardFSM>();
@@ -22,11 +20,12 @@ namespace _Scripts.Core.JobSystem
         private Dictionary<JobType, int> _pendingRequests = new Dictionary<JobType, int>();
         
         public int Population { get; set; }
-        public int SluggardCount => _availableSluggards.Count;
+        public int Count => _availableSluggards.Count;
 
         public event Action OnAvailableSluggardsChanged;
         
         // Injectables
+        [Inject(Id = "SluggardsParent")] private Transform _sluggardsParent;
         [Inject] private IDebug _debug;
         
         private BuildingsManager _buildingsManager;
@@ -39,7 +38,13 @@ namespace _Scripts.Core.JobSystem
         
         private void Start()
         {
-            _availableSluggards.AddRange(_initialSluggards); // TODO Handle case when worker dies (arrays will throw exception)
+            var initialSluggards = _sluggardsParent.GetComponentsInChildren<SluggardFSM>(includeInactive: false);
+
+            if (initialSluggards != null)
+            {
+                _availableSluggards.AddRange(initialSluggards); // TODO Handle case when builder dies (arrays will throw exception)
+            }
+            
             _allSluggards.AddRange(_availableSluggards);
             
             StartCoroutine(CheckPendingRequests());

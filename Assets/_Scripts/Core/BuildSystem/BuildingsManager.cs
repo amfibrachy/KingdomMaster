@@ -1,5 +1,6 @@
 ﻿namespace _Scripts.Core.BuildSystem
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using JobSystem;
@@ -14,8 +15,6 @@
         [SerializeField] private float _raycastDistance;
         [SerializeField] private int _maxBuildingToRaycast;
         
-        private List<BuildingJobScript> _allBuildings = new List<BuildingJobScript>();
-
         private void Start()
         {
             foreach (var building in _initialBuildings)
@@ -23,13 +22,21 @@
                 AddConstructedBuilding(building);
             }
         }
-
+        
         public void AddConstructedBuilding(BuildingPlacementScript building)
         {
+            // Initialize data if is Job building
             var buildingJob = building.GetComponent<BuildingJobScript>();
-            buildingJob.Initialize(building.Data);
+
+            if (buildingJob != null) // TODO Can be changed later to initialize all needed component scripts
+            {
+                buildingJob.Initialize(building.Data);
+            }
             
-            _allBuildings.Add(buildingJob);
+            // Update wall manager if is wall
+            
+            
+            // TODO  add building to all buildings for tracking  _allBuildings.Add(buildingJob);
         }
      
         public List<BuildingJobScript> GetFreeBuildings(JobType job)

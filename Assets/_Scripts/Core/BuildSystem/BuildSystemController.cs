@@ -11,6 +11,8 @@ namespace _Scripts.Core.BuildSystem
         private PlacementSystemScript _placementSystem;
         
         [Inject(Id = "BuildingsParent")] private Transform _buildingsParent;
+        [Inject(Id = "WallsParent")] private Transform _wallsParent;
+        [Inject(Id = "ConstructionSitesParent")] private Transform _constructionSitesParent;
 
         [Inject]
         public void Construct(
@@ -31,7 +33,7 @@ namespace _Scripts.Core.BuildSystem
         
         private void PlaceConstructionSiteAndEnqueueRequest(BuildingDataSO building, Vector2 position)
         {
-            var constructionSite = Instantiate(building.ConstructionPrefab, position, Quaternion.identity, _buildingsParent);
+            var constructionSite = Instantiate(building.ConstructionPrefab, position, Quaternion.identity, _constructionSitesParent);
             constructionSite.InitConstructionSite(building);
             
             _buildersManager.AddConstructionTask(constructionSite);
@@ -41,7 +43,7 @@ namespace _Scripts.Core.BuildSystem
         {
             var constructionPosition = constructionSite.transform.position;
 
-            var building = Instantiate(constructionSite.GetBuildingPrefab(), constructionPosition, Quaternion.identity, _buildingsParent);
+            var building = Instantiate(constructionSite.GetBuildingPrefab(), constructionPosition, Quaternion.identity, constructionSite.Type == BuildingType.Wall ? _wallsParent : _buildingsParent);
             _buildingsManager.AddConstructedBuilding(building);
             
             Destroy(constructionSite.gameObject);
