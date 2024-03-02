@@ -23,5 +23,10 @@
 
             return activeChildren.ToArray();
         }
+
+        public static bool IsMouseOverUI()
+        {
+            return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        }
     }
 }

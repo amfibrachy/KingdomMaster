@@ -77,6 +77,9 @@
 
         public void ShowPanel()
         {
+            if (IsShown) 
+                return;
+            
             _buildingSystemCanvasGroup.DOFade(1f, 0.15f);
             _buildingPanelTransform.DOAnchorPosY(0f, 0.3f).OnComplete(() =>
             {
@@ -86,6 +89,9 @@
 
         public void HidePanel()
         {
+            if (!IsShown) 
+                return;
+            
             _buildingSystemCanvasGroup.DOFade(0f, 0.15f);
             _buildingPanelTransform.DOAnchorPosY(_initialPosY, 0.3f).OnComplete(() =>
             {

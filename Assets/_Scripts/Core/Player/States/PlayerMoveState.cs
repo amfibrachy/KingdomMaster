@@ -2,6 +2,7 @@ namespace _Scripts.Core.Player.States
 {
     using AI;
     using UnityEngine;
+    using Utils;
 
     public class PlayerMoveState : BaseState<PlayerFSM>
     {
@@ -15,7 +16,7 @@ namespace _Scripts.Core.Player.States
             
             UpdateFacing(facingDirection);
 
-            if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            if (!Util.IsMouseOverUI())
             {
                 if (_context.AttackAction.triggered)
                 {

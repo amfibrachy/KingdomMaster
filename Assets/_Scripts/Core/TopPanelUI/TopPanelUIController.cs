@@ -1,6 +1,8 @@
 namespace _Scripts.Core.TopPanelUI
 {
     using System;
+    using BuildSystem;
+    using global::Zenject;
     using JobSystem.UI;
     using UnityEngine;
     using UnityEngine.UI;
@@ -13,6 +15,8 @@ namespace _Scripts.Core.TopPanelUI
 
         [SerializeField] private JobSystemUIControllerScript _jobsSystemUIController;
         [SerializeField] private BuildSystemUIControllerScript _buildSystemUIController;
+
+        [Inject] private PlacementSystemScript _placementSystem;
         
         private void Awake()
         {
@@ -22,24 +26,30 @@ namespace _Scripts.Core.TopPanelUI
 
         private void ToggleJobsPanel()
         {
+            _placementSystem.StopPlacement();
+            
             if (_jobsSystemUIController.IsShown)
             {
                 _jobsSystemUIController.HidePanel();
             }
             else
             {
+                _buildSystemUIController.HidePanel();
                 _jobsSystemUIController.ShowPanel();
             }
         }
         
         private void ToggleJBuildPanel()
         {
+            _placementSystem.StopPlacement();
+            
             if (_buildSystemUIController.IsShown)
             {
                 _buildSystemUIController.HidePanel();
             }
             else
             {
+                _jobsSystemUIController.HidePanel();
                 _buildSystemUIController.ShowPanel();
             }
         }
