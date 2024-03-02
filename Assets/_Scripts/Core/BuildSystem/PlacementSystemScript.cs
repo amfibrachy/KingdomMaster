@@ -3,6 +3,7 @@ namespace _Scripts.Core.BuildSystem
     using System;
     using System.Globalization;
     using _Scripts.Utils.Debugging;
+    using Global;
     using global::Zenject;
     using TMPro;
     using UnityEngine;
@@ -33,7 +34,12 @@ namespace _Scripts.Core.BuildSystem
         // Injectables
         private IDebug _debug;
         private Camera _camera;
+        private KingdomBordersController _kingdomBordersController;
         
+        // Input System
+        private InputAction _mouseAction;
+        
+        // Privates
         private BuildingPlacementScript _toBuild;
         private BoxCollider2D _toBuildCollider;
         private Material _transparentMaterial;
@@ -44,10 +50,6 @@ namespace _Scripts.Core.BuildSystem
         private bool _placementActive;
         private int _activeCollisions;
         
-        // Input System
-        private InputAction _mouseAction;
-        
-        // Privates
         private BuildingDataSO _buildingData;
         
         private static readonly int Color1 = Shader.PropertyToID("_Color");
@@ -58,16 +60,18 @@ namespace _Scripts.Core.BuildSystem
             None,
             Valid,
             Invalid,
-            FarPlayer,
-            FarLeft,
-            FarRight,
+            FarFromPlayer,
+            FarLeftFromBuilding,
+            FarRightFromBuilding,
+            FarFromBorder,
         }
 
         [Inject]
-        public void Construct(Camera mainCamera, IDebug debug)
+        public void Construct(Camera mainCamera, IDebug debug, KingdomBordersController kingdomBordersController)
         {
             _debug = debug;
             _camera = mainCamera;
+            _kingdomBordersController = kingdomBordersController;
         }
 
         private void Start()
@@ -109,9 +113,10 @@ namespace _Scripts.Core.BuildSystem
                             
                             break;
                         
-                        case ValidityState.FarLeft:
-                        case ValidityState.FarRight:
-                        case ValidityState.FarPlayer:
+                        case ValidityState.FarLeftFromBuilding:
+                        case ValidityState.FarRightFromBuilding:
+                        case ValidityState.FarFromBorder:
+                        case ValidityState.FarFromPlayer:
                             _transparentMaterial.SetColor(Color1, _tooFarColor);
                             _transparentMaterial.SetFloat(Alpha, _transparencyValue);
                             
@@ -194,17 +199,22 @@ namespace _Scripts.Core.BuildSystem
 
             if (CheckPlayerDistance() == false)
             {
-                return ValidityState.FarPlayer;
+                return ValidityState.FarFromPlayer;
             }
 
             if (CheckBuildingDistance(Vector2.left) == false)
             {
-                return ValidityState.FarLeft;
+                return ValidityState.FarLeftFromBuilding;
             }
             
             if (CheckBuildingDistance(Vector2.right) == false)
             {
-                return ValidityState.FarRight;
+                return ValidityState.FarRightFromBuilding;
+            }
+            
+            if (CheckBorderDistance() == false)
+            {
+                return ValidityState.FarFromBorder;
             }
 
             return ValidityState.Valid;
@@ -216,6 +226,26 @@ namespace _Scripts.Core.BuildSystem
             float distanceToPlayer = Vector2.Distance(currentPosition, _player.transform.position);
             var isPlayerNear = distanceToPlayer <= _distanceToPlayer;
             return isPlayerNear;
+        }
+        
+        private bool CheckBorderDistance()
+        {
+            var currentPositionX = _toBuild.transform.position.x;
+            var townCenterPositionX = _kingdomBordersController.TownCenterPositionX;
+            var rightBorderPositionX = _kingdomBordersController.RightBorderPositionX;
+            var leftBorderPositionX = _kingdomBordersController.LeftBorderPositionX;
+
+            if (currentPositionX >= townCenterPositionX && currentPositionX >= rightBorderPositionX)
+            {
+                return false;
+            }
+            
+            if (currentPositionX <= townCenterPositionX && currentPositionX <= leftBorderPositionX)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private bool CheckBuildingDistance(Vector2 direction)

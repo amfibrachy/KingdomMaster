@@ -4,11 +4,11 @@
     using System.Collections.Generic;
     using System.Linq;
     using AI;
-    using Cysharp.Threading.Tasks;
     using global::Zenject;
     using NPC;
     using UnityEngine;
     using Utils.Debugging;
+    using Utils;
 
     public class BuildersManager : MonoBehaviour, IDispatchable, ICreatable, ICountable
     {
@@ -30,7 +30,7 @@
         
         private void Start()
         {
-            var initialBuilders = _buildersParent.GetComponentsInChildren<BuilderFSM>(includeInactive: false);
+            var initialBuilders = Util.GetActiveChildComponents<BuilderFSM>(_buildersParent);
 
             if (initialBuilders != null)
             {

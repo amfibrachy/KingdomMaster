@@ -1320,8 +1320,9 @@ GameObject:
   - component: {fileID: 5200646480929025197}
   - component: {fileID: -3637255743499925574}
   - component: {fileID: 2574710321968193846}
+  - component: {fileID: 579296792841685075}
   m_Layer: 9
-  m_Name: CampT1
+  m_Name: TownCenterT1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1444,6 +1445,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entrancePosition: {fileID: 7793422548890774618}
   _jobProgressController: {fileID: 7759652656929844859}
+--- !u!114 &579296792841685075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6129734269896870477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df769a03860048748b4367c8941e4b59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6880242977765037135
 GameObject:
   m_ObjectHideFlags: 0

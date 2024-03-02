@@ -9,6 +9,7 @@ namespace _Scripts.Core.JobSystem
     using global::Zenject;
     using NPC;
     using UnityEngine;
+    using Utils;
     using Utils.Debugging;
 
     public class SluggardsManager : MonoBehaviour, IDispatchable, ICountable
@@ -38,7 +39,7 @@ namespace _Scripts.Core.JobSystem
         
         private void Start()
         {
-            var initialSluggards = _sluggardsParent.GetComponentsInChildren<SluggardFSM>(includeInactive: false);
+            var initialSluggards = Util.GetActiveChildComponents<SluggardFSM>(_sluggardsParent);
 
             if (initialSluggards != null)
             {

@@ -3,21 +3,34 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Global;
+    using global::Zenject;
     using JobSystem;
     using UnityEngine;
+    using Utils;
 
     public class BuildingsManager : MonoBehaviour
     {
-        [SerializeField] private BuildingPlacementScript[] _initialBuildings;
-
         [SerializeField] private LayerMask _buildingLayer;
         [SerializeField] private Transform _buildingsSearchOrigin;
         [SerializeField] private float _raycastDistance;
         [SerializeField] private int _maxBuildingToRaycast;
         
+        // Injectables
+        [Inject(Id = "BuildingsParent")] private Transform _buildingsParent;
+        private KingdomBordersController _kingdomBordersController;
+        
+        [Inject]
+        public void Construct(KingdomBordersController kingdomBordersController)
+        {
+            _kingdomBordersController = kingdomBordersController;
+        }
+        
         private void Start()
         {
-            foreach (var building in _initialBuildings)
+            var initialBuildings = Util.GetActiveChildComponents<BuildingPlacementScript>(_buildingsParent);
+
+            foreach (var building in initialBuildings)
             {
                 AddConstructedBuilding(building);
             }
@@ -33,8 +46,11 @@
                 buildingJob.Initialize(building.Data);
             }
             
-            // Update wall manager if is wall
-            
+            // Update kingdom border controller if it is wall
+            if (building.Type == BuildingType.Wall)
+            {
+                _kingdomBordersController.AddWall(building);
+            }
             
             // TODO  add building to all buildings for tracking  _allBuildings.Add(buildingJob);
         }
