@@ -47,6 +47,9 @@ TagManager:
   - name: BuildingPreview
     uniqueID: 800558643
     locked: 0
+  - name: ResourceObjects
+    uniqueID: 3698763175
+    locked: 0
   - name: Ground
     uniqueID: 540435863
     locked: 0

@@ -5,13 +5,13 @@
     using AI;
     using Cysharp.Threading.Tasks;
     using UnityEngine;
-    using Random = UnityEngine.Random;
+    using Utils;
 
-    public class BuilderGoAndBuildState : BaseState<BuilderFSM>
+    public class LumberjackGoAndChopState : BaseState<LumberjackFSM>
     {
         private Vector3 _destinationPosition = Vector3.zero;
         
-        public BuilderGoAndBuildState(BuilderFSM context) : base(context)
+        public LumberjackGoAndChopState(LumberjackFSM context) : base(context)
         {
         }
 
@@ -19,10 +19,10 @@
         {
             base.EnterState();
 
-            _context.IsWalkingToConstructionSite = true;
-            _context.IsBuilding = false;
-            _context.DestinationOffsetMaxDistance = _context.Site.BuildingWidth / 2;
-            _context.DestinationTarget = _context.Site.gameObject.transform;
+            _context.IsWalkingToChopTree = true;
+            _context.IsChopping = false;
+            _context.DestinationOffsetDistance = _context.TreeToChop.TreeWidth / 2;
+            _context.DestinationTarget = _context.TreeToChop.gameObject.transform;
             
             _destinationPosition = GetDestinationPosition();
             
@@ -33,20 +33,20 @@
         {
             base.ExitState();
             
-            _context.IsBuilding = false;
-            _context.BuildTargetSet = false;
-            _context.IsWalkingToConstructionSite = false;
+            _context.IsChopping = false;
+            _context.ChopTreeSet = false;
+            _context.IsWalkingToChopTree = false;
         }
 
         public override async void UpdateState()
         {
-            if (_context.Site.IsConstructionFinished || _context.Site.IsConstructionCanceled)
+            if (_context.TreeToChop.IsChoppedDown)
             {
-                // Finished building or build canceled
+                // Finished chopping tree
                 _context.ChangeState(_context.WanderingState);
             }
             
-            if (_context.IsWalkingToConstructionSite)
+            if (_context.IsWalkingToChopTree)
             {
                 if (_context.MovingDirection == Direction.Left)
                 {
@@ -73,55 +73,56 @@
                         _context.AnimationController.TurnLeft();
                     }
                     
-                    _context.IsWalkingToConstructionSite = false;
+                    _context.IsWalkingToChopTree = false;
                 }
                 
                 return;
             }
 
-            if (!_context.IsBuilding)
+            if (!_context.IsChopping)
             {
-                _context.AnimationController.PlayAnimation(_context.AnimationController.Build);
+                _context.AnimationController.PlayAnimation(_context.AnimationController.ChopTree);
 
                 try
                 {
-                    await WaitUntilBuilding();
+                    await WaitUntilChopping();
                 }
                 catch (OperationCanceledException)
                 {
-                    _context.Debug.Log($"OperationCanceledException for builder: {_context.gameObject.name}");
+                    _context.Debug.Log($"OperationCanceledException for lumberjack: {_context.gameObject.name}");
                 }
                 finally
                 {
-                    _context.IsBuilding = false;
+                    _context.IsChopping = false;
                     _context.AnimationController.PlayAnimation(_context.AnimationController.Idle);
                     
-                    // Finished building or build canceled
+                    // Finished chopping tree
                     _context.ChangeState(_context.WanderingState);
                 }
             }
         }
         
-        private async UniTask WaitUntilBuilding()
+        private async UniTask WaitUntilChopping()
         {
-            _context.IsBuilding = true;
-            while (!_context.Site.IsConstructionFinished && !_context.Site.IsConstructionCanceled)
+            _context.IsChopping = true;
+            
+            while (!_context.TreeToChop.IsChoppedDown)
             {
-                _context.Site.AddProgress(((BuilderStats) _context.Stats).BuildSpeed / 10f);
-                if (_context.Site.IsConstructionFinished)
+                _context.TreeToChop.ChopTree(((LumberjackStats) _context.Stats).ChopSpeed);
+                if (_context.TreeToChop.IsChoppedDown)
                 {
                     break;
                 }
                 
-                await UniTask.Delay(100, DelayType.DeltaTime, PlayerLoopTiming.Update, _context.CancellationSource.Token);
+                await UniTask.Delay((int) (_context.TimeBetweenChops * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _context.CancellationSource.Token);
             }
         }
         
         private Vector3 GetDestinationPosition()
         {
             var targetPosition = _context.DestinationTarget.position;
-            var newPosition = Random.Range(targetPosition.x - _context.DestinationOffsetMaxDistance, targetPosition.x + _context.DestinationOffsetMaxDistance);
-            
+            var newPosition = Util.Choose(targetPosition.x - _context.DestinationOffsetDistance, targetPosition.x + _context.DestinationOffsetDistance);
+
             _context.MovingDirection = newPosition >= _context.Position.x ? Direction.Right : Direction.Left;
             
             return new Vector3(newPosition, 0, 0);

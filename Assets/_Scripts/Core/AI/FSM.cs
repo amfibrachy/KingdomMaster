@@ -22,6 +22,8 @@ namespace _Scripts.Core.AI
         public AnimationControllerScript AnimationController => _animationController;
         public CancellationTokenSource CancellationSource { get; set; }
         public BaseStats Stats => _stats;
+
+        public Vector2 Position => transform.position;
         
         private AnimationControllerScript _animationController;
         protected BaseState<T> _currentState;

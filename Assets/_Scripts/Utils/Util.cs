@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using UnityEngine;
+    using Random = UnityEngine.Random;
 
     public static class Util
     {
@@ -27,6 +28,17 @@
         public static bool IsMouseOverUI()
         {
             return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+        }
+        
+        public static T Choose<T>(params T[] options)
+        {
+            if (options == null || options.Length == 0)
+            {
+                throw new System.ArgumentException("Options array cannot be null or empty");
+            }
+
+            int index = Random.Range(0, options.Length);
+            return options[index];
         }
     }
 }

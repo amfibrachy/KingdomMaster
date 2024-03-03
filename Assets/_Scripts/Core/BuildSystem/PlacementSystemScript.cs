@@ -231,9 +231,9 @@ namespace _Scripts.Core.BuildSystem
         private bool CheckBorderDistance()
         {
             var currentPositionX = _toBuild.transform.position.x;
-            var townCenterPositionX = _kingdomBordersController.TownCenterPositionX;
-            var rightBorderPositionX = _kingdomBordersController.RightBorderPositionX;
-            var leftBorderPositionX = _kingdomBordersController.LeftBorderPositionX;
+            var townCenterPositionX = _kingdomBordersController.TownCenterPosition.x;
+            var rightBorderPositionX = _kingdomBordersController.RightBorderPosition.x;
+            var leftBorderPositionX = _kingdomBordersController.LeftBorderPosition.x;
 
             if (currentPositionX >= townCenterPositionX && currentPositionX >= rightBorderPositionX)
             {

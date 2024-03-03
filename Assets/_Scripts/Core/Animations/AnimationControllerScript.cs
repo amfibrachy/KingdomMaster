@@ -37,6 +37,9 @@ namespace _Scripts.Core.Animations
         
         // Builder Specific Animations
         public readonly int Build = Animator.StringToHash("build");
+        
+        // Lumberjack Specific Animations
+        public readonly int ChopTree = Animator.StringToHash("chop_tree");
 
         [Inject] private IDebug _debug;
 

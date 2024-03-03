@@ -22,10 +22,12 @@ namespace _Scripts.Core.Zenject
         [Header("NPC parent Objects")]
         [SerializeField] private Transform _sluggardsParent;
         [SerializeField] private Transform _buildersParent;
+        [SerializeField] private Transform _lumberjacksParent;
         
         [Header("Controllers and Managers")]
         [SerializeField] private SluggardsManager _sluggardsManager;
         [SerializeField] private BuildersManager _buildersManager;
+        [SerializeField] private LumberjacksManager _lumberjacksManager;
         [SerializeField] private BuildingsManager _buildingsManager;
         [SerializeField] private PopulationController _populationController;
         [SerializeField] private UIUpdateController _uiUpdateController;
@@ -41,6 +43,7 @@ namespace _Scripts.Core.Zenject
             // Controllers and Managers
             Container.BindInstance(_sluggardsManager);
             Container.BindInstance(_buildersManager);
+            Container.BindInstance(_lumberjacksManager);
             Container.BindInstance(_buildingsManager);
             Container.BindInstance(_populationController);
             Container.BindInstance(_uiUpdateController);
@@ -56,6 +59,7 @@ namespace _Scripts.Core.Zenject
             // NPC parent Objects
             Container.BindInstance(_sluggardsParent).WithId("SluggardsParent");
             Container.BindInstance(_buildersParent).WithId("BuildersParent");
+            Container.BindInstance(_lumberjacksParent).WithId("LumberjacksParent");
         }
     }
 }

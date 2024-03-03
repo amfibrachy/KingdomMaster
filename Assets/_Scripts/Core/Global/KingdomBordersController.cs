@@ -10,9 +10,9 @@
 
     public class KingdomBordersController : MonoBehaviour
     {
-        public float TownCenterPositionX => _townCenterPosition.x;
-        public float LeftBorderPositionX => _wallsLeft.Max.x;
-        public float RightBorderPositionX => _wallsRight.Max.x;
+        public Vector2 TownCenterPosition => _townCenterPosition;
+        public Vector2 LeftBorderPosition => _wallsLeft.Max;
+        public Vector2 RightBorderPosition => _wallsRight.Max;
         
         // Injectables
         [Inject(Id = "WallsParent")] private Transform _wallsParent;
@@ -97,7 +97,7 @@
         {
             var buildingPos = building.transform.position;
 
-            if (buildingPos.x > TownCenterPositionX)
+            if (buildingPos.x > TownCenterPosition.x)
             {
                 AddRightWall(buildingPos);
             }
@@ -111,7 +111,7 @@
         {
             var buildingPos = building.transform.position;
 
-            if (buildingPos.x > TownCenterPositionX)
+            if (buildingPos.x > TownCenterPosition.x)
             {
                 RemoveRightWall(buildingPos);
             }
