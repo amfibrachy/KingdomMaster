@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 6012051883523643981}
   - component: {fileID: 5869084244330133361}
   - component: {fileID: 8047276202966819803}
+  - component: {fileID: 430441373676461223}
+  - component: {fileID: 5217406260741895198}
+  - component: {fileID: 4514063073370167}
+  - component: {fileID: 3583622498423052859}
   m_Layer: 0
   m_Name: Lumberjack
   m_TagString: Untagged
@@ -106,3 +110,60 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &430441373676461223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296288522475775260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75182d7f97b24f7cbe83f334b1af93b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5217406260741895198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296288522475775260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1c2f53635e44bf84bdd393da639e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stats: {fileID: 4514063073370167}
+  _destinationTargetCamp: {fileID: 8224014001275314689, guid: 9f8b052d4b70acf4aab3dc76e4f907a7, type: 3}
+  _destinationOffsetWanderingMaxDistance: 7
+  _idleWaitMaxTime: 3
+  _timeBetweenChops: 2
+  _chopParticlesOffset: {x: 0.385, y: 0.35, z: 0}
+--- !u!114 &4514063073370167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296288522475775260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8606bfe19eaf4228a45edb89cbeee8a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkSpeed: 3
+  ChopSpeed: 1
+--- !u!114 &3583622498423052859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7296288522475775260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 161c99d4068e4ed894f8e1d5565585b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _particlePoolPrefab: {fileID: 4309037695643000656, guid: 8497317f95873714ebea71fcd899a650, type: 3}

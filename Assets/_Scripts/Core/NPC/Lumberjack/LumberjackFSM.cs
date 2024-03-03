@@ -1,7 +1,6 @@
 namespace _Scripts.Core.NPC
 {
     using AI;
-    using BuildSystem;
     using JobSystem;
     using ResourceSystem;
     using States;
@@ -21,8 +20,7 @@ namespace _Scripts.Core.NPC
         [SerializeField] private Vector3 _chopParticlesOffset;
 
         // Privates
-        private BuilderParticleSpawner _particleSpawner;
-        
+
         /*************************************** Public Access To Different States and Objects  *******************************************/
         public LumberjackWanderingState WanderingState { get; private set; }
         public LumberjackGoAndChopState GoAndChopState { get; private set; }
@@ -38,7 +36,6 @@ namespace _Scripts.Core.NPC
         public bool IsWalkingToChopTree { get; set; }
         public bool IsWaitingInIdle { get; set; }
         public bool IsChopping { get; set; }
-        public Vector3 ChopParticlesPosition { get; private set; }
 
         /************************************************************* Readonly Fields  *************************************************************/
         
@@ -49,17 +46,22 @@ namespace _Scripts.Core.NPC
         
         public bool IsAvailable => _currentState == WanderingState;
 
-        private void Awake()
+        public override void ShowParticles()
         {
-            _particleSpawner = GetComponent<BuilderParticleSpawner>();
-        }
-
-        public void ShowChoppingParticles()
-        {
-            ChopParticlesPosition = transform.position + new Vector3(
+            ParticlePosition = transform.position + new Vector3(
                 AnimationController.IsFacingRight ? _chopParticlesOffset.x : -_chopParticlesOffset.x, _chopParticlesOffset.y, _chopParticlesOffset.z);
             
-            _particleSpawner.ParticlePool.Get();
+            ParticleSpawner.ParticlePool.Get();
+        }
+
+        public void OnAxeHitTree()
+        {
+            ShowParticles();
+            
+            if (_currentState == GoAndChopState)
+            {
+                GoAndChopState.ChopTree();
+            }
         }
 
         public void SetTreeToCut(TreeScript tree)

@@ -16,8 +16,6 @@ namespace _Scripts.Core.NPC
         
         [Header("Effects")]
         [SerializeField] private Vector3 _buildParticlesOffset;
-
-        private BuilderParticleSpawner _particleSpawner;
         
         /*************************************** Public Access To Different States and Objects  *******************************************/
 
@@ -35,7 +33,6 @@ namespace _Scripts.Core.NPC
         public bool IsWalkingToConstructionSite { get; set; }
         public bool IsWaitingInIdle { get; set; }
         public bool IsBuilding { get; set; }
-        public Vector3 BuildParticlesPosition { get; private set; }
 
         /************************************************************* Readonly Fields  *************************************************************/
         
@@ -45,17 +42,18 @@ namespace _Scripts.Core.NPC
         
         public bool IsAvailable => _currentState == WanderingState;
 
-        private void Awake()
+        public override void ShowParticles()
         {
-            _particleSpawner = GetComponent<BuilderParticleSpawner>();
-        }
-
-        public void ShowBuildingParticles()
-        {
-            BuildParticlesPosition = transform.position + new Vector3(
+            // Show hammer hit build particles
+            ParticlePosition = transform.position + new Vector3(
                 AnimationController.IsFacingRight ? _buildParticlesOffset.x : -_buildParticlesOffset.x, _buildParticlesOffset.y, _buildParticlesOffset.z);
             
-            _particleSpawner.ParticlePool.Get();
+            ParticleSpawner.ParticlePool.Get();
+        }
+
+        public void OnHammerHitBuilding()
+        {
+            ShowParticles();
         }
 
         public void SetBuildingTask(BuildingConstructionScript site)

@@ -108,13 +108,20 @@
             
             while (!_context.TreeToChop.IsChoppedDown)
             {
-                _context.TreeToChop.ChopTree(((LumberjackStats) _context.Stats).ChopSpeed);
                 if (_context.TreeToChop.IsChoppedDown)
                 {
                     break;
                 }
                 
                 await UniTask.Delay((int) (_context.TimeBetweenChops * 1000), DelayType.DeltaTime, PlayerLoopTiming.Update, _context.CancellationSource.Token);
+            }
+        }
+
+        public void ChopTree()
+        {
+            if (_context.IsChopping && !_context.TreeToChop.IsChoppedDown)
+            {
+                _context.TreeToChop.ChopTree(((LumberjackStats) _context.Stats).ChopDamage);
             }
         }
         

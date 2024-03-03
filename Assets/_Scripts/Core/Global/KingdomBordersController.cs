@@ -11,8 +11,8 @@
     public class KingdomBordersController : MonoBehaviour
     {
         public Vector2 TownCenterPosition => _townCenterPosition;
-        public Vector2 LeftBorderPosition => _wallsLeft.Max;
-        public Vector2 RightBorderPosition => _wallsRight.Max;
+        public Vector2 LeftBorderPosition => _wallsLeft.Count > 0 ? _wallsLeft.Max : _townCenterPosition;
+        public Vector2 RightBorderPosition => _wallsRight.Count > 0 ? _wallsRight.Max : _townCenterPosition;
         
         // Injectables
         [Inject(Id = "WallsParent")] private Transform _wallsParent;
@@ -24,7 +24,7 @@
         private SortedSet<Vector2> _wallsLeft;
         private Vector2 _townCenterPosition;
         
-        private void Start()
+        private void Awake()
         {
             _townCenterPosition = _townCenter.transform.position;
             var initialWalls = Util.GetActiveChildComponents<Transform>(_wallsParent);

@@ -86,9 +86,9 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.5714286
-    functionName: ShowBuildingParticles
+    functionName: OnHammerHitBuilding
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 3152409564871949717, guid: 0d4d56fc47aeafa428401d7e02df487d, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

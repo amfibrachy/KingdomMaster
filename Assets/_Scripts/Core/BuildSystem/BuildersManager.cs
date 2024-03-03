@@ -114,7 +114,7 @@
             {
                 var site = _constructionsActiveList[index];
                 
-                if (site.IsConstructionCanceled || site.IsConstructionFinished)
+                if (site.IsConstructionCanceled || site.IsConstructionFinished)  // TODO can switch to event based system like lumberjack
                 {
                     var workingBuilders = _activeSitesBuildersMap[site];
         

@@ -1,5 +1,6 @@
 ﻿namespace _Scripts.Core.ResourceSystem
 {
+    using System;
     using global::Zenject;
     using UnityEngine;
     using Utils.Debugging;
@@ -10,6 +11,8 @@
         [SerializeField] private float _treeDurability = 100f;
 
         [Inject] private IDebug _debug;
+
+        public event Action<TreeScript> OnTreeChopped;
         
         public float TreeWidth => _treeWidth;
         public bool IsMarked { get; private set; }
@@ -33,6 +36,7 @@
             {
                 _treeDurability = 0;
                 IsChoppedDown = true;
+                OnTreeChopped?.Invoke(this);
                 FallTree();
             }
         }

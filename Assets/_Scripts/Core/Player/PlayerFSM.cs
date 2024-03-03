@@ -54,6 +54,10 @@ namespace _Scripts.Core.Player
             _currentState.EnterState();
         }
 
+        public override void ShowParticles()
+        {
+        }
+
         private void InitInput()
         {
             InputManager.Player.Enable();

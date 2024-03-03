@@ -33,8 +33,7 @@
         
         // Privates
         private List<LumberjackFSM> _availableLumberjacks = new List<LumberjackFSM>();
-        private List<TreeScript> _markedTrees = new List<TreeScript>();
-        
+
         private Dictionary<TreeScript, LumberjackFSM> _activeTreeLumberjacksMap = new();
         
         [Inject]
@@ -55,23 +54,6 @@
             StartCoroutine(CheckForTreesToChop());
         }
         
-        private void Update()
-        {
-            if (_markedTrees.Count == 0)
-                return;
-            
-            for (int index = _markedTrees.Count - 1; index >= 0; --index)
-            {
-                var tree = _markedTrees[index];
-
-                if (tree.IsChoppedDown)
-                {
-                    _availableLumberjacks.Add(_activeTreeLumberjacksMap[tree]);
-                    _activeTreeLumberjacksMap.Remove(tree);
-                }
-            }
-        }
-
         private IEnumerator CheckForTreesToChop()
         {
             while (true)
@@ -87,24 +69,31 @@
                         
                         _availableLumberjacks.RemoveAt(_availableLumberjacks.Count - 1);
                         _activeTreeLumberjacksMap[tree] = availableLumberjack;
-                        _markedTrees.Add(tree);
+
+                        tree.OnTreeChopped += OnTreeChoppedDown;  // TODO unregister event somewhere
                         
                         tree.MarkToCut();
                         availableLumberjack.SetTreeToCut(tree);
                     }
                 }
 
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(_treeCutCheckFrequency);
             }
         }
-        
+
+        private void OnTreeChoppedDown(TreeScript tree)
+        {
+            _availableLumberjacks.Add(_activeTreeLumberjacksMap[tree]);
+            _activeTreeLumberjacksMap.Remove(tree);
+        }
+
         private List<TreeScript> GetAvailableTrees(Vector2 searchOrigin)
         {
             var hitsRight = new RaycastHit2D[_maxTreesToRaycast / 2];
             var hitsLeft = new RaycastHit2D[_maxTreesToRaycast / 2];
 
-            var leftDistance = Vector2.Distance(searchOrigin, _kingdomBordersController.LeftBorderPosition) + _treeCutCheckFrequency;
-            var rightDistance = Vector2.Distance(searchOrigin, _kingdomBordersController.RightBorderPosition) + _treeCutCheckFrequency;
+            var leftDistance = Vector2.Distance(searchOrigin, _kingdomBordersController.LeftBorderPosition) + _treeCheckDistanceFromBorder;
+            var rightDistance = Vector2.Distance(searchOrigin, _kingdomBordersController.RightBorderPosition) + _treeCheckDistanceFromBorder;
             
             Physics2D.RaycastNonAlloc(searchOrigin, Vector2.right, hitsRight, rightDistance, _treesLayer);
             Physics2D.RaycastNonAlloc(searchOrigin, Vector2.left, hitsLeft, leftDistance, _treesLayer);

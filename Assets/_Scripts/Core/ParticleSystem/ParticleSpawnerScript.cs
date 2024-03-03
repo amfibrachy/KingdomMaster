@@ -1,13 +1,11 @@
-﻿namespace _Scripts.Core.BuildSystem
+﻿namespace _Scripts.Core.ParticleSystem
 {
     using global::Zenject;
-    using NPC;
-    using ParticleSystem;
     using UnityEngine;
     using UnityEngine.Pool;
 
-    [RequireComponent(typeof(BuilderFSM))]
-    public class BuilderParticleSpawner : MonoBehaviour
+    [RequireComponent(typeof(IParticleEmitter))]
+    public class ParticleSpawnerScript : MonoBehaviour
     {
         [SerializeField] private ParticlePool _particlePoolPrefab;
         
@@ -15,11 +13,11 @@
         [Inject(Id = "ParticleParent")] private Transform _particleParent;
         
         public ObjectPool<ParticlePool> ParticlePool { get; private set; }
-        private BuilderFSM _builder;
+        private IParticleEmitter _emitter;
 
         void Start()
         {
-            _builder = GetComponent<BuilderFSM>();
+            _emitter = GetComponent<IParticleEmitter>();
             
             ParticlePool = new ObjectPool<ParticlePool>(OnCreateParticles, OnTakeParticles, OnReturnParticles,
                 OnDestroyParticles, true, 10, 100);
@@ -27,7 +25,7 @@
 
         private ParticlePool OnCreateParticles()
         {
-            ParticlePool particles = Instantiate(_particlePoolPrefab, _builder.BuildParticlesPosition, _particlePoolPrefab.transform.rotation, _particleParent);
+            ParticlePool particles = Instantiate(_particlePoolPrefab, _emitter.ParticlePosition, _particlePoolPrefab.transform.rotation, _particleParent);
             particles.SetPool(ParticlePool);
              
             return particles;
@@ -35,8 +33,8 @@
 
         private void OnTakeParticles(ParticlePool particles)
         {
-            particles.transform.position = _builder.BuildParticlesPosition;
-            particles.transform.localScale = new Vector3(_builder.AnimationController.IsFacingRight ? 1 : -1, 1, 1);
+            particles.transform.position = _emitter.ParticlePosition;
+            particles.transform.localScale = new Vector3(_emitter.AnimationController.IsFacingRight ? 1 : -1, 1, 1);
             
             particles.gameObject.SetActive(true);
         }

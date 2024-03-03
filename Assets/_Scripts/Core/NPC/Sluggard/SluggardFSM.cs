@@ -1,13 +1,10 @@
 namespace _Scripts.Core.NPC
 {
-    using System.Threading;
     using AI;
     using BuildSystem;
-    using global::Zenject;
     using JobSystem;
     using States;
     using UnityEngine;
-    using Utils.Debugging;
 
     public class SluggardFSM : FSM<SluggardFSM>
     {
@@ -48,6 +45,10 @@ namespace _Scripts.Core.NPC
             
             _currentState = WanderingState;
             _currentState.EnterState();
+        }
+
+        public override void ShowParticles()
+        {
         }
 
         public void SetJobTask(BuildingJobScript jobBuilding, JobType job)
