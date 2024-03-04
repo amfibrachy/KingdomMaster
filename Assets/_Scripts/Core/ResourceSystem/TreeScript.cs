@@ -1,6 +1,7 @@
 ﻿namespace _Scripts.Core.ResourceSystem
 {
     using System;
+    using DG.Tweening;
     using global::Zenject;
     using UnityEngine;
     using Utils.Debugging;
@@ -29,6 +30,7 @@
         public void ChopTree(float amount)
         {
             _treeDurability -= amount;
+            transform.DOShakeRotation(0.5f, 4f, 10, 10f);
 
             _debug.Log("_treeDurability: " + _treeDurability);
             
