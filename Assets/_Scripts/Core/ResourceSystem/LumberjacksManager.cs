@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using AI;
+    using Cysharp.Threading.Tasks;
     using Global;
     using global::Zenject;
     using NPC;
@@ -81,9 +82,13 @@
             }
         }
 
-        private void OnTreeChoppedDown(TreeScript tree)
+        private async void OnTreeChoppedDown(TreeScript tree)
         {
-            _availableLumberjacks.Add(_activeTreeLumberjacksMap[tree]);
+            var workingLumberJack = _activeTreeLumberjacksMap[tree];
+    
+            await UniTask.WaitUntil(() => workingLumberJack.IsAvailable);
+
+            _availableLumberjacks.Add(workingLumberJack);
             _activeTreeLumberjacksMap.Remove(tree);
         }
 

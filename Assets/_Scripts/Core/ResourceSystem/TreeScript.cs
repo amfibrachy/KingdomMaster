@@ -31,8 +31,6 @@
         {
             _treeDurability -= amount;
             transform.DOShakeRotation(0.5f, 4f, 10, 10f);
-
-            _debug.Log("_treeDurability: " + _treeDurability);
             
             if (_treeDurability <= 0)
             {

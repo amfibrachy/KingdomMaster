@@ -40,12 +40,6 @@
 
         public override async void UpdateState()
         {
-            if (_context.TreeToChop.IsChoppedDown)
-            {
-                // Finished chopping tree
-                _context.ChangeState(_context.WanderingState);
-            }
-            
             if (_context.IsWalkingToChopTree)
             {
                 if (_context.MovingDirection == Direction.Left)
@@ -110,6 +104,7 @@
             {
                 if (_context.TreeToChop.IsChoppedDown)
                 {
+                    await _context.AnimationController.WaitForAnimationFinish(null, _context.CancellationSource.Token);
                     break;
                 }
                 

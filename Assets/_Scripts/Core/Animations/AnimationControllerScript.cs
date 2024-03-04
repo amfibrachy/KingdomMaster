@@ -3,6 +3,8 @@ namespace _Scripts.Core.Animations
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Threading;
+    using Cysharp.Threading.Tasks;
     using global::Zenject;
     using UnityEngine;
     using Utils.Debugging;
@@ -19,6 +21,8 @@ namespace _Scripts.Core.Animations
         private SpriteRenderer _spriteRenderer;
         
         private int _currentAnimation;
+        
+        private CancellationTokenSource _cancellationTokenSource;
         
         /* ANIMATIONS */
         
@@ -47,6 +51,7 @@ namespace _Scripts.Core.Animations
         {
             _animator = GetComponent<Animator>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _cancellationTokenSource = new CancellationTokenSource();
             IsUninterruptedPlaying = false;
         }
 
@@ -60,26 +65,7 @@ namespace _Scripts.Core.Animations
             _currentAnimation = newAnimation;
             _animator.Play(newAnimation, 0, normalizedTime);
         }
-
-        public void PlayAnimationUninterrupted(int newAnimation, Action onComplete = null, bool lockAnimation = false, bool forceInterrupt = false)
-        {
-            if (IsUninterruptedPlaying && !forceInterrupt) 
-                return;
-
-            IsAnimationLocked = lockAnimation;
-            
-            float time = 0;
-            
-            if (forceInterrupt)
-            {
-                StopAllCoroutines();
-                time = _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-            }
-
-            PlayAnimation(newAnimation, time);
-            StartCoroutine(WaitForAnimationFinish(onComplete));
-        }
-
+        
         public void TurnLeft()
         {
             _spriteRenderer.flipX = true;
@@ -90,28 +76,50 @@ namespace _Scripts.Core.Animations
             _spriteRenderer.flipX = false;
         }
 
-        private IEnumerator WaitForAnimationToSet()
+        public void PlayAnimationUninterrupted(int newAnimation, Action onComplete = null, bool lockAnimation = false, bool forceInterrupt = false)
         {
-            while (_animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _currentAnimation)
+            if (IsUninterruptedPlaying && !forceInterrupt) 
+                return;
+
+            IsAnimationLocked = lockAnimation;
+
+            float time = 0;
+
+            if (forceInterrupt)
             {
-                yield return null;
+                _cancellationTokenSource?.Cancel();
+                time = _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
             }
+
+            PlayAnimation(newAnimation, time);
+            
+            _cancellationTokenSource = new CancellationTokenSource();
+            
+            WaitForAnimationFinish(onComplete, _cancellationTokenSource.Token).Forget(); // Forget() to ignore any exception
         }
 
-        private IEnumerator WaitForAnimationFinish(Action onComplete = null)
+        public async UniTask WaitForAnimationFinish(Action onComplete = null, CancellationToken cancellationToken = default)
         {
             IsUninterruptedPlaying = true;
 
-            yield return WaitForAnimationToSet();
-            
+            await WaitForAnimationToSet();
+
             while (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
             {
-                yield return null;
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken);
             }
 
             onComplete?.Invoke();
             IsUninterruptedPlaying = false;
             IsAnimationLocked = false;
+        }
+        
+        private async UniTask WaitForAnimationToSet()
+        {
+            while (_animator.GetCurrentAnimatorStateInfo(0).shortNameHash != _currentAnimation)
+            {
+                await UniTask.Yield();
+            }
         }
     }
 }

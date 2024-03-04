@@ -40,12 +40,6 @@
 
         public override async void UpdateState()
         {
-            if (_context.Site.IsConstructionFinished || _context.Site.IsConstructionCanceled)
-            {
-                // Finished building or build canceled
-                _context.ChangeState(_context.WanderingState);
-            }
-            
             if (_context.IsWalkingToConstructionSite)
             {
                 if (_context.MovingDirection == Direction.Left)
@@ -108,8 +102,9 @@
             while (!_context.Site.IsConstructionFinished && !_context.Site.IsConstructionCanceled)
             {
                 _context.Site.AddProgress(((BuilderStats) _context.Stats).BuildSpeed / 10f);
-                if (_context.Site.IsConstructionFinished)
+                if (_context.Site.IsConstructionFinished || _context.Site.IsConstructionCanceled)
                 {
+                    await _context.AnimationController.WaitForAnimationFinish(null, _context.CancellationSource.Token);
                     break;
                 }
                 
