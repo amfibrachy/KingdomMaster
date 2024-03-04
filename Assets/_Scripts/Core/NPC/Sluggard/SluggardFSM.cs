@@ -2,20 +2,22 @@ namespace _Scripts.Core.NPC
 {
     using AI;
     using BuildSystem;
+    using Global;
+    using global::Zenject;
     using JobSystem;
     using States;
     using UnityEngine;
 
     public class SluggardFSM : FSM<SluggardFSM>
     {
-        // Privates
-        [SerializeField] private Transform _wanderingTarget;
-        [SerializeField] private float _destinationOffsetWanderingMaxDistance;
+        [Header("Wandering")]
         [SerializeField] private float _idleWaitMaxTime;
-
-        /*********************************************************** States and Objects  ************************************************************/
-        // Public Access To Different States and Objects
         
+        // Injectables
+        private KingdomBordersController _bordersController;
+
+        /********************************************** Public Access To Different States and Objects  **********************************************/
+
         public SluggardWanderingState WanderingState;
         public SluggardGoAndTrainState GoAndTrainState;
         
@@ -32,11 +34,16 @@ namespace _Scripts.Core.NPC
 
         /************************************************************* Readonly Fields  *************************************************************/
 
-        public Transform WanderingTarget => _wanderingTarget;
-        public float DestinationOffsetWanderingMaxDistance => _destinationOffsetWanderingMaxDistance;
-
         public float IdleWaitMaxTime => _idleWaitMaxTime;
 
+        public KingdomBordersController BordersController => _bordersController;
+
+        [Inject]
+        public void Construct(KingdomBordersController bordersController)
+        {
+            _bordersController = bordersController;
+        }
+        
         public override void InitStates()
         {
             Agent = AgentType.Sluggard;

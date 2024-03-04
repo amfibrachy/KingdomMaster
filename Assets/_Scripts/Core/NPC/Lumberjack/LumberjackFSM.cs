@@ -1,6 +1,8 @@
 namespace _Scripts.Core.NPC
 {
     using AI;
+    using Global;
+    using global::Zenject;
     using JobSystem;
     using ResourceSystem;
     using States;
@@ -9,8 +11,6 @@ namespace _Scripts.Core.NPC
     public class LumberjackFSM : FSM<LumberjackFSM>, IHasJob
     {
         [Header("Wandering")]
-        [SerializeField] private Transform _destinationTargetCamp;
-        [SerializeField] private float _destinationOffsetWanderingMaxDistance;
         [SerializeField] private float _idleWaitMaxTime;
 
         [Header("Job details")]
@@ -19,7 +19,8 @@ namespace _Scripts.Core.NPC
         [Header("Effects")]
         [SerializeField] private Vector3 _chopParticlesOffset;
 
-        // Privates
+        // Injectables
+        private KingdomBordersController _bordersController;
 
         /*************************************** Public Access To Different States and Objects  *******************************************/
         public LumberjackWanderingState WanderingState { get; private set; }
@@ -39,13 +40,19 @@ namespace _Scripts.Core.NPC
 
         /************************************************************* Readonly Fields  *************************************************************/
         
-        public float DestinationOffsetWanderingMaxDistance => _destinationOffsetWanderingMaxDistance;
-        public Transform DestinationTargetCamp => _destinationTargetCamp;
         public float IdleWaitMaxTime => _idleWaitMaxTime;
         public float TimeBetweenChops => _timeBetweenChops;
         
         public bool IsAvailable => _currentState == WanderingState;
 
+        public KingdomBordersController BordersController => _bordersController;
+
+        [Inject]
+        public void Construct(KingdomBordersController bordersController)
+        {
+            _bordersController = bordersController;
+        }
+        
         public override void ShowParticles()
         {
             ParticlePosition = transform.position + new Vector3(

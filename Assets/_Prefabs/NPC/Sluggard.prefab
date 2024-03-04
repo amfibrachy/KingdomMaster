@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3371719088651601655}
+  - component: {fileID: 1037658412216847367}
+  - component: {fileID: 7301666584932207672}
   - component: {fileID: 7867458604501582950}
   - component: {fileID: 4629613065179922006}
-  - component: {fileID: 1037658412216847367}
   - component: {fileID: 3982203508166115439}
-  - component: {fileID: 7301666584932207672}
   m_Layer: 0
   m_Name: Sluggard
   m_TagString: Untagged
@@ -36,6 +36,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1037658412216847367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827013286141378183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0427b0bd935e4233914038a531a17c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stats: {fileID: 7301666584932207672}
+  _idleWaitMaxTime: 5
+--- !u!114 &7301666584932207672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827013286141378183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6f913b97f2e47dc94ad8cf1e23b9148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkSpeed: 3
 --- !u!95 &7867458604501582950
 Animator:
   serializedVersion: 5
@@ -69,22 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75182d7f97b24f7cbe83f334b1af93b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1037658412216847367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827013286141378183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0427b0bd935e4233914038a531a17c5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stats: {fileID: 7301666584932207672}
-  _wanderingTarget: {fileID: 8224014001275314689, guid: 9f8b052d4b70acf4aab3dc76e4f907a7, type: 3}
-  _destinationOffsetWanderingMaxDistance: 10
-  _idleWaitMaxTime: 5
 --- !u!212 &3982203508166115439
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -137,16 +148,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7301666584932207672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827013286141378183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6f913b97f2e47dc94ad8cf1e23b9148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WalkSpeed: 3

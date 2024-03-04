@@ -22,9 +22,7 @@ namespace _Scripts.Core.NPC.States
             
             _context.IsWandering = true;
             _context.IsWaitingInIdle = false;
-            _context.DestinationOffsetMaxDistance = _context.DestinationOffsetWanderingMaxDistance;
-            _context.DestinationTarget = _context.DestinationTargetCamp;
-            
+
             _destinationPosition = GetNewDestinationPosition();
             
             _context.CancellationSource = new CancellationTokenSource();
@@ -99,8 +97,7 @@ namespace _Scripts.Core.NPC.States
 
         private Vector3 GetNewDestinationPosition()
         {
-            var targetPosition = _context.DestinationTarget.position;
-            var newPosition = Random.Range(targetPosition.x - _context.DestinationOffsetMaxDistance, targetPosition.x + _context.DestinationOffsetMaxDistance);
+            var newPosition = Random.Range(_context.BordersController.LeftBorderPosition.x + 2f, _context.BordersController.RightBorderPosition.x - 2f);
             
             _movingDirection = newPosition >= _context.transform.position.x ? Direction.Right : Direction.Left;
             

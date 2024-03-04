@@ -100,8 +100,7 @@ namespace _Scripts.Core.NPC.States
 
         private Vector3 GetNewDestinationPosition()
         {
-            var targetPosition = _context.WanderingTarget.position;
-            var newPosition = Random.Range(targetPosition.x - _context.DestinationOffsetWanderingMaxDistance, targetPosition.x + _context.DestinationOffsetWanderingMaxDistance);
+            var newPosition = Random.Range(_context.BordersController.LeftBorderPosition.x + 2f, _context.BordersController.RightBorderPosition.x - 2f);
             
             _movingDirection = newPosition >= _context.transform.position.x ? Direction.Right : Direction.Left;
             

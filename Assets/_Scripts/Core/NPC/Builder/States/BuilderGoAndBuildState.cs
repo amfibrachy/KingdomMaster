@@ -21,7 +21,7 @@
 
             _context.IsWalkingToConstructionSite = true;
             _context.IsBuilding = false;
-            _context.DestinationOffsetMaxDistance = _context.Site.BuildingWidth / 2;
+            _context.DestinationOffsetDistance = _context.Site.BuildingWidth / 2;
             _context.DestinationTarget = _context.Site.gameObject.transform;
             
             _destinationPosition = GetDestinationPosition();
@@ -115,7 +115,7 @@
         private Vector3 GetDestinationPosition()
         {
             var targetPosition = _context.DestinationTarget.position;
-            var newPosition = Random.Range(targetPosition.x - _context.DestinationOffsetMaxDistance, targetPosition.x + _context.DestinationOffsetMaxDistance);
+            var newPosition = Random.Range(targetPosition.x - _context.DestinationOffsetDistance, targetPosition.x + _context.DestinationOffsetDistance);
             
             _context.MovingDirection = newPosition >= _context.Position.x ? Direction.Right : Direction.Left;
             
