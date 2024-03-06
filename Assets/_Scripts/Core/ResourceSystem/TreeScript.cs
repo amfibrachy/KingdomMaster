@@ -8,9 +8,13 @@
 
     public class TreeScript : MonoBehaviour
     {
+        [Header("Tree details")]
         [SerializeField] private float _treeWidth = 1f;
         [SerializeField] private float _treeDurability = 100f;
-
+        
+        [Header("Effects")] 
+        [SerializeField] private ParticleSystem _leaveParticles;
+        
         [Inject] private IDebug _debug;
 
         public event Action<TreeScript> OnTreeChopped;
@@ -31,6 +35,7 @@
         {
             _treeDurability -= amount;
             transform.DOShakeRotation(0.5f, 4f, 10, 10f);
+            _leaveParticles.Play();
             
             if (_treeDurability <= 0)
             {
