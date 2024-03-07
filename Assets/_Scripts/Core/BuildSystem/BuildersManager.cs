@@ -26,6 +26,7 @@
         public event Action<BuildingConstructionScript> OnConstructionFinished;
 
         [Inject(Id = "BuildersParent")] private Transform _buildersParent;
+        [Inject] private DiContainer _container;
         [Inject] private IDebug _debug;
         
         private void Start()
@@ -138,10 +139,11 @@
         {
             _availableBuilders.Remove(fsm as BuilderFSM);
         }
-        
+
         public void Create(Vector3 position)
         {
             var newBuilder = Instantiate(_builderPrefab, position, Quaternion.identity);
+            _container.Inject(newBuilder);
             _availableBuilders.Add(newBuilder);
         }
     }
