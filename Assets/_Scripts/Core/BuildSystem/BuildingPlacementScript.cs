@@ -13,25 +13,34 @@ namespace _Scripts.Core.BuildSystem
         public BuildingDataSO Data => _data;
 
         [SerializeField] private BuildingDataSO _defaultSettings;
+        
+        [Header("Preview Settings")]
         [SerializeField] private string _previewSortingLayer;
+        [SerializeField] private Transform _backgroundPreview;
+        [SerializeField] private SpriteRenderer _backgroundRenderer;
 
         // Privates
-        private TilemapRenderer[] _renderers;
+        private TilemapRenderer[] _tileMapRenderers;
         private BuildingDataSO _data;
         
         private void Awake()
         {
-            _renderers = GetComponentsInChildren<TilemapRenderer>();
+            _tileMapRenderers = GetComponentsInChildren<TilemapRenderer>();
             _data = _defaultSettings;
         }
 
         public void SetMaterial(Material material)
         {
-            foreach (var tilemapRenderer in _renderers)
+            foreach (var tilemapRenderer in _tileMapRenderers)
             {
                 tilemapRenderer.material = material;
                 tilemapRenderer.sortingLayerName = _previewSortingLayer;
             }
+
+            _backgroundRenderer.material = material;
+            _backgroundRenderer.sortingLayerName = _previewSortingLayer;
+            _backgroundRenderer.sortingOrder = -1;
+            _backgroundPreview.gameObject.SetActive(true);
         }
 
         public void Initialize(BuildingDataSO data)

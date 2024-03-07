@@ -4069,7 +4069,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 7.5
+  orthographic size: 6.109375
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -57984,6 +57984,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: InitialRightWall
       objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[4].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[5].m_Data
+      value: 
+      objectReference: {fileID: 552687389, guid: 61b30e7bba23de740b94105f1787a914, type: 3}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[4].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[5].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_Tiles.Array.data[0].second.m_TileSpriteIndex
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -67303,6 +67323,26 @@ PrefabInstance:
     - target: {fileID: 6750334233035024542, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
       propertyPath: m_Name
       value: InitialLeftWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[4].m_Data
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[5].m_Data
+      value: 
+      objectReference: {fileID: 552687389, guid: 61b30e7bba23de740b94105f1787a914, type: 3}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[4].m_RefCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[5].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109705000515887800, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
+      propertyPath: m_Tiles.Array.data[0].second.m_TileSpriteIndex
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

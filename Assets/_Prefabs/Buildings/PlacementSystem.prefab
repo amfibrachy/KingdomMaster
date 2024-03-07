@@ -314,6 +314,7 @@ MonoBehaviour:
   _transparencyValue: 0.5
   _distanceToPlayer: 10
   _rulerShowMinDistance: 1
+  _placementSnapping: 0
   _player: {fileID: 0}
   _rulerTransform: {fileID: 2752348013084840368}
   _rulerRenderer: {fileID: 1959724860528861881}

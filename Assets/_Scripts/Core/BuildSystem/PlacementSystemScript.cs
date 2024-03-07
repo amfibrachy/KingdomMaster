@@ -18,10 +18,14 @@ namespace _Scripts.Core.BuildSystem
         [SerializeField] private Color _invalidColor;
         [SerializeField] private Color _tooFarColor;
         [SerializeField] private Color _validColor;
-        
         [SerializeField] private float _transparencyValue = 0.5f;
+        
+        [Header("Placement settings")]
         [SerializeField] private float _distanceToPlayer = 20f;
         [SerializeField] private float _rulerShowMinDistance = 1f;
+        
+        [Tooltip("1f = 32px, 0.5f = 16px, 0.25f = 8px, 0f = no snapping")]
+        [SerializeField] private float _placementSnapping = 0.25f;
         
         [Header("References")] 
         [SerializeField] private GameObject _player;
@@ -94,7 +98,7 @@ namespace _Scripts.Core.BuildSystem
             {
                 _toBuild.Activate();
 
-                _toBuild.transform.position = new Vector3(Mathf.RoundToInt(_raycastHit.point.x), 0f);
+                _toBuild.transform.position = GetSnappedPosition(_raycastHit.point);
                 var positionValidityState = IsPlacementValid();
                 
                 if (_previousValidityState != positionValidityState)
@@ -293,6 +297,13 @@ namespace _Scripts.Core.BuildSystem
             }
             
             return true;
+        }
+
+        private Vector3 GetSnappedPosition(Vector3 position)
+        {
+            return _placementSnapping > 0.01f
+                ? new Vector3(Mathf.RoundToInt(position.x / _placementSnapping) * _placementSnapping, 0f) 
+                : new Vector3(position.x, 0f);
         }
 
         private void SetRulerEnabled(bool status)
