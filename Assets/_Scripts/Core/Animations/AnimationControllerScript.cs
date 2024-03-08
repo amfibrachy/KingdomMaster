@@ -26,6 +26,9 @@ namespace _Scripts.Core.Animations
         
         /* ANIMATIONS */
         
+        // Effects Animations
+        public readonly int Dust = Animator.StringToHash("dust");
+        
         // General Animations
         public readonly int Idle = Animator.StringToHash("idle");
         public readonly int Walk = Animator.StringToHash("walk");

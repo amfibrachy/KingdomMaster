@@ -48,7 +48,7 @@ namespace _Scripts.InputActions
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Run Toggle"",
+                    ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""6524e6bb-e063-4f53-a62b-72daa15d0be8"",
                     ""expectedControlType"": ""Button"",
@@ -140,7 +140,7 @@ namespace _Scripts.InputActions
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""Run Toggle"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -224,7 +224,7 @@ namespace _Scripts.InputActions
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
-            m_Player_RunToggle = m_Player.FindAction("Run Toggle", throwIfNotFound: true);
+            m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
             m_Player_BuildToggle = m_Player.FindAction("Build Toggle", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -293,7 +293,7 @@ namespace _Scripts.InputActions
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Attack;
-        private readonly InputAction m_Player_RunToggle;
+        private readonly InputAction m_Player_Run;
         private readonly InputAction m_Player_BuildToggle;
         public struct PlayerActions
         {
@@ -301,7 +301,7 @@ namespace _Scripts.InputActions
             public PlayerActions(@InputActions wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Attack => m_Wrapper.m_Player_Attack;
-            public InputAction @RunToggle => m_Wrapper.m_Player_RunToggle;
+            public InputAction @Run => m_Wrapper.m_Player_Run;
             public InputAction @BuildToggle => m_Wrapper.m_Player_BuildToggle;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
@@ -318,9 +318,9 @@ namespace _Scripts.InputActions
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
-                @RunToggle.started += instance.OnRunToggle;
-                @RunToggle.performed += instance.OnRunToggle;
-                @RunToggle.canceled += instance.OnRunToggle;
+                @Run.started += instance.OnRun;
+                @Run.performed += instance.OnRun;
+                @Run.canceled += instance.OnRun;
                 @BuildToggle.started += instance.OnBuildToggle;
                 @BuildToggle.performed += instance.OnBuildToggle;
                 @BuildToggle.canceled += instance.OnBuildToggle;
@@ -334,9 +334,9 @@ namespace _Scripts.InputActions
                 @Attack.started -= instance.OnAttack;
                 @Attack.performed -= instance.OnAttack;
                 @Attack.canceled -= instance.OnAttack;
-                @RunToggle.started -= instance.OnRunToggle;
-                @RunToggle.performed -= instance.OnRunToggle;
-                @RunToggle.canceled -= instance.OnRunToggle;
+                @Run.started -= instance.OnRun;
+                @Run.performed -= instance.OnRun;
+                @Run.canceled -= instance.OnRun;
                 @BuildToggle.started -= instance.OnBuildToggle;
                 @BuildToggle.performed -= instance.OnBuildToggle;
                 @BuildToggle.canceled -= instance.OnBuildToggle;
@@ -424,7 +424,7 @@ namespace _Scripts.InputActions
         {
             void OnMove(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
-            void OnRunToggle(InputAction.CallbackContext context);
+            void OnRun(InputAction.CallbackContext context);
             void OnBuildToggle(InputAction.CallbackContext context);
         }
         public interface IUIActions

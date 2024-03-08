@@ -1,14 +1,16 @@
 namespace _Scripts.Core.Player
 {
     using AI;
+    using Animations;
     using global::Zenject;
     using States;
     using UnityEngine;
     using UnityEngine.InputSystem;
-    using Utils.Debugging;
 
     public class PlayerFSM : FSM<PlayerFSM>
     {
+        [SerializeField] private AnimationControllerScript _dustAnimationController;
+        
         // Injectables
         private Camera _mainCamera;
         
@@ -16,20 +18,21 @@ namespace _Scripts.Core.Player
         private InputAction _moveAction;
         private InputAction _attackAction;
         
-        private float _currentDirection;
-        private bool _attackPerformed;
+        /*************************************** Public Access To Different States and Objects  *******************************************/
         
+        public PlayerMoveState MoveState;
+        public PlayerAttackState AttackState;
         public InputAction MoveAction => _moveAction;
         public InputAction AttackAction => _attackAction;
 
-        // Public Access To Different States
-        public Camera MainCamera => _mainCamera;
+        /************************************************************* Fields  *************************************************************/
+
         public float CurrentSpeed {get; private set; }
-
         public bool IsPlayerRunning { get; private set; }
-
-        public PlayerMoveState MoveState;
-        public PlayerAttackState AttackState;
+        
+        /************************************************************* Readonly Fields  *************************************************************/
+        public Camera MainCamera => _mainCamera;
+        public AnimationControllerScript DustAnimationController => _dustAnimationController;
         
         [Inject]
         public void Construct(Camera mainCamera)
@@ -40,6 +43,7 @@ namespace _Scripts.Core.Player
         private void Awake()
         {
             CurrentSpeed = ((PlayerStats) Stats).WalkSpeed;
+            IsPlayerRunning = false;
             
             InitInput(); 
         }
@@ -64,13 +68,20 @@ namespace _Scripts.Core.Player
             _moveAction = InputManager.Player.Move;
             _attackAction = InputManager.Player.Attack;
 
-            InputManager.Player.RunToggle.performed += OnRunToggleOnperformed;
+            InputManager.Player.Run.performed += OnRunPerformed;
+            InputManager.Player.Run.canceled += OnRunCanceled;
         }
 
-        private void OnRunToggleOnperformed(InputAction.CallbackContext context)
+        private void OnRunPerformed(InputAction.CallbackContext context)
         {
             if (_currentState == MoveState)
-                ToggleRun();
+                SetRunEnabled(true);
+        }
+        
+        private void OnRunCanceled(InputAction.CallbackContext context)
+        {
+            if (_currentState == MoveState)
+                SetRunEnabled(false);
         }
 
         public Direction GetMoveDirection()
@@ -94,9 +105,9 @@ namespace _Scripts.Core.Player
             return mousePosition.x < screenMiddlePoint ? Direction.Left : Direction.Right;
         }
 
-        public void ToggleRun()
+        public void SetRunEnabled(bool status)
         {
-            IsPlayerRunning = !IsPlayerRunning;
+            IsPlayerRunning = status;
 
             if (IsPlayerRunning)
             {
@@ -104,6 +115,8 @@ namespace _Scripts.Core.Player
             }
             else
             {
+                DustAnimationController.gameObject.SetActive(false);
+                
                 CurrentSpeed = ((PlayerStats) Stats).WalkSpeed;
             }
         }

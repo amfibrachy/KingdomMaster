@@ -44,6 +44,7 @@ namespace _Scripts.Core.BuildSystem
         Camp,
         ArcherTower,
         VillagerHouse,
+        LumberjacksHut,
         Wall,
         Blacksmith,
         Windmill,

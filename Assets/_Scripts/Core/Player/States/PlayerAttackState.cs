@@ -15,7 +15,7 @@ namespace _Scripts.Core.Player.States
         {
             if (_context.IsPlayerRunning)
             {
-                _context.ToggleRun();
+                _context.SetRunEnabled(false);
             }
         }
 

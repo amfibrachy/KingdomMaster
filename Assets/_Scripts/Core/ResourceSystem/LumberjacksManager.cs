@@ -54,6 +54,11 @@
             
             StartCoroutine(CheckForTreesToChop());
         }
+
+        public void AddLumberjackHut(BuildingPlacementScript building)
+        {
+            
+        }
         
         private IEnumerator CheckForTreesToChop()
         {

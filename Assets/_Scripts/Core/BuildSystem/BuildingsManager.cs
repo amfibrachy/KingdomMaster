@@ -19,11 +19,15 @@
         // Injectables
         [Inject(Id = "BuildingsParent")] private Transform _buildingsParent;
         private KingdomBordersController _kingdomBordersController;
+        private LumberjacksManager _lumberjacksManager;
         
         [Inject]
-        public void Construct(KingdomBordersController kingdomBordersController)
+        public void Construct(
+            KingdomBordersController kingdomBordersController,
+            LumberjacksManager lumberjacksManager)
         {
             _kingdomBordersController = kingdomBordersController;
+            _lumberjacksManager = lumberjacksManager;
         }
         
         private void Start()
@@ -45,13 +49,47 @@
             {
                 buildingJob.Initialize(building.Data);
             }
-            
-            // Update kingdom border controller if it is wall
-            if (building.Type == BuildingType.Wall)
+
+            switch (building.Type)
             {
-                _kingdomBordersController.AddWall(building);
+                case BuildingType.Camp:
+                    break;
+                case BuildingType.ArcherTower:
+                    break;
+                case BuildingType.VillagerHouse:
+                    break;
+                case BuildingType.LumberjacksHut:
+                    // Create lumberjack Hut tree reach map
+                    _lumberjacksManager.AddLumberjackHut(building);
+                    
+                    break;
+                case BuildingType.Wall:
+                    // Update kingdom border controller if it is wall
+                    _kingdomBordersController.AddWall(building);
+                    
+                    break;
+                case BuildingType.Blacksmith:
+                    break;
+                case BuildingType.Windmill:
+                    break;
+                case BuildingType.MinersShaft:
+                    break;
+                case BuildingType.FishingDock:
+                    break;
+                case BuildingType.Eatery:
+                    break;
+                case BuildingType.EngineersCabin:
+                    break;
+                case BuildingType.MageTower:
+                    break;
+                case BuildingType.AlchemistHouse:
+                    break;
+                case BuildingType.Stockpile:
+                    break;
+                case BuildingType.HerbalistShack:
+                    break;
             }
-            
+
             // TODO  add building to all buildings for tracking  _allBuildings.Add(buildingJob);
         }
      

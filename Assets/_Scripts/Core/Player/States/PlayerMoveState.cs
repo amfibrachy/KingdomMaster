@@ -33,15 +33,23 @@ namespace _Scripts.Core.Player.States
                 {
                     // Avoid running backwards, switch to walking
                     if (_context.IsPlayerRunning)
-                        _context.ToggleRun();
+                        _context.SetRunEnabled(false);
                     
                     _context.AnimationController.PlayAnimation(_context.AnimationController.ReverseWalk);
                 }
                 else
                 {
-                    _context.AnimationController.PlayAnimation(_context.IsPlayerRunning
-                        ? _context.AnimationController.Run
-                        : _context.AnimationController.Walk);
+                    if (_context.IsPlayerRunning)
+                    {
+                        _context.AnimationController.PlayAnimation(_context.AnimationController.Run);
+                        
+                        _context.DustAnimationController.gameObject.SetActive(true);
+                        _context.DustAnimationController.PlayAnimation(_context.AnimationController.Dust);
+                    }
+                    else
+                    {
+                        _context.AnimationController.PlayAnimation(_context.AnimationController.Walk);
+                    }
                 }
             }
             else if (movingDirection == Direction.Left)
@@ -50,15 +58,23 @@ namespace _Scripts.Core.Player.States
                 {
                     // Avoid running backwards, switch to walking
                     if (_context.IsPlayerRunning)
-                        _context.ToggleRun();
+                        _context.SetRunEnabled(false);
                     
                     _context.AnimationController.PlayAnimation(_context.AnimationController.ReverseWalk);
                 }
                 else
                 {
-                    _context.AnimationController.PlayAnimation(_context.IsPlayerRunning
-                        ? _context.AnimationController.Run
-                        : _context.AnimationController.Walk);
+                    if (_context.IsPlayerRunning)
+                    {
+                        _context.AnimationController.PlayAnimation(_context.AnimationController.Run);
+                        
+                        _context.DustAnimationController.gameObject.SetActive(true);
+                        _context.DustAnimationController.PlayAnimation(_context.AnimationController.Dust);
+                    }
+                    else
+                    {
+                        _context.AnimationController.PlayAnimation(_context.AnimationController.Walk);
+                    }
                 }
             }
             else
