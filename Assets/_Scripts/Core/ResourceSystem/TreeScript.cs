@@ -14,6 +14,8 @@
         
         [Header("Effects")] 
         [SerializeField] private ParticleSystem _leaveParticles;
+        [SerializeField] private GameObject _trunkPrefab;
+        [SerializeField] private GameObject _fallenTreePrefab;
         
         [Inject] private IDebug _debug;
 
@@ -48,7 +50,18 @@
 
         private void FallTree()
         {
-            _debug.Log("Tree fell!");
+            var position = transform.position;
+            var trunk = Instantiate(_trunkPrefab, position, Quaternion.identity);
+
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Join(transform.DOLocalMoveX( position.x + 0.2f, 0.4f).SetEase(Ease.OutQuart));
+            sequence.Join(transform.DOLocalRotate(new Vector3(0, 0, -85), 1f).SetEase(Ease.InCirc));
+            sequence.OnComplete(() =>
+            {
+                var fallenTree = Instantiate(_fallenTreePrefab, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            });
         }
     }
 }

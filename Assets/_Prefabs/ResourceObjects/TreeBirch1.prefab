@@ -128,7 +128,7 @@ GameObject:
   - component: {fileID: 2467107549176334821}
   - component: {fileID: 5535533397064899380}
   m_Layer: 10
-  m_Name: Tree1
+  m_Name: TreeBirch1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,6 +166,8 @@ MonoBehaviour:
   _treeWidth: 1
   _treeDurability: 100
   _leaveParticles: {fileID: 3167803883984677864}
+  _trunkPrefab: {fileID: 4610362419296261230, guid: bbbced8f244f69a4d9dd13cf220663d8, type: 3}
+  _fallenTreePrefab: {fileID: 4610362419296261230, guid: 75c94d60f12b72f42b795868769f4828, type: 3}
 --- !u!61 &5535533397064899380
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ namespace _Scripts.Core.Player.States
 
     public class PlayerMoveState : BaseState<PlayerFSM>
     {
+        private static readonly Vector3 DustPositionLeft = new Vector3(-0.5f, 0.1f, 0);
+        private static readonly Vector3 DustPositionRight = new Vector3(0.5f, 0.1f, 0);
+
         public PlayerMoveState(PlayerFSM context) : base(context)
         {
         }
@@ -44,6 +47,8 @@ namespace _Scripts.Core.Player.States
                         _context.AnimationController.PlayAnimation(_context.AnimationController.Run);
                         
                         _context.DustAnimationController.gameObject.SetActive(true);
+                        _context.DustAnimationController.transform.localPosition = DustPositionLeft;
+                        _context.DustAnimationController.TurnRight();
                         _context.DustAnimationController.PlayAnimation(_context.AnimationController.Dust);
                     }
                     else
@@ -69,6 +74,8 @@ namespace _Scripts.Core.Player.States
                         _context.AnimationController.PlayAnimation(_context.AnimationController.Run);
                         
                         _context.DustAnimationController.gameObject.SetActive(true);
+                        _context.DustAnimationController.transform.localPosition = DustPositionRight;
+                        _context.DustAnimationController.TurnLeft();
                         _context.DustAnimationController.PlayAnimation(_context.AnimationController.Dust);
                     }
                     else

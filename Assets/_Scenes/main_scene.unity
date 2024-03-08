@@ -4069,7 +4069,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6.4140625
+  orthographic size: 6.3828125
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -58784,7 +58784,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1557997285
-  m_SortingLayer: -6
+  m_SortingLayer: -7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5135780a6e29f1c408cef2e75fe83c16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -61806,6 +61806,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 338679013}
     m_Modifications:
+    - target: {fileID: 2467107549176334821, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
+      propertyPath: _treeDurability
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7225319819879237698, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
       propertyPath: m_Name
       value: Tree1 (1)
@@ -62694,13 +62698,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 338679013}
     m_Modifications:
+    - target: {fileID: 2467107549176334821, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
+      propertyPath: _treeDurability
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7225319819879237698, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
       propertyPath: m_Name
       value: Tree1
       objectReference: {fileID: 0}
     - target: {fileID: 8759874542471708154, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -14.97
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 8759874542471708154, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -62756,6 +62764,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 338679013}
     m_Modifications:
+    - target: {fileID: 2467107549176334821, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
+      propertyPath: _treeDurability
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7225319819879237698, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
       propertyPath: m_Name
       value: Tree1 (2)
@@ -65865,7 +65877,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1557997285
-  m_SortingLayer: -6
+  m_SortingLayer: -7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5135780a6e29f1c408cef2e75fe83c16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -67177,7 +67189,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1557997285
-  m_SortingLayer: -6
+  m_SortingLayer: -7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5135780a6e29f1c408cef2e75fe83c16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
