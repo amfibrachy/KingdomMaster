@@ -55,7 +55,7 @@
 
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Join(transform.DOLocalMoveX( position.x + 0.2f, 0.4f).SetEase(Ease.OutQuart));
+            sequence.Join(transform.DOLocalMoveX( position.x + 0.15f, 0.5f).SetEase(Ease.OutQuart)).SetDelay(0.25f);
             sequence.Join(transform.DOLocalRotate(new Vector3(0, 0, -85), 1f).SetEase(Ease.InCirc));
             sequence.OnComplete(() =>
             {
