@@ -263,13 +263,17 @@ namespace _Scripts.Core.BuildSystem
         private bool CheckBuildingDistance(Vector2 direction)
         {
             var currentPosition = _toBuild.transform.position;
-            var raycastOrigin = new Vector3(currentPosition.x + ((_toBuildCollider.bounds.extents.x + 0.1f) * direction.x), currentPosition.y, currentPosition.z);
+            var raycastOrigin = new Vector3(currentPosition.x + (_toBuildCollider.bounds.extents.x * direction.x), currentPosition.y, currentPosition.z);
             var raycastHits = Physics2D.RaycastAll(raycastOrigin, direction, _buildingData.MinBuildDistance, _buildingsLayer);
 
             // No need to start checking from index 1 because raycast origin happens on left/right extent + 0.1f offset
             for (var index = 0; index < raycastHits.Length; index++)
             {
                 var hit = raycastHits[index];
+                
+                if (hit.collider.gameObject == _toBuild.gameObject)
+                    continue;
+                
                 var building = hit.collider.GetComponent<BuildingDataScript>();
 
                 if (building != null && building.Type == _buildingData.Type)
