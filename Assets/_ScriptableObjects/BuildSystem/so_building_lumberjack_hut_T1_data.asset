@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
+  m_Name: so_building_lumberjack_hut_T1_data
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 6064263766126897432, guid: 13fc43223a2149c449735899d8ea3bb5, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: 86d359e470ded1f4ea781e1d23d369a9, type: 3}
+  Name: Lumberjacks hut
+  Description: Lumberjacks hut is a place near which tree chopping happens
+  HP: 200
+  ResidentsCapacity: 1
+  EffectiveRange: 35
+  Type: 3
+  Costs:
+  - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
+    Amount: 60
+  MinBuildDistance: 70
+  BuildingWidth: 5
+  BuildingHeight: 4
+  MaxBuildersAmount: 2
+  BuildTime: 15
+  JobSprite: {fileID: 21300000, guid: 51394e983d32fc64d83ecf453f3c2338, type: 3}
+  Job: 2
+  TrainingCapacity: 1
+  TrainingTime: 7
+  ImportantInfos:
+  - Text: Trees
+    Icon: {fileID: 21300000, guid: c6360d9a12c408149a2da7d79540c9d1, type: 3}
+    InfoType: 0

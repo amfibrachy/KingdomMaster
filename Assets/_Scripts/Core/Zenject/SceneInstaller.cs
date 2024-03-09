@@ -5,6 +5,7 @@ namespace _Scripts.Core.Zenject
     using Global;
     using global::Zenject;
     using JobSystem;
+    using NPC;
     using UnityEngine;
 
     public class SceneInstaller : MonoInstaller<ProjectContextInstaller>

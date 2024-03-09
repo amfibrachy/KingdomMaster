@@ -1,11 +1,11 @@
-﻿namespace _Scripts.Core.BuildSystem
+﻿namespace _Scripts.Core.NPC
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using AI;
+    using BuildSystem;
     using global::Zenject;
-    using NPC;
     using UnityEngine;
     using Utils.Debugging;
     using Utils;

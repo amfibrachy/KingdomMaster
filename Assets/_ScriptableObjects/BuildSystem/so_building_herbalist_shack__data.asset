@@ -18,7 +18,8 @@ MonoBehaviour:
   Description: Helps you get usefull plants
   HP: 250
   ResidentsCapacity: 0
-  Type: 5
+  EffectiveRange: 0
+  Type: 14
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
     Amount: 40
@@ -33,3 +34,4 @@ MonoBehaviour:
   Job: 11
   TrainingCapacity: 0
   TrainingTime: 0
+  ImportantInfos: []

@@ -8,7 +8,7 @@ namespace _Scripts.Core.BuildSystem
     [CreateAssetMenu(menuName = "Scriptable Objects/BuildSystem/BuildingData", fileName = "so_building_data")]
     public class BuildingDataSO : ScriptableObject
     {
-        public BuildingPlacementScript Prefab;
+        public BuildingDataScript Prefab;
         public BuildingConstructionScript ConstructionPrefab;
         
         [Header("General")]
@@ -17,6 +17,7 @@ namespace _Scripts.Core.BuildSystem
         public string Description;
         public int HP;
         public int ResidentsCapacity;
+        public int EffectiveRange;
         
         [Header("Building info")]
         [Space]
@@ -37,24 +38,9 @@ namespace _Scripts.Core.BuildSystem
         public JobType Job;
         public int TrainingCapacity;
         public int TrainingTime;
-    }
-
-    public enum BuildingType
-    {
-        Camp,
-        ArcherTower,
-        VillagerHouse,
-        LumberjacksHut,
-        Wall,
-        Blacksmith,
-        Windmill,
-        MinersShaft,
-        FishingDock,
-        Eatery,
-        EngineersCabin,
-        MageTower,
-        AlchemistHouse,
-        Stockpile,
-        HerbalistShack,
+        
+        [Header("Important Info")]
+        [Space]
+        public List<ImportantInfo> ImportantInfos;
     }
 }

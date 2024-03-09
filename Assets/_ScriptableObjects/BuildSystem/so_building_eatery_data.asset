@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
-  m_Name: so_building_engineers_cabin_data
+  m_Name: so_building_eatery_data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3832781158818760933, guid: 3d1a4a6f23ebdef4388a0813846b18a3, type: 3}
+  Prefab: {fileID: 3832781158818760933, guid: 2d424116e8292ba409e8003d6bb5ec86, type: 3}
   ConstructionPrefab: {fileID: 0}
-  Name: Engineers Cabin
-  Description: structure that hepls you create complex mecanisms
+  Name: Eatery
+  Description: structure where the raw food gets cooked
   HP: 300
   ResidentsCapacity: 6
+  EffectiveRange: 0
   Type: 9
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
@@ -35,3 +36,4 @@ MonoBehaviour:
   Job: 11
   TrainingCapacity: 0
   TrainingTime: 0
+  ImportantInfos: []

@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using BuildSystem;
     using UnityEngine;
-    using UnityEngine.Serialization;
 
     public class JobProgressController : MonoBehaviour
     {
-        [SerializeField] private JobProgressScript jobProgressPrefab;
+        [SerializeField] private JobProgressScript _jobProgressPrefab;
 
         public event Action OnJobCreationFinished;
         
@@ -19,7 +18,7 @@
         
         public void AddJobCreationIconTask(JobType job, BuildingDataSO data)
         {
-            var newJob = Instantiate(jobProgressPrefab, transform); // TODO can be refactored for pool if needed later
+            var newJob = Instantiate(_jobProgressPrefab, transform); // TODO can be refactored for pool if needed later
             newJob.Initialize(data);
             
             _pendingJobs.Enqueue(newJob);

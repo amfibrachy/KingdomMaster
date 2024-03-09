@@ -330,7 +330,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 345690317
-  m_SortingLayer: -4
+  m_SortingLayer: -6
   m_SortingOrder: 2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -700,7 +700,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 345690317
-  m_SortingLayer: -4
+  m_SortingLayer: -6
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1218,7 +1218,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 345690317
-  m_SortingLayer: -4
+  m_SortingLayer: -6
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1318,8 +1318,8 @@ GameObject:
   - component: {fileID: 8224014001275314689}
   - component: {fileID: 6763507641421664475}
   - component: {fileID: 5200646480929025197}
-  - component: {fileID: -3637255743499925574}
   - component: {fileID: 2574710321968193846}
+  - component: {fileID: 6486342036135495755}
   - component: {fileID: 579296792841685075}
   m_Layer: 9
   m_Name: TownCenterT1
@@ -1417,20 +1417,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-3637255743499925574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6129734269896870477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 198b54ea8d584ddc924080dcfb294301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _defaultSettings: {fileID: 11400000, guid: 46da5a5dbec4760419f823349aa45e9e, type: 2}
-  _previewSortingLayer: BuildingPreview
 --- !u!114 &2574710321968193846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1445,6 +1431,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entrancePosition: {fileID: 7793422548890774618}
   _jobProgressController: {fileID: 7759652656929844859}
+--- !u!114 &6486342036135495755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6129734269896870477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7804ed0f9b594864ba6670d8971952e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultData: {fileID: 11400000, guid: 46da5a5dbec4760419f823349aa45e9e, type: 2}
 --- !u!114 &579296792841685075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1648,7 +1647,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 345690317
-  m_SortingLayer: -4
+  m_SortingLayer: -6
   m_SortingOrder: 3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}

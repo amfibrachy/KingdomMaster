@@ -93,7 +93,7 @@
             _wallsRight.Remove(destroyedWall);
         }
 
-        public void AddWall(BuildingPlacementScript building)
+        public void AddWall(BuildingDataScript building)
         {
             var buildingPos = building.transform.position;
 
@@ -107,7 +107,7 @@
             }
         }
         
-        public void RemoveWall(BuildingPlacementScript building)
+        public void RemoveWall(BuildingDataScript building)
         {
             var buildingPos = building.transform.position;
 

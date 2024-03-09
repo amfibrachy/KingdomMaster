@@ -1,11 +1,11 @@
 ﻿namespace _Scripts.Core.BuildSystem
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Global;
     using global::Zenject;
     using JobSystem;
+    using NPC;
     using UnityEngine;
     using Utils;
 
@@ -32,7 +32,7 @@
         
         private void Start()
         {
-            var initialBuildings = Util.GetActiveChildComponents<BuildingPlacementScript>(_buildingsParent);
+            var initialBuildings = Util.GetActiveChildComponents<BuildingDataScript>(_buildingsParent);
 
             foreach (var building in initialBuildings)
             {
@@ -40,7 +40,7 @@
             }
         }
         
-        public void AddConstructedBuilding(BuildingPlacementScript building)
+        public void AddConstructedBuilding(BuildingDataScript building)
         {
             // Initialize data if is Job building
             var buildingJob = building.GetComponent<BuildingJobScript>();
@@ -52,7 +52,7 @@
 
             switch (building.Type)
             {
-                case BuildingType.Camp:
+                case BuildingType.TownCenter:
                     break;
                 case BuildingType.ArcherTower:
                     break;

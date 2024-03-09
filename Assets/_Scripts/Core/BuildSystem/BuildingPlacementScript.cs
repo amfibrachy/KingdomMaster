@@ -1,6 +1,7 @@
 namespace _Scripts.Core.BuildSystem
 {
     using System;
+    using UI;
     using UnityEngine;
     using UnityEngine.Tilemaps;
 
@@ -8,12 +9,9 @@ namespace _Scripts.Core.BuildSystem
     {
         public event Action OnCollisionEnter;
         public event Action OnCollisionExit;
-        
-        public BuildingType Type => _data.Type;
-        public BuildingDataSO Data => _data;
 
-        [SerializeField] private BuildingDataSO _defaultSettings;
-        
+        [SerializeField] private BuildingImportantInfoController _importantInfoController;
+
         [Header("Preview Settings")]
         [SerializeField] private string _previewSortingLayer;
         [SerializeField] private Transform _backgroundPreview;
@@ -21,12 +19,10 @@ namespace _Scripts.Core.BuildSystem
 
         // Privates
         private TilemapRenderer[] _tileMapRenderers;
-        private BuildingDataSO _data;
-        
+
         private void Awake()
         {
             _tileMapRenderers = GetComponentsInChildren<TilemapRenderer>();
-            _data = _defaultSettings;
         }
 
         public void SetMaterial(Material material)
@@ -45,7 +41,23 @@ namespace _Scripts.Core.BuildSystem
 
         public void Initialize(BuildingDataSO data)
         {
-            _data = data;
+            _importantInfoController.InitializeImportantInfos(data);
+        }
+
+        public void UpdateImportantInfos(Vector3 position, bool isValid)
+        {
+            if (!_importantInfoController.HasImportantInfo) 
+                return;
+            
+            if (isValid)
+            {
+                _importantInfoController.ShowInfos();
+                _importantInfoController.UpdateImportantInfos(position);
+            }
+            else
+            {
+                _importantInfoController.HideInfos();
+            }
         }
 
         public void Activate()
@@ -62,8 +74,7 @@ namespace _Scripts.Core.BuildSystem
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            var building = col.GetComponent<BuildingPlacementScript>();
-            if (building != null)
+            if (col.gameObject.layer == gameObject.layer)
             {
                 OnCollisionEnter?.Invoke();
             }
@@ -71,8 +82,7 @@ namespace _Scripts.Core.BuildSystem
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            var building = other.GetComponent<BuildingPlacementScript>();
-            if (building != null)
+            if (other.gameObject.layer == gameObject.layer)
             {
                 OnCollisionExit?.Invoke();
             }

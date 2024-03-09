@@ -2,8 +2,7 @@ namespace _Scripts.Core.BuildSystem
 {
     using TMPro;
     using UnityEngine;
-
-    [RequireComponent(typeof(BuildingPlacementScript))]
+    
     public class BuildingConstructionScript : MonoBehaviour
     {
         [SerializeField] private TextMeshPro _progressText;
@@ -13,36 +12,32 @@ namespace _Scripts.Core.BuildSystem
         private float _buildTime;
         private float _buildingWidth;
         private float _buildersNeeded;
-        private BuildingPlacementScript _buildingPrefab;
-        private BuildingPlacementScript _constructionPlacement;
+        private BuildingDataScript _buildingPrefab;
 
         public BuildingType Type => _type;
+        public BuildingDataSO Data => _data;
         public float BuildingWidth => _buildingWidth;
         public float BuildersNeeded => _buildersNeeded;
         
         public bool IsConstructionCanceled { get; private set; }
         public bool IsConstructionFinished => _currentProgress >= _buildTime * _buildersNeeded;
 
-        private void Awake()
-        {
-            _constructionPlacement = GetComponent<BuildingPlacementScript>();
-        }
-
+        private BuildingDataSO _data;
+        
         public void InitConstructionSite(BuildingDataSO data)
         {
+            _data = data;
             _type = data.Type;
             _buildTime = data.BuildTime;
             _buildingWidth = data.BuildingWidth;
             _buildingPrefab = data.Prefab;
             _buildersNeeded = data.MaxBuildersAmount;
-            
-            _constructionPlacement.Initialize(data);
-            
+
             _currentProgress = 0;
             UpdateProgressText(0);
         }
 
-        public BuildingPlacementScript GetBuildingPrefab()
+        public BuildingDataScript GetBuildingPrefab()
         {
             return _buildingPrefab;
         }

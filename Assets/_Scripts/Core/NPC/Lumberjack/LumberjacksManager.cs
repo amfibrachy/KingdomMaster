@@ -1,13 +1,13 @@
-﻿namespace _Scripts.Core.BuildSystem
+﻿namespace _Scripts.Core.NPC
 {
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using AI;
+    using BuildSystem;
     using Cysharp.Threading.Tasks;
     using Global;
     using global::Zenject;
-    using NPC;
     using ResourceSystem;
     using UnityEngine;
     using Utils.Debugging;
@@ -34,6 +34,7 @@
         
         // Privates
         private List<LumberjackFSM> _availableLumberjacks = new List<LumberjackFSM>();
+        private Dictionary<BuildingDataScript, List<TreeScript>> _hutMap = new();
 
         private Dictionary<TreeScript, LumberjackFSM> _activeTreeLumberjacksMap = new();
         
@@ -55,9 +56,29 @@
             StartCoroutine(CheckForTreesToChop());
         }
 
-        public void AddLumberjackHut(BuildingPlacementScript building)
+        public void AddLumberjackHut(BuildingDataScript building)
         {
+            var radius = building.Data.EffectiveRange;
+            var colliders = new Collider2D[_maxTreesToRaycast];
             
+            var count = Physics2D.OverlapBoxNonAlloc(building.transform.position, new Vector2(radius, 5f), 0f, colliders, _treesLayer);
+            var treesWithinArea = new List<TreeScript>();
+            
+            if (count >= _maxTreesToRaycast)
+            {
+                Debug.LogError($"More than {_maxTreesToRaycast} trees are in radius of lumberjack hut");
+            }
+            
+            for (int i = 0; i < count; i++)
+            {
+                var tree = colliders[i].GetComponent<TreeScript>();
+                if (tree != null && !tree.IsChoppedDown)
+                {
+                    treesWithinArea.Add(tree);
+                }
+            }
+
+            _hutMap.Add(building, treesWithinArea);
         }
         
         private IEnumerator CheckForTreesToChop()

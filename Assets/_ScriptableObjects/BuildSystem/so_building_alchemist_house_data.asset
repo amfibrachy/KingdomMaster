@@ -10,26 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
-  m_Name: so_building_wall_T1_data
+  m_Name: so_building_alchemist_house_data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 6526247743042517325, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
-  ConstructionPrefab: {fileID: 2897897930199589277, guid: e2f50063f560393489783e08710e186b, type: 3}
-  Name: Palisade Fence
-  Description: wooden log wall
-  HP: 250
-  ResidentsCapacity: 0
-  Type: 3
+  Prefab: {fileID: 3832781158818760933, guid: 37f18b433afa2ab47a4ef68afea513a2, type: 3}
+  ConstructionPrefab: {fileID: 0}
+  Name: Alchemist House
+  Description: structure that hepls you gain healing materials
+  HP: 300
+  ResidentsCapacity: 6
+  EffectiveRange: 0
+  Type: 12
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
-    Amount: 40
+    Amount: 25
   - Resource: {fileID: 11400000, guid: c5a5dbf5853c16d4aa12831549609ec0, type: 2}
+    Amount: 50
+  - Resource: {fileID: 11400000, guid: 4dedaa59ab6a61c43a0d3c6ff50285b0, type: 2}
     Amount: 10
-  MinBuildDistance: 15
-  BuildingWidth: 1
-  BuildingHeight: 3
-  MaxBuildersAmount: 2
-  BuildTime: 10
+  MinBuildDistance: 8
+  BuildingWidth: 4
+  BuildingHeight: 4
+  MaxBuildersAmount: 3
+  BuildTime: 20
   JobSprite: {fileID: 0}
   Job: 11
   TrainingCapacity: 0
   TrainingTime: 0
+  ImportantInfos: []

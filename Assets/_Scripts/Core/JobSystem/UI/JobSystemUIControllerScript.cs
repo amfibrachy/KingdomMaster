@@ -1,12 +1,11 @@
 ﻿namespace _Scripts.Core.JobSystem.UI
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using AI;
-    using BuildSystem;
     using DG.Tweening;
     using global::Zenject;
+    using NPC;
     using TMPro;
     using UnityEngine;
     using UnityEngine.UI;

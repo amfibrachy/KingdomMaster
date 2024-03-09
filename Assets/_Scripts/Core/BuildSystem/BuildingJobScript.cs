@@ -4,10 +4,8 @@
     using Global;
     using global::Zenject;
     using JobSystem;
-    using NPC;
     using UnityEngine;
-
-    [RequireComponent(typeof(BuildingPlacementScript))]
+    
     public class BuildingJobScript : MonoBehaviour
     {
         [SerializeField] private Transform _entrancePosition;

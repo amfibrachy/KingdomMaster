@@ -2,7 +2,7 @@ namespace _Scripts.Core.BuildSystem
 {
     using System;
     using System.Globalization;
-    using _Scripts.Utils.Debugging;
+    using Utils.Debugging;
     using Global;
     using global::Zenject;
     using TMPro;
@@ -101,6 +101,8 @@ namespace _Scripts.Core.BuildSystem
                 _toBuild.transform.position = GetSnappedPosition(_raycastHit.point);
                 var positionValidityState = IsPlacementValid();
                 
+                UpdateImportantInfos(positionValidityState);
+                
                 if (_previousValidityState != positionValidityState)
                 {
                     switch (positionValidityState)
@@ -155,8 +157,9 @@ namespace _Scripts.Core.BuildSystem
             _buildingData = buildingData;
             StopPlacement();
             
-            _toBuild = Instantiate(buildingData.Prefab);
-
+            var building = Instantiate(buildingData.Prefab);
+            
+            _toBuild = building.GetComponent<BuildingPlacementScript>();
             _toBuild.OnCollisionEnter += OnPlacementInvalid;
             _toBuild.OnCollisionExit += OnPlacementValid;
             _toBuild.Initialize(buildingData);
@@ -168,6 +171,11 @@ namespace _Scripts.Core.BuildSystem
 
             InputManager.UI.Enable();
             _placementActive = true;
+        }
+
+        private void UpdateImportantInfos(ValidityState state)
+        {
+            _toBuild.UpdateImportantInfos(_toBuild.transform.position, state == ValidityState.Valid);
         }
         
         private void PlaceConstructionSite(Vector2 position)
@@ -262,7 +270,7 @@ namespace _Scripts.Core.BuildSystem
             for (var index = 0; index < raycastHits.Length; index++)
             {
                 var hit = raycastHits[index];
-                var building = hit.collider.GetComponent<BuildingPlacementScript>();
+                var building = hit.collider.GetComponent<BuildingDataScript>();
 
                 if (building != null && building.Type == _buildingData.Type)
                 {

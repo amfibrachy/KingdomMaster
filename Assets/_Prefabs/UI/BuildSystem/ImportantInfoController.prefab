@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 2669289212371799116}
   - component: {fileID: 2965260864724739533}
   - component: {fileID: 4683156683883661326}
-  - component: {fileID: 3261674163168151967}
+  - component: {fileID: 1200389967818085934}
   m_Layer: 5
-  m_Name: JobProgressController
+  m_Name: ImportantInfoController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &3261674163168151967
+--- !u!114 &1200389967818085934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,7 +138,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4249990095182941270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4862a9e9276848879dcd511fa0277866, type: 3}
+  m_Script: {fileID: 11500000, guid: 65b8710c1bc74112b8442096ec311c61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jobProgressPrefab: {fileID: 982078085244571845, guid: 02dea5195cf1b384d93cb3f5be8ae71d, type: 3}
+  _importantInfoEntry: {fileID: 6132922360632718506, guid: 8ced16ec8b59e874aae745471399e034, type: 3}
+  _treesLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  _maxTreesToRaycast: 30

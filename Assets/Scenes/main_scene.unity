@@ -240,6 +240,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ee19f4024c03f3b45ac1976aea2d1696, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b348f37cdace674b93021eb814ad70e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -847,7 +851,7 @@ PrefabInstance:
     - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
       propertyPath: _data
       value: 
-      objectReference: {fileID: 11400000, guid: 000bd1634d5c1154fac4a0cb93593887, type: 2}
+      objectReference: {fileID: 11400000, guid: faaf15f1a8a3c06489058957082b3e6b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1434,6 +1438,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e3e6a352ebc3c3a49946e1337c08f35c, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 7085b0c331b6ddc45870628ac9f21980, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3131,6 +3139,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 37447a9a37e43704eac28ad2ad239ccd, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 6aeec51c129e1b84c99b84283b50a0dc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3264,6 +3276,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b44889f309601bb45be3b92f990c17a4, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: e1fb2f5732a8d034480882cf128d5509, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3766,6 +3782,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 815e5f41bc36aa941b24f0ae3b738318, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: fc4fa01d249a87c4a97240e54dc324eb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4069,7 +4089,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6.3828125
+  orthographic size: 6.28125
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -57768,6 +57788,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5a80e073dcbff1d49a1759ba6e9c7f40, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 2ca68daac6cfd2044886c08781bf07e4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -57942,7 +57966,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 983302884844817931, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 983302884844817931, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -58928,6 +58952,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 23e94eedc6a17834eb8c8291fded3f99, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 000bd1634d5c1154fac4a0cb93593887, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -59905,6 +59933,7 @@ RectTransform:
   m_Children:
   - {fileID: 951670877}
   - {fileID: 39790625}
+  - {fileID: 1018716093}
   - {fileID: 288556417}
   - {fileID: 84120349}
   - {fileID: 573673753}
@@ -59912,7 +59941,6 @@ RectTransform:
   - {fileID: 1643796864}
   - {fileID: 1131192100}
   - {fileID: 16464655}
-  - {fileID: 1018716093}
   - {fileID: 774009742}
   - {fileID: 247865719}
   - {fileID: 377698269}
@@ -60353,7 +60381,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 484479595780430789, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
       propertyPath: m_Name
-      value: AlchemistBlock
+      value: LumberjackHut
       objectReference: {fileID: 0}
     - target: {fileID: 4446834578335901830, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
       propertyPath: m_Pivot.x
@@ -60439,6 +60467,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 2307f8b25fbfa394daa3273a79273f6e, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: a3ceacb7d8200d24f8db36df488baaaf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60719,6 +60751,10 @@ PrefabInstance:
     - target: {fileID: 7296288522475775260, guid: 6e4481774f240884e9b8c87d8b2d3dd8, type: 3}
       propertyPath: m_Name
       value: Lumberjack (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7296288522475775260, guid: 6e4481774f240884e9b8c87d8b2d3dd8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -61777,6 +61813,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3ec9a2186342d0140a51b4758dfaf4fd, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: c45117c5971ba724bbb1a1c1e9634b1d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62700,7 +62740,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2467107549176334821, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
       propertyPath: _treeDurability
-      value: 25
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 7225319819879237698, guid: 8d75eaf2cc40f6c4ea86a148fab585cb, type: 3}
       propertyPath: m_Name
@@ -63931,6 +63971,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5fbf2001d67910a4b8ca598a5eea82f6, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 223bd8a2d0c1b3746ac662212d186da5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -64490,6 +64534,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: bae14e8a108be0743951caac0d2d89c2, type: 3}
+    - target: {fileID: 8344134506643979334, guid: d127c1f2bd10822498ba9940e7bbe161, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: e1197442159372a40a6a4edf7aa88c0b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -66694,6 +66742,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lumberjack
       objectReference: {fileID: 0}
+    - target: {fileID: 7296288522475775260, guid: 6e4481774f240884e9b8c87d8b2d3dd8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -67294,7 +67346,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 983302884844817931, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 983302884844817931, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
       propertyPath: m_LocalPosition.y

@@ -1,6 +1,7 @@
 namespace _Scripts.Core.BuildSystem
 {
     using global::Zenject;
+    using NPC;
     using UnityEngine;
 
     public class BuildSystemController : MonoBehaviour
@@ -42,8 +43,8 @@ namespace _Scripts.Core.BuildSystem
         private void PlaceConstructedBuilding(BuildingConstructionScript constructionSite)
         {
             var constructionPosition = constructionSite.transform.position;
-
             var building = Instantiate(constructionSite.GetBuildingPrefab(), constructionPosition, Quaternion.identity, constructionSite.Type == BuildingType.Wall ? _wallsParent : _buildingsParent);
+
             _buildingsManager.AddConstructedBuilding(building);
             
             Destroy(constructionSite.gameObject);

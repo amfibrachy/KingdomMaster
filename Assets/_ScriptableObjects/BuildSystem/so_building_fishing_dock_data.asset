@@ -10,28 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
-  m_Name: so_building_eatery_data
+  m_Name: so_building_fishing_dock_data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3832781158818760933, guid: 2d424116e8292ba409e8003d6bb5ec86, type: 3}
+  Prefab: {fileID: 3832781158818760933, guid: e371a28e041941b42a53bfe3508a0e29, type: 3}
   ConstructionPrefab: {fileID: 0}
-  Name: Eatery
-  Description: structure where the raw food gets cooked
-  HP: 300
-  ResidentsCapacity: 6
+  Name: Fishing Dock
+  Description: Helps you to grow wheat and other cultures
+  HP: 250
+  ResidentsCapacity: 0
+  EffectiveRange: 0
   Type: 8
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
-    Amount: 25
+    Amount: 40
   - Resource: {fileID: 11400000, guid: c5a5dbf5853c16d4aa12831549609ec0, type: 2}
-    Amount: 50
-  - Resource: {fileID: 11400000, guid: 4dedaa59ab6a61c43a0d3c6ff50285b0, type: 2}
     Amount: 10
-  MinBuildDistance: 8
-  BuildingWidth: 4
-  BuildingHeight: 4
-  MaxBuildersAmount: 3
+  MinBuildDistance: 15
+  BuildingWidth: 1
+  BuildingHeight: 3
+  MaxBuildersAmount: 0
   BuildTime: 20
   JobSprite: {fileID: 0}
   Job: 11
   TrainingCapacity: 0
   TrainingTime: 0
+  ImportantInfos: []
