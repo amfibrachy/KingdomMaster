@@ -164,4 +164,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 161c99d4068e4ed894f8e1d5565585b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _particlePoolPrefab: {fileID: 4309037695643000656, guid: 8497317f95873714ebea71fcd899a650, type: 3}
+  _particlePoolPrefab: {fileID: -4991680241438096168, guid: 138d744e569806c4898b21c3e937b127, type: 3}
