@@ -1,8 +1,10 @@
 namespace _Scripts.Core.BuildSystem
 {
+    using System;
     using TMPro;
     using UnityEngine;
     
+    [RequireComponent(typeof(BuildingDataScript))]
     public class BuildingConstructionScript : MonoBehaviour
     {
         [SerializeField] private TextMeshPro _progressText;
@@ -13,17 +15,25 @@ namespace _Scripts.Core.BuildSystem
         private float _buildingWidth;
         private float _buildersNeeded;
         private BuildingDataScript _buildingPrefab;
+        private BuildingDataScript _buildingDataScript;
 
+        public event Action<BuildingConstructionScript, bool> OnConstructionFinished;
+        
         public BuildingType Type => _type;
         public BuildingDataSO Data => _data;
         public float BuildingWidth => _buildingWidth;
         public float BuildersNeeded => _buildersNeeded;
         
         public bool IsConstructionCanceled { get; private set; }
-        public bool IsConstructionFinished => _currentProgress >= _buildTime * _buildersNeeded;
+        public bool IsConstructionFinished { get; private set; }
 
         private BuildingDataSO _data;
-        
+
+        private void Awake()
+        {
+            _buildingDataScript = GetComponent<BuildingDataScript>();
+        }
+
         public void InitConstructionSite(BuildingDataSO data)
         {
             _data = data;
@@ -32,6 +42,8 @@ namespace _Scripts.Core.BuildSystem
             _buildingWidth = data.BuildingWidth;
             _buildingPrefab = data.Prefab;
             _buildersNeeded = data.MaxBuildersAmount;
+            
+            _buildingDataScript.Init(data);
 
             _currentProgress = 0;
             UpdateProgressText(0);
@@ -54,11 +66,18 @@ namespace _Scripts.Core.BuildSystem
         {
             _currentProgress += amount;
             UpdateProgressText((int) (_currentProgress / (_buildTime * _buildersNeeded) * 100));
+
+            if (_currentProgress >= _buildTime * _buildersNeeded)
+            {
+                IsConstructionFinished = true;
+                OnConstructionFinished?.Invoke(this, false);
+            }
         }
 
         public void CancelConstruction()
         {
             IsConstructionCanceled = true;
+            OnConstructionFinished?.Invoke(this, true);
         }
     }
 }

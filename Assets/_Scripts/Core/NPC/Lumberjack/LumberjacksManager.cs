@@ -31,7 +31,7 @@
         [Inject] private IDebug _debug;
         
         // Privates
-        private List<LumberjackFSM> _availableLumberjacks = new List<LumberjackFSM>();
+        private HashSet<LumberjackFSM> _availableLumberjacks = new HashSet<LumberjackFSM>();
         private Dictionary<BuildingDataScript, List<TreeScript>> _hutMap = new();
 
         private Dictionary<TreeScript, LumberjackFSM> _activeTreeLumberjacksMap = new();
@@ -87,6 +87,11 @@
         private void AddTreesChopTask(IEnumerable<TreeScript> trees)
         {
             _treesPendingList.AddRange(trees);
+
+            foreach (var tree in _treesPendingList)
+            {
+                tree.OnTreeChopped += OnTreeChoppedDown;
+            }
         }
         
         private void TryTransferPendingToActiveTrees()
@@ -114,15 +119,14 @@
                 
                 if (_availableLumberjacks.Count > 0)
                 {
-                    var availableLumberjack = _availableLumberjacks[_availableLumberjacks.Count - 1];
+                    var availableLumberjack = _availableLumberjacks.GetFirstItem();
                     
                     // Check to avoid setting task again for already assigned lumberjack
                     if (!availableLumberjack.ChopTreeTargetSet && !availableLumberjack.IsChopping)
                     {
-                        _availableLumberjacks.RemoveAt(_availableLumberjacks.Count - 1);
+                        _availableLumberjacks.Remove(availableLumberjack);
                         _activeTreeLumberjacksMap[activeTree] = availableLumberjack;
                         
-                        activeTree.OnTreeChopped += OnTreeChoppedDown;
                         availableLumberjack.SetTreeToCut(activeTree);
                     }
                 }

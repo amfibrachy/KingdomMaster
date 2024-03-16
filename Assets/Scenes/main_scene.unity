@@ -4051,6 +4051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _builderPrefab: {fileID: 3291901067457346387, guid: 0d4d56fc47aeafa428401d7e02df487d, type: 3}
+  _buildingsCheckFrequency: 0
 --- !u!1 &432521708
 GameObject:
   m_ObjectHideFlags: 0
@@ -4159,7 +4160,7 @@ Camera:
   far clip plane: 5000
   field of view: 40
   orthographic: 1
-  orthographic size: 6.28125
+  orthographic size: 6.203125
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -58378,6 +58379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12269e8c68682a24690df17b963664f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jobCheckInterval: 3
 --- !u!1 &675795471
 GameObject:
   m_ObjectHideFlags: 0

@@ -269,17 +269,17 @@ namespace _Scripts.Core.BuildSystem
             // No need to start checking from index 1 because raycast origin happens on left/right extent + 0.1f offset
             for (var index = 0; index < raycastHits.Length; index++)
             {
-                var hit = raycastHits[index];
+                var boxCollider = raycastHits[index].collider as BoxCollider2D;
                 
-                if (hit.collider.gameObject == _toBuild.gameObject)
+                if (!boxCollider || boxCollider.gameObject == _toBuild.gameObject)
                     continue;
                 
-                var building = hit.collider.GetComponent<BuildingDataScript>();
+                var building = boxCollider.GetComponent<BuildingDataScript>();
 
                 if (building != null && building.Type == _buildingData.Type)
                 {
                     float distanceToBuilding = Vector2.Distance(currentPosition, building.transform.position);
-                    float exactDistance = distanceToBuilding - hit.collider.bounds.extents.x - _toBuildCollider.bounds.extents.x;
+                    float exactDistance = distanceToBuilding - boxCollider.bounds.extents.x - _toBuildCollider.bounds.extents.x;
 
                     var isBuildingNear = exactDistance <= _buildingData.MinBuildDistance;
 
@@ -292,10 +292,14 @@ namespace _Scripts.Core.BuildSystem
                         else
                         {
                             var rulerPosition = (currentPosition + building.transform.position) / 2f;
+                            var halfWidth = boxCollider.size.x / 2f;
+                            var distanceTextPosition = direction.x > 0 ? currentPosition.x + halfWidth : currentPosition.x - halfWidth;
+                            
                             transform.position = new Vector3(rulerPosition.x, rulerPosition.y + _buildingData.BuildingHeight, rulerPosition.z);
-
+                            _distanceText.transform.position = new Vector3(distanceTextPosition, rulerPosition.y + _buildingData.BuildingHeight + 0.75f, rulerPosition.z);
+                            
                             _rulerRenderer.size = new Vector2(Mathf.Max(1f, exactDistance), _rulerRenderer.size.y);
-                            _distanceText.text = Mathf.RoundToInt(exactDistance).ToString(CultureInfo.InvariantCulture);
+                            _distanceText.text = Mathf.RoundToInt(_buildingData.MinBuildDistance - exactDistance + 1f).ToString(CultureInfo.InvariantCulture);
                             SetRulerEnabled(true);
                         }
                     }

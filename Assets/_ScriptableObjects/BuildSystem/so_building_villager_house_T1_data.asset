@@ -28,7 +28,7 @@ MonoBehaviour:
   BuildingWidth: 7
   BuildingHeight: 3
   MaxBuildersAmount: 2
-  BuildTime: 15
+  BuildTime: 3
   JobSprite: {fileID: 0}
   Job: 11
   TrainingCapacity: 0

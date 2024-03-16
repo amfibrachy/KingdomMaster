@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1153097839701511954}
   - component: {fileID: 5575472573064815871}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wood_stack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1704653969939427910}
   - component: {fileID: 5327941582832916728}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Axe2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1568,7 +1568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4532429161783625512}
   - component: {fileID: 7917551933176333738}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Wood_stack2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1842,7 +1842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2909338388335680934}
   - component: {fileID: 7611809057163950659}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Axe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2092,6 +2092,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ImportantInfoController
       objectReference: {fileID: 0}
+    - target: {fileID: 4249990095182941270, guid: daf0bfaf3ea47b240a9d7c5c9c756df0, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2204,6 +2208,10 @@ PrefabInstance:
     - target: {fileID: 4249990095182941270, guid: 74af44372f3ca5d46bd25ed4bd4e5533, type: 3}
       propertyPath: m_Name
       value: JobProgressController
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249990095182941270, guid: 74af44372f3ca5d46bd25ed4bd4e5533, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -32,7 +32,7 @@ namespace _Scripts.Core.BuildSystem
         private void Awake()
         {
             _placementSystem.OnBuildingPlaced += PlaceConstructionSiteAndEnqueueRequest;
-            _buildersManager.OnConstructionFinished += PlaceConstructedBuilding;
+            _buildersManager.OnConstructionBuilt += PlaceConstructedBuilding;
         }
         
         private void PlaceConstructionSiteAndEnqueueRequest(BuildingDataSO building, Vector2 position)
