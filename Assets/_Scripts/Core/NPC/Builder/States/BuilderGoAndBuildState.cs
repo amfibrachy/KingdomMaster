@@ -42,6 +42,12 @@
         {
             if (_context.IsWalkingToConstructionSite)
             {
+                // Return to idle if building got canceled or built without current builder
+                if (_context.Site.IsConstructionFinished && !_context.Site.IsConstructionCanceled)
+                {
+                    _context.ChangeState(_context.WanderingState);
+                }
+                
                 if (_context.MovingDirection == Direction.Left)
                 {
                     _context.AnimationController.TurnLeft();

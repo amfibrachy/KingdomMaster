@@ -25,6 +25,9 @@
 
         [SerializeField] private RectTransform _residentsTransform;
         [SerializeField] private TextMeshProUGUI _residentsAmount;
+        
+        [SerializeField] private RectTransform _effectiveRangeTransform;
+        [SerializeField] private TextMeshProUGUI _effectiveRangeAmount;
 
         [SerializeField] private RectTransform _jobDetails;
         
@@ -88,14 +91,24 @@
             _description.SetText(data.Description);
             _hp.SetText(data.HP.ToString());
 
-            if (data.ResidentsCapacity > 0)
+            if (data.Capacity > 0)
             {
                 _residentsTransform.gameObject.SetActive(true);
-                _residentsAmount.SetText(data.ResidentsCapacity.ToString());
+                _residentsAmount.SetText(data.Capacity.ToString());
             }
             else
             {
                 _residentsTransform.gameObject.SetActive(false);
+            }
+            
+            if (data.EffectiveRange > 0)
+            {
+                _effectiveRangeTransform.gameObject.SetActive(true);
+                _effectiveRangeAmount.SetText(data.EffectiveRange.ToString());
+            }
+            else
+            {
+                _effectiveRangeTransform.gameObject.SetActive(false);
             }
 
             if (data.Job != JobType.None)

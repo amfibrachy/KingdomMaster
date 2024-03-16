@@ -34,7 +34,7 @@
             base.ExitState();
             
             _context.IsChopping = false;
-            _context.ChopTreeSet = false;
+            _context.ChopTreeTargetSet = false;
             _context.IsWalkingToChopTree = false;
         }
 
@@ -42,6 +42,13 @@
         {
             if (_context.IsWalkingToChopTree)
             {
+                // Return to idle if tree got chopped down without current lumberjack somehow
+                if (_context.TreeToChop.IsChoppedDown)
+                {
+                    _context.Debug.LogWarning("Tree chopped somehow without current lumberjack: " + _context.gameObject.name);
+                    _context.ChangeState(_context.WanderingState);
+                }
+                
                 if (_context.MovingDirection == Direction.Left)
                 {
                     _context.AnimationController.TurnLeft();

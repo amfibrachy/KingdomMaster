@@ -18,8 +18,8 @@ MonoBehaviour:
   Description: Villager house is a place where citizens can live and have children.
     Also villagers can hide in their houses during enemy raids.
   HP: 150
-  ResidentsCapacity: 5
-  EffectiveRange: 35
+  Capacity: 2
+  EffectiveRange: 0
   Type: 2
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}

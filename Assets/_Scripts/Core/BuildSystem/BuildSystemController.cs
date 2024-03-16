@@ -10,6 +10,7 @@ namespace _Scripts.Core.BuildSystem
         private BuildersManager _buildersManager;
         private BuildingsManager _buildingsManager;
         private PlacementSystemScript _placementSystem;
+        private DiContainer _container;
         
         [Inject(Id = "BuildingsParent")] private Transform _buildingsParent;
         [Inject(Id = "WallsParent")] private Transform _wallsParent;
@@ -17,10 +18,12 @@ namespace _Scripts.Core.BuildSystem
 
         [Inject]
         public void Construct(
+            DiContainer container,
             BuildersManager buildersManager, 
             BuildingsManager buildingsManager,
             PlacementSystemScript placementSystem)
         {
+            _container = container;
             _buildingsManager = buildingsManager;
             _buildersManager = buildersManager;
             _placementSystem = placementSystem;
@@ -45,6 +48,7 @@ namespace _Scripts.Core.BuildSystem
             var constructionPosition = constructionSite.transform.position;
             var building = Instantiate(constructionSite.GetBuildingPrefab(), constructionPosition, Quaternion.identity, constructionSite.Type == BuildingType.Wall ? _wallsParent : _buildingsParent);
 
+            _container.InjectGameObject(building.gameObject);
             _buildingsManager.AddConstructedBuilding(building);
             
             Destroy(constructionSite.gameObject);

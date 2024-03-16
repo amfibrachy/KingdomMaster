@@ -22,14 +22,12 @@
         [SerializeField] private LayerMask _treesLayer;
         [SerializeField] private float _treeCutCheckFrequency;
         
-        [Header("Job details")]
-        [SerializeField] private float _treeCheckDistanceFromBorder;
-        
         public int Count => _availableLumberjacks.Count;
 
         // Injectables
         private KingdomBordersController _kingdomBordersController;
         [Inject(Id = "LumberjacksParent")] private Transform _lumberjacksParent;
+        [Inject] private DiContainer _container;
         [Inject] private IDebug _debug;
         
         // Privates
@@ -37,6 +35,9 @@
         private Dictionary<BuildingDataScript, List<TreeScript>> _hutMap = new();
 
         private Dictionary<TreeScript, LumberjackFSM> _activeTreeLumberjacksMap = new();
+        
+        private List<TreeScript> _treesActiveList = new List<TreeScript>();
+        private List<TreeScript> _treesPendingList = new List<TreeScript>();
         
         [Inject]
         public void Construct(KingdomBordersController kingdomBordersController)
@@ -55,7 +56,7 @@
             
             StartCoroutine(CheckForTreesToChop());
         }
-
+        
         public void AddLumberjackHut(BuildingDataScript building)
         {
             var radius = building.Data.EffectiveRange;
@@ -79,6 +80,55 @@
             }
 
             _hutMap.Add(building, treesWithinArea);
+
+            AddTreesChopTask(treesWithinArea);
+        }
+
+        private void AddTreesChopTask(IEnumerable<TreeScript> trees)
+        {
+            _treesPendingList.AddRange(trees);
+        }
+        
+        private void TryTransferPendingToActiveTrees()
+        {
+            var treeCount = Mathf.Min(_treesPendingList.Count, _availableLumberjacks.Count);
+
+            if (treeCount > 0)
+            {
+                var pendingTrees = _treesPendingList.GetRange(0, treeCount);
+                _treesPendingList.RemoveRange(0, treeCount);
+
+                _treesActiveList.AddRange(pendingTrees);
+            }
+        }
+        
+        private void UpdateAvailableLumberjacksTasks()
+        {
+            for (int index = 0; index < _treesActiveList.Count; index++)
+            {
+                var activeTree = _treesActiveList[index];
+                
+                // If tree is chopped down and waiting for lumberjack to get freed (to add to available list) ignore this tree
+                if (activeTree.IsMarked || activeTree.IsChoppedDown)
+                    continue;
+                
+                if (_availableLumberjacks.Count > 0)
+                {
+                    var availableLumberjack = _availableLumberjacks[_availableLumberjacks.Count - 1];
+                    
+                    // Check to avoid setting task again for already assigned lumberjack
+                    if (!availableLumberjack.ChopTreeTargetSet && !availableLumberjack.IsChopping)
+                    {
+                        _availableLumberjacks.RemoveAt(_availableLumberjacks.Count - 1);
+                        _activeTreeLumberjacksMap[activeTree] = availableLumberjack;
+                        
+                        activeTree.OnTreeChopped += OnTreeChoppedDown;
+                        availableLumberjack.SetTreeToCut(activeTree);
+                    }
+                }
+            }
+
+            TryTransferPendingToActiveTrees();
         }
         
         private IEnumerator CheckForTreesToChop()
@@ -87,21 +137,7 @@
             {
                 if (_availableLumberjacks.Count > 0)
                 {
-                    var availableLumberjack = _availableLumberjacks[_availableLumberjacks.Count - 1];
-                    var treesToCut = GetAvailableTrees(availableLumberjack.Position);
-                    
-                    if (treesToCut.Count > 0)
-                    {
-                        var tree = treesToCut[0];
-                        
-                        _availableLumberjacks.RemoveAt(_availableLumberjacks.Count - 1);
-                        _activeTreeLumberjacksMap[tree] = availableLumberjack;
-
-                        tree.OnTreeChopped += OnTreeChoppedDown;  // TODO unregister event somewhere
-                        
-                        tree.MarkToCut();
-                        availableLumberjack.SetTreeToCut(tree);
-                    }
+                    UpdateAvailableLumberjacksTasks();
                 }
 
                 yield return new WaitForSeconds(_treeCutCheckFrequency);
@@ -115,41 +151,31 @@
             await UniTask.WaitUntil(() => workingLumberJack.IsAvailable);
 
             _availableLumberjacks.Add(workingLumberJack);
+            _treesActiveList.Remove(tree);
             _activeTreeLumberjacksMap.Remove(tree);
+
+            tree.OnTreeChopped -= OnTreeChoppedDown;
         }
-
-        private List<TreeScript> GetAvailableTrees(Vector2 searchOrigin)
-        {
-            var hitsRight = new RaycastHit2D[_maxTreesToRaycast / 2];
-            var hitsLeft = new RaycastHit2D[_maxTreesToRaycast / 2];
-
-            var leftDistance = Vector2.Distance(searchOrigin, _kingdomBordersController.LeftBorderPosition) + _treeCheckDistanceFromBorder;
-            var rightDistance = Vector2.Distance(searchOrigin, _kingdomBordersController.RightBorderPosition) + _treeCheckDistanceFromBorder;
-            
-            Physics2D.RaycastNonAlloc(searchOrigin, Vector2.right, hitsRight, rightDistance, _treesLayer);
-            Physics2D.RaycastNonAlloc(searchOrigin, Vector2.left, hitsLeft, leftDistance, _treesLayer);
-
-            var combinedHits = new List<RaycastHit2D>(hitsLeft);
-            combinedHits.AddRange(hitsRight);
-
-            // Sort combined hits by distance
-            combinedHits = combinedHits.OrderBy(hit => hit.distance).ToList();
-
-            return combinedHits
-                .Where(hit => hit.collider != null)
-                .Select(hit => hit.collider.GetComponent<TreeScript>())
-                .Where(tree => !tree.IsMarked && !tree.IsChoppedDown)
-                .ToList();
-        }
-
+        
         public void Dispatch<T>(FSM<T> fsm) where T : IFSM<T>
         {
-            _availableLumberjacks.Remove(fsm as LumberjackFSM);
+            var lumberjack = fsm as LumberjackFSM;
+            if (lumberjack == null) 
+                return;
+            
+            _availableLumberjacks.Remove(lumberjack);
+
+            if (_activeTreeLumberjacksMap.ContainsKey(lumberjack.TreeToChop))
+            {
+                _activeTreeLumberjacksMap.Remove(lumberjack.TreeToChop);
+                lumberjack.TreeToChop.UnMarkToCut();
+            }
         }
         
         public void Create(Vector3 position)
         {
-            var newLumberjack = Instantiate(_lumberjackPrefab, position, Quaternion.identity);
+            var newLumberjack = Instantiate(_lumberjackPrefab, position, Quaternion.identity, _lumberjacksParent);
+            _container.Inject(newLumberjack);
             _availableLumberjacks.Add(newLumberjack);
         }
     }

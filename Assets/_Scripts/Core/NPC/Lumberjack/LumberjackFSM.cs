@@ -32,7 +32,7 @@ namespace _Scripts.Core.NPC
         public Transform DestinationTarget { get; set; }
         public float DestinationOffsetDistance { get; set; }
         public TreeScript TreeToChop { get; private set; }
-        public bool ChopTreeSet { get; set; }
+        public bool ChopTreeTargetSet { get; set; }
         public bool IsWandering { get; set; }
         public bool IsWalkingToChopTree { get; set; }
         public bool IsWaitingInIdle { get; set; }
@@ -73,8 +73,9 @@ namespace _Scripts.Core.NPC
 
         public void SetTreeToCut(TreeScript tree)
         {
+            tree.MarkToCut();
             TreeToChop = tree;
-            ChopTreeSet = true;
+            ChopTreeTargetSet = true;
             
             CancelCurrentTask();
         }

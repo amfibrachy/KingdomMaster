@@ -137,12 +137,16 @@
 
         public void Dispatch<T>(FSM<T> fsm) where T : IFSM<T>
         {
-            _availableBuilders.Remove(fsm as BuilderFSM);
+            var builder = fsm as BuilderFSM;
+            if (builder == null) 
+                return;
+            
+            _availableBuilders.Remove(builder);
         }
 
         public void Create(Vector3 position)
         {
-            var newBuilder = Instantiate(_builderPrefab, position, Quaternion.identity);
+            var newBuilder = Instantiate(_builderPrefab, position, Quaternion.identity, _buildersParent);
             _container.Inject(newBuilder);
             _availableBuilders.Add(newBuilder);
         }

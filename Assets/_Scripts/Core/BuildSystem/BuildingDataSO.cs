@@ -4,6 +4,7 @@ namespace _Scripts.Core.BuildSystem
     using JobSystem;
     using ResourceSystem;
     using UnityEngine;
+    using UnityEngine.Serialization;
 
     [CreateAssetMenu(menuName = "Scriptable Objects/BuildSystem/BuildingData", fileName = "so_building_data")]
     public class BuildingDataSO : ScriptableObject
@@ -16,7 +17,7 @@ namespace _Scripts.Core.BuildSystem
         public string Name;
         public string Description;
         public int HP;
-        public int ResidentsCapacity;
+        public int Capacity;
         public int EffectiveRange;
         
         [Header("Building info")]

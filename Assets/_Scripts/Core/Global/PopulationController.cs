@@ -11,16 +11,22 @@
     public class PopulationController : MonoBehaviour
     {
         // Injectables
+        private UIUpdateController _uiUpdateController;
         private SluggardsManager _sluggardsManager;
         private BuildersManager _buildersManager;
-        private UIUpdateController _uiUpdateController;
+        private LumberjacksManager _lumberjacksManager;
         
         [Inject]
-        public void Construct(SluggardsManager sluggardsManager, BuildersManager buildersManager, UIUpdateController uiUpdateController)
+        public void Construct(
+            UIUpdateController uiUpdateController, 
+            SluggardsManager sluggardsManager, 
+            BuildersManager buildersManager, 
+            LumberjacksManager lumberjacksManager)
         {
+            _uiUpdateController = uiUpdateController;
             _sluggardsManager = sluggardsManager;
             _buildersManager = buildersManager;
-            _uiUpdateController = uiUpdateController;
+            _lumberjacksManager = lumberjacksManager;
         }
         
         public void OnDispatch<T>(FSM<T> npc, AgentType agent) where T : IFSM<T>
@@ -36,6 +42,30 @@
                     if (npc is IHasJob job)
                     {
                         _uiUpdateController.UpdateDispatchUI(AgentType.WithJob, npc, job.Job);
+                        
+                        switch (job.Job)
+                        {
+                            case JobType.Builder:
+                                _buildersManager.Dispatch(npc);
+                                break;
+                            
+                            case JobType.Hauler:
+                            case JobType.Lumberjack:
+                                _lumberjacksManager.Dispatch(npc);
+                                break;
+                            
+                            case JobType.Miner:
+                            case JobType.Farmer:
+                            case JobType.Blacksmith:
+                            case JobType.Cook:
+                            case JobType.Fisherman:
+                            case JobType.Herbalist:
+                            case JobType.Alchemist:
+                            case JobType.Engineer:
+                            case JobType.None:
+                            default:
+                                break;
+                        }
                     }
                     break;
                 
@@ -68,8 +98,12 @@
                         case JobType.Builder:
                             _buildersManager.Create(position);
                             break;
+                        
                         case JobType.Hauler:
                         case JobType.Lumberjack:
+                            _lumberjacksManager.Create(position);
+                            break;
+                        
                         case JobType.Miner:
                         case JobType.Farmer:
                         case JobType.Blacksmith:

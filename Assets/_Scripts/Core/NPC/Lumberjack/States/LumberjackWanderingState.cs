@@ -38,7 +38,7 @@ namespace _Scripts.Core.NPC.States
 
         public override async void UpdateState()
         {
-            if (_context.ChopTreeSet)
+            if (_context.ChopTreeTargetSet)
             {
                 _context.ChangeState(_context.GoAndChopState);
             }

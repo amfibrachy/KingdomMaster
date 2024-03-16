@@ -14,6 +14,9 @@ namespace _Scripts.Core.JobSystem
 
     public class SluggardsManager : MonoBehaviour, IDispatchable, ICountable
     {
+        [SerializeField] private float _jobCheckInterval = 3f;
+        
+        
         private List<SluggardFSM> _allSluggards = new List<SluggardFSM>();
         private List<SluggardFSM> _availableSluggards = new List<SluggardFSM>();
         private List<SluggardFSM> _pendingSluggards = new List<SluggardFSM>();
@@ -164,7 +167,7 @@ namespace _Scripts.Core.JobSystem
                     TryCreatePendingJobRequests();
                 }
 
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(_jobCheckInterval);
             }
         }
 

@@ -11,15 +11,21 @@
         [Header("Tree details")]
         [SerializeField] private float _treeWidth = 1f;
         [SerializeField] private float _treeDurability = 100f;
+        [SerializeField] private float _treeDisappearDelay = 1.5f;
         
         [Header("Effects")] 
         [SerializeField] private ParticleSystem _leaveParticles;
+        [SerializeField] private Vector3 _leaveParticlesFallenPosition;
+        [SerializeField] private ParticleSystem _treeDisappearParticles;
         [SerializeField] private GameObject _trunkPrefab;
-        [SerializeField] private GameObject _fallenTreePrefab;
+        [SerializeField] private Transform _holder;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Sprite _fallenTreeSprite;
         
         [Inject] private IDebug _debug;
 
         public event Action<TreeScript> OnTreeChopped;
+        public event Action OnResourcesAppeared;
         
         public float TreeWidth => _treeWidth;
         public bool IsMarked { get; private set; }
@@ -31,6 +37,11 @@
         public void MarkToCut()
         {
             IsMarked = true;
+        }
+        
+        public void UnMarkToCut()
+        {
+            IsMarked = false;
         }
         
         public void ChopTree(float amount)
@@ -55,13 +66,30 @@
 
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Join(transform.DOLocalMoveX( position.x + 0.15f, 0.5f).SetEase(Ease.OutQuart)).SetDelay(0.25f);
-            sequence.Join(transform.DOLocalRotate(new Vector3(0, 0, -85), 1f).SetEase(Ease.InCirc));
+            sequence.Append(_holder.DOMoveX( position.x + 0.15f, 0.5f).SetEase(Ease.OutQuart)).SetDelay(0.25f);
+            sequence.Join(_holder.DORotate(new Vector3(0, 0, -85), 1f).SetEase(Ease.InCirc));
+            sequence.AppendCallback(() =>
+            {
+                _spriteRenderer.sprite = _fallenTreeSprite;
+                _holder.rotation = Quaternion.identity;
+                _leaveParticles.transform.localPosition = _leaveParticlesFallenPosition;
+                _leaveParticles.Play();
+            });
+            sequence.AppendInterval(_treeDisappearDelay);
             sequence.OnComplete(() =>
             {
-                var fallenTree = Instantiate(_fallenTreePrefab, transform.position, Quaternion.identity);
-                Destroy(gameObject);
+                _treeDisappearParticles.Play();
+                _spriteRenderer.DOFade(0f, 0.5f).OnComplete(() =>
+                {
+                    SpawnResources();
+                    Destroy(gameObject, _treeDisappearParticles.totalTime);
+                });
             });
+        }
+
+        private void SpawnResources()
+        {
+            OnResourcesAppeared?.Invoke();
         }
     }
 }
