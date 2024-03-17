@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: so_building_wall_T1_data
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5952021019839431434, guid: bb3131d3d290581439f6dc1fec38b49b, type: 3}
-  ConstructionPrefab: {fileID: 2897897930199589277, guid: e2f50063f560393489783e08710e186b, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: 3abaf7617a5bd2246a21edbb6dfbb1f1, type: 3}
   Name: Palisade Fence
   Description: wooden log wall
   HP: 250
-  ResidentsCapacity: 0
+  Capacity: 0
   EffectiveRange: 0
   Type: 4
   Costs:
@@ -26,7 +26,7 @@ MonoBehaviour:
   - Resource: {fileID: 11400000, guid: c5a5dbf5853c16d4aa12831549609ec0, type: 2}
     Amount: 10
   MinBuildDistance: 15
-  BuildingWidth: 1
+  BuildingWidth: 2
   BuildingHeight: 3
   MaxBuildersAmount: 2
   BuildTime: 10
