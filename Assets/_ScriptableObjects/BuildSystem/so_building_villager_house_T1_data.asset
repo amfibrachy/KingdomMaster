@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: so_building_villager_house_T1_data
   m_EditorClassIdentifier: 
   Prefab: {fileID: 4282096730330627414, guid: 53fd0f09821028e428c8eeb9271f9fe1, type: 3}
-  ConstructionPrefab: {fileID: 2897897930199589277, guid: c2254b0c431b49641a4f1d4234c69776, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: 5778f97a68dba17418943bd1d84fd42f, type: 3}
   Name: Villager house
   Description: Villager house is a place where citizens can live and have children.
     Also villagers can hide in their houses during enemy raids.

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: so_building_lumberjack_hut_T1_data
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6064263766126897432, guid: 13fc43223a2149c449735899d8ea3bb5, type: 3}
-  ConstructionPrefab: {fileID: 2897897930199589277, guid: 86d359e470ded1f4ea781e1d23d369a9, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: fa7c47a1aebb87644936e7cc689a3bba, type: 3}
   Name: Lumberjacks hut
   Description: Lumberjacks hut is a place near which tree chopping happens
   HP: 200
