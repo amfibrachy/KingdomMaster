@@ -1716,6 +1716,7 @@ GameObject:
   - component: {fileID: 7595841841888996102}
   - component: {fileID: 3478617584554720800}
   - component: {fileID: 2897897930199589277}
+  - component: {fileID: 5704781246460668086}
   m_Layer: 9
   m_Name: Construction_7x4
   m_TagString: Untagged
@@ -1772,7 +1773,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.014464855, y: 2.1033702}
+  m_Offset: {x: -0.523535, y: 2.1033702}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1783,7 +1784,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.032257, y: 4.271302}
+  m_Size: {x: 8.050398, y: 4.271302}
   m_EdgeRadius: 0
 --- !u!50 &3478617584554720800
 Rigidbody2D:
@@ -1825,6 +1826,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _progressText: {fileID: 3594762431975725713}
+--- !u!114 &5704781246460668086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865912232913786299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7804ed0f9b594864ba6670d8971952e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultData: {fileID: 0}
 --- !u!1001 &4664991372576294848
 PrefabInstance:
   m_ObjectHideFlags: 0

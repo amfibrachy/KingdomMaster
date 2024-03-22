@@ -1651,11 +1651,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5197952607409278702}
+  - component: {fileID: 7595841841888996102}
+  - component: {fileID: 3478617584554720800}
   - component: {fileID: 4672988743326602164}
   - component: {fileID: 248421649183739845}
   - component: {fileID: 6064263766126897432}
-  - component: {fileID: 7595841841888996102}
-  - component: {fileID: 3478617584554720800}
   m_Layer: 9
   m_Name: Lumberjack_Hut
   m_TagString: Untagged
@@ -1686,49 +1686,6 @@ Transform:
   - {fileID: 1704653969939427910}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4672988743326602164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865912232913786299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 198b54ea8d584ddc924080dcfb294301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _importantInfoController: {fileID: 883339114203015947}
-  _previewSortingLayer: BuildingPreview
-  _backgroundPreview: {fileID: 608028995758596288}
-  _backgroundRenderer: {fileID: 1531983587229178020}
---- !u!114 &248421649183739845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865912232913786299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65636bf0396f4f18b234f7cb316789b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _entrancePosition: {fileID: 6120989040003290491}
-  _jobProgressController: {fileID: 5843982779604776870}
---- !u!114 &6064263766126897432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6865912232913786299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7804ed0f9b594864ba6670d8971952e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _defaultData: {fileID: 11400000, guid: a3ceacb7d8200d24f8db36df488baaaf, type: 2}
 --- !u!61 &7595841841888996102
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1801,6 +1758,49 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4672988743326602164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865912232913786299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198b54ea8d584ddc924080dcfb294301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _importantInfoController: {fileID: 883339114203015947}
+  _previewSortingLayer: BuildingPreview
+  _backgroundPreview: {fileID: 608028995758596288}
+  _backgroundRenderer: {fileID: 1531983587229178020}
+--- !u!114 &248421649183739845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865912232913786299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65636bf0396f4f18b234f7cb316789b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entrancePosition: {fileID: 6120989040003290491}
+  _jobProgressController: {fileID: 5843982779604776870}
+--- !u!114 &6064263766126897432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865912232913786299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7804ed0f9b594864ba6670d8971952e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _defaultData: {fileID: 11400000, guid: a3ceacb7d8200d24f8db36df488baaaf, type: 2}
 --- !u!1 &7083941925601271027
 GameObject:
   m_ObjectHideFlags: 0
