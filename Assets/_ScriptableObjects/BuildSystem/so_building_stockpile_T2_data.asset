@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
   m_Name: so_building_stockpile_T2_data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3832781158818760933, guid: e371a28e041941b42a53bfe3508a0e29, type: 3}
-  ConstructionPrefab: {fileID: 0}
+  Prefab: {fileID: 5239012661293337365, guid: 14a08d55cae408645b7de9d857f984b7, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: 90f878c9ef13c424880b6f4e84fe42c0, type: 3}
   Name: Stockpile
   Description: Helps you to grow wheat and other cultures
   HP: 250
-  ResidentsCapacity: 0
+  Capacity: 0
   EffectiveRange: 0
   Type: 13
   Costs:

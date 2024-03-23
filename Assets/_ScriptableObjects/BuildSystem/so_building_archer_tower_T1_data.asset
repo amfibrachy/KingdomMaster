@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
   m_Name: so_building_archer_tower_T1_data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 4672988743326602164, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
+  Prefab: {fileID: 1496783907336767520, guid: cd2696db444c2734b942990b2ec13d84, type: 3}
   ConstructionPrefab: {fileID: 2897897930199589277, guid: 8fec6f1db942ad345a3da6e78b2d76b8, type: 3}
   Name: Archer Tower
   Description: Defensive structure with archers
   HP: 300
-  ResidentsCapacity: 6
+  Capacity: 0
+  EffectiveRange: 0
   Type: 1
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
@@ -35,3 +36,4 @@ MonoBehaviour:
   Job: 11
   TrainingCapacity: 0
   TrainingTime: 0
+  ImportantInfos: []
