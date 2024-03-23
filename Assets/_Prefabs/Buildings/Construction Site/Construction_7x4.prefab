@@ -1860,6 +1860,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5092104145173769175, guid: 1f7a5d43594ad884b84a1928104f6b4c, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5092104145173769175, guid: 1f7a5d43594ad884b84a1928104f6b4c, type: 3}
       propertyPath: VelocityModule.enabled
       value: 1
       objectReference: {fileID: 0}
@@ -1897,7 +1901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7595654094104611016, guid: 1f7a5d43594ad884b84a1928104f6b4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.464
       objectReference: {fileID: 0}
     - target: {fileID: 7595654094104611016, guid: 1f7a5d43594ad884b84a1928104f6b4c, type: 3}
       propertyPath: m_LocalPosition.y

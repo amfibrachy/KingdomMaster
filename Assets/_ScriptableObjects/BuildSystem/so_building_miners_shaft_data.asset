@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
   m_Name: so_building_miners_shaft_data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 3832781158818760933, guid: e371a28e041941b42a53bfe3508a0e29, type: 3}
-  ConstructionPrefab: {fileID: 0}
+  Prefab: {fileID: 5725561392038812923, guid: 64615aebf86a28c4c97b9c86856084a0, type: 3}
+  ConstructionPrefab: {fileID: 2897897930199589277, guid: 563b21dad8d1b364ca30ed428d86d34f, type: 3}
   Name: Miners Shaft
   Description: Helps you get raw materials out of the mine
   HP: 250
-  ResidentsCapacity: 0
+  Capacity: 0
   EffectiveRange: 0
   Type: 7
   Costs:

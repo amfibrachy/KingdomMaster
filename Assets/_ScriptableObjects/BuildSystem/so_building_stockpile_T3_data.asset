@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f25675464cbd48169fc7f856067d1fae, type: 3}
-  m_Name: so_building_blacksmith_data
+  m_Name: so_building_stockpile_T3_data
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 5788510337463639107, guid: f99afae317c502c4197152d63c227690, type: 3}
+  Prefab: {fileID: 3832781158818760933, guid: e371a28e041941b42a53bfe3508a0e29, type: 3}
   ConstructionPrefab: {fileID: 0}
-  Name: Blacksmith
-  Description: structure that smelts ores and weapons
+  Name: Stockpile
+  Description: Helps you to grow wheat and other cultures
   HP: 250
-  Capacity: 0
+  ResidentsCapacity: 0
   EffectiveRange: 0
-  Type: 5
+  Type: 13
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
     Amount: 40
