@@ -25,7 +25,6 @@
         public int Count => _availableLumberjacks.Count;
 
         // Injectables
-        private KingdomBordersController _kingdomBordersController;
         [Inject(Id = "LumberjacksParent")] private Transform _lumberjacksParent;
         [Inject] private DiContainer _container;
         [Inject] private IDebug _debug;
@@ -36,14 +35,8 @@
 
         private Dictionary<TreeScript, LumberjackFSM> _activeTreeLumberjacksMap = new();
         
+        private Dictionary<TreeScript, int> _treesPendingSet = new();
         private List<TreeScript> _treesActiveList = new List<TreeScript>();
-        private List<TreeScript> _treesPendingList = new List<TreeScript>();
-        
-        [Inject]
-        public void Construct(KingdomBordersController kingdomBordersController)
-        {
-            _kingdomBordersController = kingdomBordersController;
-        }
         
         private void Start()
         {
@@ -84,25 +77,32 @@
             AddTreesChopTask(treesWithinArea);
         }
 
-        private void AddTreesChopTask(IEnumerable<TreeScript> trees)
+        private void AddTreesChopTask(List<TreeScript> trees)
         {
-            _treesPendingList.AddRange(trees);
-
-            foreach (var tree in _treesPendingList)
+            foreach (var tree in trees)
             {
+                if (_treesPendingSet.ContainsKey(tree))
+                {
+                    _treesPendingSet[tree]++;
+                }
+                else
+                {
+                    _treesPendingSet.Add(tree, 1);
+                }
+                
+                _debug.Log(_treesPendingSet.Count);
+                
                 tree.OnTreeChopped += OnTreeChoppedDown;
             }
         }
         
         private void TryTransferPendingToActiveTrees()
         {
-            var treeCount = Mathf.Min(_treesPendingList.Count, _availableLumberjacks.Count);
+            var treeCount = Mathf.Min(_treesPendingSet.Count, _availableLumberjacks.Count);
 
             if (treeCount > 0)
             {
-                var pendingTrees = _treesPendingList.GetRange(0, treeCount);
-                _treesPendingList.RemoveRange(0, treeCount);
-
+                var pendingTrees = _treesPendingSet.GetAndRemoveElements(treeCount);
                 _treesActiveList.AddRange(pendingTrees);
             }
         }
@@ -181,6 +181,28 @@
             var newLumberjack = Instantiate(_lumberjackPrefab, position, Quaternion.identity, _lumberjacksParent);
             _container.Inject(newLumberjack);
             _availableLumberjacks.Add(newLumberjack);
+        }
+
+        public void OnLumberjackHutDestroyed(BuildingDataScript building)
+        {
+            // TODO Needs testing 
+            if (_hutMap.ContainsKey(building))
+            {
+                var trees = _hutMap[building];
+
+                foreach (var tree in trees.Where(tree => tree != null && tree.gameObject != null).Where(tree => _treesPendingSet.ContainsKey(tree)))
+                {
+                    _treesPendingSet[tree]--;
+                }
+
+                foreach (var kvp in _treesPendingSet.Where(kv => kv.Value == 0).ToList()) {
+                    _treesPendingSet.Remove(kvp.Key);
+                }
+            }
+            else
+            {
+                _debug.LogError("Building destroyed but does not exist in hutMap: " + building);
+            }
         }
     }
 }

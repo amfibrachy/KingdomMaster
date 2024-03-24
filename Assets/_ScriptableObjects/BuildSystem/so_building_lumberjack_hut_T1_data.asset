@@ -23,7 +23,7 @@ MonoBehaviour:
   Costs:
   - Resource: {fileID: 11400000, guid: 5e6173127bf19104795a5f42055f6a5a, type: 2}
     Amount: 60
-  MinBuildDistance: 35
+  MinBuildDistance: 6
   BuildingWidth: 5
   BuildingHeight: 4
   MaxBuildersAmount: 2
